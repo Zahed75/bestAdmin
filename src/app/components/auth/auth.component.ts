@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './auth.component.css'
 })
 export class AuthComponent {
+  showPassword: boolean = false;
 
 }
