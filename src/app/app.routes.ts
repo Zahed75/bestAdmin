@@ -9,7 +9,7 @@ import {DiscountComponent} from './components/discount/discount.component';
 import {ProductDetailsComponent} from './components/product-details/product-details.component';
 import {UsersComponent} from './components/users/users.component';
 import {ReportingComponent} from './components/reporting/reporting.component';
-
+import { authGuard } from './guard/auth.guard';
 export const routes: Routes = [
 
   {
@@ -24,38 +24,47 @@ export const routes: Routes = [
   {
     path: 'layout',
     component: LayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'customers',
         component: CustomersComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'order',
-        component: OrdersComponent
+        component: OrdersComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'outlets',
-        component: OutletsComponent
+        component: OutletsComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'discount',
-        component: DiscountComponent
+        component: DiscountComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'product-details',
-        component: ProductDetailsComponent
+        component: ProductDetailsComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'users',
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'reporting',
-        component: ReportingComponent
+        component: ReportingComponent,
+        canActivate: [authGuard],
       },
       {
         path:'**',
