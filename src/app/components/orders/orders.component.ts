@@ -23,6 +23,21 @@ export class OrdersComponent implements OnInit {
   itemsPerPage: number = 10;
   totalPages: number = 0;
   isLoading: boolean = false; // Loader state
+  filteredOrders: any[] = [];
+  searchQuery: string = '';
+
+  orderStatuses: string[] = [
+    'All',
+    'Received',
+    'Order Placed',
+    'Order Confirmed',
+    'Order Processing',
+    'Ready for Delivery',
+    'Order Dispatched',
+    'Cancelled',
+    'Order Delivered'
+  ];
+
 
   constructor(private ordersService: OrdersService) {
   }
@@ -87,4 +102,21 @@ export class OrdersComponent implements OnInit {
   }
 
   // Pagination End
+
+//   Filters start
+
+  filterOrders() {
+    this.filteredOrders = this.orders.filter((order) => {
+      return order.orderId.toLowerCase().includes(this.searchQuery.toLowerCase());
+    });
+  }
+
+  filterByStatus(status: string) {
+    if (status === 'All') {
+      this.filteredOrders = this.orders;
+    } else {
+      this.filteredOrders = this.orders.filter((order) => order.orderStatus === status);
+    }
+  }
 }
+
