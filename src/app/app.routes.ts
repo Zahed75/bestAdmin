@@ -19,12 +19,12 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: AuthComponent
+    component: AuthComponent,
   },
   {
     path: 'layout',
     component: LayoutComponent,
-    canActivate: [authGuard],
+
     children: [
       {
         path: 'dashboard',

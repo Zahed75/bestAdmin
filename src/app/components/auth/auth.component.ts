@@ -5,7 +5,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-auth',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterOutlet],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
@@ -20,15 +20,12 @@ export class AuthComponent {
 
   onLogin() {
     this.authService.signInAdmin(this.loginData).subscribe(
+
       (res: any) => {
         if (res.user?.accessToken) {
           localStorage.setItem('accessToken', res.user.accessToken);
-          localStorage.setItem('refreshToken', res.user.refreshToken);
-          localStorage.setItem('userId', res.user.userId);
-          localStorage.setItem('email', res.user.email);
-          localStorage.setItem('role', res.user.role);
           localStorage.setItem('users', JSON.stringify(res.user));
-          this.router.navigateByUrl('/layout/dashboard');
+          this.router.navigateByUrl("layout/dashboard");
         } else {
           alert(res.message || 'Login failed.');
         }
@@ -38,4 +35,6 @@ export class AuthComponent {
       }
     );
   }
+
+
 }
