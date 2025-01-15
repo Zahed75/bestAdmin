@@ -6,84 +6,119 @@
       <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>
     </div>
 
-
     <!-- Filter section start -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table class="w-full table-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-          <th scope="col" class="p-4">
+          <th scope="col" class="p-3">
             <div class="flex items-center">
               <input id="checkbox-all-search" type="checkbox"
-                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
               <label for="checkbox-all-search" class="sr-only">checkbox</label>
             </div>
           </th>
-          <th scope="col" class="px-6 py-3">
-            ORDER
-          </th>
-          <th scope="col" class="px-6 py-3">
-            ORDER TIME
-          </th>
-          <th scope="col" class="px-6 py-3">
-            AMOUNT
-          </th>
-          <th scope="col" class="px-6 py-3">
-            OUTLET
-          </th>
-          <th scope="col" class="px-6 py-3">
-            STATUS
-          </th>
-          <th scope="col" class="px-6 py-3">
-            PHONE NUMBER
-          </th>
-          <th scope="col" class="px-6 py-3">
-            CUSTOMER NAME
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Action
-          </th>
+          <th scope="col" class="px-4 py-2">Order</th>
+          <th scope="col" class="px-4 py-2">Order Time</th>
+          <th scope="col" class="px-4 py-2">Amount</th>
+          <th scope="col" class="px-4 py-2">Payment Method</th>
+          <th scope="col" class="px-4 py-2">Status</th>
+          <th scope="col" class="px-4 py-2">Phone Number</th>
+          <th scope="col" class="px-4 py-2">Customer Name</th>
+          <th scope="col" class="px-4 py-2">Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let order of orders"
+        <tr *ngFor="let order of paginatedOrders"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="w-4 p-4">
+          <td class="p-3">
             <div class="flex items-center">
-              <input id="checkbox-table-search-1" type="checkbox"
-                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-              <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+              <input type="checkbox"
+                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label class="sr-only">checkbox</label>
             </div>
           </td>
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ order.orderId }}
-          </th>
-          <td class="px-6 py-4">
-            {{ order.createdAt| date: 'short' }}
           </td>
-          <td class="px-6 py-4">
-            {{order.totalPrice }}
+          <td class="px-4 py-2">
+            {{ order.createdAt | date: 'short' }}
           </td>
-          <td class="px-6 py-4">
-            {{order.outlet}}
+          <td class="px-4 py-2">
+            {{ order.totalPrice }}
           </td>
-          <td class="px-6 py-4">
-            {{order.orderType}}
+          <td class="px-4 py-2 truncate">
+            {{ order.paymentMethod || 'N/A' }}
           </td>
-          <td class="px-6 py-4">
-           {{order.phoneNumber|number}}
+          <td
+            class="px-4 py-2  font-bold"
+            [ngClass]="{
+                'text-orange-600': order.orderStatus === 'Received',
+                'text-purple-600': order.orderStatus === 'Order Placed',
+                'text-indigo-600': order.orderStatus === 'Order Confirmed',
+                'text-yellow-600': order.orderStatus === 'Order Processing',
+                'text-teal-600': order.orderStatus === 'Ready for Delivery',
+                'text-green-600': order.orderStatus=== 'Order Dispatched',
+                'text-red-600': order.orderStatus === 'Cancelled',
+                'text-gray-600': order.orderStatus === 'Order Delivered'
+              }"
+          >
+          {{ order.orderStatus || 'unknown' }}
           </td>
-          <td class="px-6 py-4">
-          {{order.firstName}}
+          <td class="px-4 py-2">
+            {{ order.phoneNumber | number }}
           </td>
-          <td class="flex items-center px-6 py-4">
+          <td class="px-4 py-2">
+            {{ order.firstName }}
+          </td>
+          <td class="px-4 py-2 flex flex-wrap gap-2">
             <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
+            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
           </td>
         </tr>
         </tbody>
       </table>
+
     </div>
+    <!--    Pagination Start-->
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example" class="mt-4">
+      <ul class="flex justify-end space-x-2 text-sm">
+        <li>
+          <button
+            (click)="previousPage()"
+            [disabled]="currentPage === 1"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Previous
+          </button>
+        </li>
+        <li *ngFor="let page of paginationPages">
+          <button
+            (click)="goToPage(page)"
+            [class.bg-blue-50]="page === currentPage"
+            [class.text-blue-600]="page === currentPage"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            {{ page }}
+          </button>
+        </li>
+        <li>
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <!--    Pagination End-->
   </div>
 
-  <router-outlet></router-outlet>
+
+</div>
+<router-outlet></router-outlet>
+
