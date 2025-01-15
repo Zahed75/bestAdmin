@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {DashboardService} from '../dashboard/dashboard.service';
@@ -8,7 +8,8 @@ import {environment} from '../../../enviornments/environment'; // Import environ
 @Component({
   selector: 'app-layout',
   imports: [
-    RouterOutlet
+    RouterOutlet,
+    RouterLink
   ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'] // Fixed typo from 'styleUrl' to 'styleUrls'
