@@ -8,6 +8,8 @@ import { environment } from '../../enviornments/environment';
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class AuthService {
   private baseURL = `${environment.apiBaseUrl}/auth`;
 
