@@ -1,0 +1,14 @@
+th, td {
+  padding: 16px; /* Adds space inside cells */
+  border-bottom: 1px solid #e5e7eb; /* Light border between rows */
+}
+
+th {
+  text-transform: uppercase; /* Make headers uppercase for a professional look */
+  font-weight: 600; /* Bold headers */
+  background-color: #f9fafb; /* Subtle gray for header background */
+}
+
+tr:hover {
+  background-color: #f3f4f6; /* Light gray hover effect for rows */
+}

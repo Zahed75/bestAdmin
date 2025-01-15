@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {OrdersService} from '../../services/orders.service';
 import {RouterOutlet} from '@angular/router';
-import {DatePipe, DecimalPipe, NgClass, NgFor} from '@angular/common';
+import {DatePipe, DecimalPipe, NgClass, NgFor, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-orders',
@@ -12,8 +12,9 @@ import {DatePipe, DecimalPipe, NgClass, NgFor} from '@angular/common';
     DatePipe,
     NgFor,
     DecimalPipe,
-    NgClass
-  ]
+    NgClass,
+    NgIf
+  ],
 })
 export class OrdersComponent implements OnInit {
   orders: any[] = [];
@@ -21,17 +22,28 @@ export class OrdersComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
+  isLoading: boolean = false; // Loader state
 
   constructor(private ordersService: OrdersService) {
   }
 
   ngOnInit(): void {
+    this.fetchOrders();
+  }
+
+  // Fetch orders with loader
+  fetchOrders(): void {
+    this.isLoading = true; // Show loader
     this.ordersService.getOrders().subscribe({
       next: (data) => {
         this.orders = data;
         this.updatePagination();
+        this.isLoading = false; // Hide loader after data is loaded
       },
-      error: (error) => console.error('Error fetching orders:', error),
+      error: (error) => {
+        console.error('Error fetching orders:', error);
+        this.isLoading = false; // Hide loader even on error
+      },
     });
   }
 
@@ -74,5 +86,5 @@ export class OrdersComponent implements OnInit {
     );
   }
 
-//   pagination End
+  // Pagination End
 }

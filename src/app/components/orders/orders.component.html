@@ -7,6 +7,12 @@
     </div>
 
     <!-- Filter section start -->
+
+    <!--    Table Section Start-->
+    <!-- Loader -->
+    <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table class="w-full table-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -115,7 +121,7 @@
         </li>
       </ul>
     </nav>
-    <!--    Pagination End-->z
+    <!--    Pagination End-->
   </div>
 
 
