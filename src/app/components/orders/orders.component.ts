@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrdersService} from '../../services/orders.service';
 import {RouterOutlet} from '@angular/router';
 import {DatePipe, DecimalPipe, NgClass, NgFor, NgIf} from '@angular/common';
+import {FormsModule, NgModel} from '@angular/forms';
 
 @Component({
   selector: 'app-orders',
@@ -11,9 +12,9 @@ import {DatePipe, DecimalPipe, NgClass, NgFor, NgIf} from '@angular/common';
     RouterOutlet,
     DatePipe,
     NgFor,
-    DecimalPipe,
     NgClass,
-    NgIf
+    NgIf,
+    FormsModule,
   ],
 })
 export class OrdersComponent implements OnInit {
@@ -117,6 +118,35 @@ export class OrdersComponent implements OnInit {
     } else {
       this.filteredOrders = this.orders.filter((order) => order.orderStatus === status);
     }
+  }
+  isFilterModalOpen = false;
+
+  // Dropdown options
+  outlets = ['Outlet 1', 'Outlet 2', 'Outlet 3'];
+  statuses = ['Pending', 'Completed', 'Cancelled'];
+  channels = ['Online', 'In-store'];
+  paymentMethods = ['Credit Card', 'Cash'];
+
+  // Filters model
+  filters = {
+    outlet: '',
+    status: '',
+    channel: '',
+    payment: '',
+    startDate: '',
+    endDate: '',
+  };
+
+  // Toggle modal
+  toggleFilterModal() {
+    this.isFilterModalOpen = !this.isFilterModalOpen;
+  }
+
+  // Apply filters
+  applyFilters() {
+    console.log('Filters Applied:', this.filters);
+    // Pass filters to a service or API call here.
+    this.toggleFilterModal(); // Close modal
   }
 }
 

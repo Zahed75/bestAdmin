@@ -6,7 +6,172 @@
       <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>
     </div>
 
-    <!-- Filter section start -->
+    <!-- Filter section Start -->
+    <section class="w-full">
+      <div class="max-w-[1170px] mx-auto">
+        <div class="flex flex-wrap gap-1 items-center">
+          <!-- Dropdown -->
+          <div class="flex-1 min-w-[100px]">
+
+
+            <div
+              class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+              *ngIf="isFilterModalOpen"
+            >
+              <div class="bg-white rounded-lg w-[400px] p-6">
+                <div class="flex justify-between items-center mb-4">
+                  <h2 class="text-lg font-semibold">Filter</h2>
+                  <button (click)="toggleFilterModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Filters -->
+                <form (ngSubmit)="applyFilters()">
+                  <!-- Outlet -->
+                  <div class="mb-4">
+                    <label for="outlet" class="block text-sm font-medium mb-2">Outlet</label>
+                    <select
+                      id="outlet"
+                      [(ngModel)]="filters.outlet"
+                      name="outlet"
+                      class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="" disabled>Select an Outlet</option>
+                      <option *ngFor="let outlet of outlets" [value]="outlet">{{ outlet }}</option>
+                    </select>
+                  </div>
+
+                  <!-- Order Status -->
+                  <div class="mb-4">
+                    <label for="status" class="block text-sm font-medium mb-2">Order Status</label>
+                    <select
+                      id="status"
+                      [(ngModel)]="filters.status"
+                      name="status"
+                      class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="" disabled>Select a Status</option>
+                      <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+                    </select>
+                  </div>
+
+                  <!-- Channel -->
+                  <div class="mb-4">
+                    <label for="channel" class="block text-sm font-medium mb-2">Channel</label>
+                    <select
+                      id="channel"
+                      [(ngModel)]="filters.channel"
+                      name="channel"
+                      class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="" disabled>Select a Channel</option>
+                      <option *ngFor="let channel of channels" [value]="channel">{{ channel }}</option>
+                    </select>
+                  </div>
+
+                  <!-- Payment Method -->
+                  <div class="mb-4">
+                    <label for="payment" class="block text-sm font-medium mb-2">Payment Method</label>
+                    <select
+                      id="payment"
+                      [(ngModel)]="filters.payment"
+                      name="payment"
+                      class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="" disabled>Both Payment Methods</option>
+                      <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+                    </select>
+                  </div>
+
+                  <!-- Date Range -->
+                  <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Date Range</label>
+                    <div class="flex gap-2">
+                      <input
+                        type="date"
+                        [(ngModel)]="filters.startDate"
+                        name="startDate"
+                        class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      />
+                      <input
+                        type="date"
+                        [(ngModel)]="filters.endDate"
+                        name="endDate"
+                        class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Apply Button -->
+                  <button
+                    type="submit"
+                    class="w-full bg-black text-white py-2.5 rounded-lg hover:bg-gray-800"
+                  >
+                    Apply Filter
+                  </button>
+                </form>
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <!-- Search Bar -->
+          <div class="flex-1 min-w-[200px]">
+
+
+            <form class="max-w-md mx-auto">
+              <label for="default-search"
+                     class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                       xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                  </svg>
+                </div>
+                <input type="search" id="default-search"
+                       class="block w-full p-3.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Search Mockups, Logos..." required/>
+                <button type="submit"
+                        class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  Search
+                </button>
+              </div>
+            </form>
+
+
+          </div>
+
+          <!-- Export Buttons -->
+          <div class="flex-1 flex justify-end gap-1">
+            <button type="button"
+                    class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+              Filter
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+    <!-- Filter section End -->
 
     <!--    Table Section Start-->
     <!-- Loader -->
@@ -72,7 +237,7 @@
             {{ order.orderStatus || 'unknown' }}
           </td>
           <td class="px-4 py-2">
-            {{ order.phoneNumber | number }}
+            {{ order.phoneNumber }}
           </td>
           <td class="px-4 py-2">
             {{ order.firstName }}
