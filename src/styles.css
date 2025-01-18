@@ -21,3 +21,10 @@ html {
   scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
 
+
+@layer components {
+  .container {
+    @apply max-w-[1440px] mx-auto px-3 md:px-5 lg:px-12 2xl:px-16;
+  }
+}
+

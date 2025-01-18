@@ -1,3 +1,4 @@
+
 import {Component, OnInit} from '@angular/core';
 import {OrdersService} from '../../services/orders.service';
 import {RouterOutlet} from '@angular/router';
@@ -24,9 +25,8 @@ export class OrdersComponent implements OnInit {
   itemsPerPage: number = 10;
   totalPages: number = 0;
   isLoading: boolean = false; // Loader state
-  filteredOrders: any[] = [];
-  searchQuery: string = '';
 
+  // Define the missing property
   orderStatuses: string[] = [
     'All',
     'Received',
@@ -36,8 +36,9 @@ export class OrdersComponent implements OnInit {
     'Ready for Delivery',
     'Order Dispatched',
     'Cancelled',
-    'Order Delivered'
+    'Order Delivered',
   ];
+
 
 
   constructor(private ordersService: OrdersService) {
@@ -104,20 +105,9 @@ export class OrdersComponent implements OnInit {
 
   // Pagination End
 
-//   Filters start
 
-  filterOrders() {
-    this.filteredOrders = this.orders.filter((order) => {
-      return order.orderId.toLowerCase().includes(this.searchQuery.toLowerCase());
-    });
-  }
 
-  filterByStatus(status: string) {
-    if (status === 'All') {
-      this.filteredOrders = this.orders;
-    } else {
-      this.filteredOrders = this.orders.filter((order) => order.orderStatus === status);
-    }
-  }
 }
+
+
 
