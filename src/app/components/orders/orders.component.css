@@ -13,10 +13,3 @@ tr:hover {
   background-color: #f3f4f6; /* Light gray hover effect for rows */
 }
 
-#filter-dropdown .w-full {
-  width: 100% !important;
-}
-
-#filter-dropdown input[type="date"] {
-  width: 48%; /* Adjust as needed to avoid wrapping */
-}
