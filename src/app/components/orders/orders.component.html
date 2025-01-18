@@ -1,251 +1,3 @@
-<!--<div class="flex flex-row mx-6">-->
-<!--  &lt;!&ndash; Main Content &ndash;&gt;-->
-<!--  <div class="p-4 sm:ml-64 w-full">-->
-<!--    <div>-->
-<!--      <h1 class="text-3xl font-bold text-black mb-6">Orders</h1>-->
-<!--      <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; Filter section Start &ndash;&gt;-->
-
-<!--    &lt;!&ndash; Filter section Start &ndash;&gt;-->
-<!--    <section class="bg-[#fefefe] lg:py-[30px] sm:py-[50px] py-[30px] mx-10">-->
-
-<!--      <div class="max-w-[1320px] mx-auto">-->
-
-<!--        <div class="flex container md:flex-row flex-col">-->
-<!--          <div class="basis-[60%]">-->
-<!--            &lt;!&ndash; Filter Section &ndash;&gt;-->
-<!--            <button-->
-<!--              id="dropdownDefaultButton"-->
-<!--              data-dropdown-toggle="dropdown"-->
-<!--              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"-->
-<!--              type="button"-->
-<!--            >-->
-<!--              Dropdown button-->
-<!--              <svg-->
-<!--                class="w-2.5 h-2.5 ms-3"-->
-<!--                aria-hidden="true"-->
-<!--                xmlns="http://www.w3.org/2000/svg"-->
-<!--                fill="none"-->
-<!--                viewBox="0 0 10 6"-->
-<!--              >-->
-<!--                <path-->
-<!--                  stroke="currentColor"-->
-<!--                  stroke-linecap="round"-->
-<!--                  stroke-linejoin="round"-->
-<!--                  stroke-width="2"-->
-<!--                  d="m1 1 4 4 4-4"-->
-<!--                />-->
-<!--              </svg>-->
-<!--            </button>-->
-
-<!--            &lt;!&ndash; Dropdown menu &ndash;&gt;-->
-<!--            <div-->
-<!--              id="dropdown"-->
-<!--              class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 max-w-[320px] dark:bg-gray-700 transition-all duration-300"-->
-<!--            >-->
-<!--              <div id="filter-dropdown" class="origin-top-right relative right-0 mt-2 w-[450px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">-->
-<!--                <div class="py-1 px-4 space-y-4">-->
-<!--                  <div class="block text-sm font-medium text-gray-700">-->
-<!--                    <label for="outlet" class="block">Outlet</label>-->
-<!--                    <select-->
-<!--                      id="outlet"-->
-<!--                      class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
-<!--                    >-->
-<!--                      <option>Select an Outlet</option>-->
-<!--                      <option>Outlet 1</option>-->
-<!--                      <option>Outlet 2</option>-->
-<!--                      <option>Outlet 3</option>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                  <div class="block text-sm font-medium text-gray-700">-->
-<!--                    <label for="order-status">Order Status</label>-->
-<!--                    <select-->
-<!--                      id="order-status"-->
-<!--                      class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
-<!--                    >-->
-<!--                      <option>Select a Status</option>-->
-<!--                      <option>Pending</option>-->
-<!--                      <option>Processing</option>-->
-<!--                      <option>Shipped</option>-->
-<!--                      <option>Delivered</option>-->
-<!--                      <option>Cancelled</option>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                  <div class="block text-sm font-medium text-gray-700">-->
-<!--                    <label for="channel">Channel</label>-->
-<!--                    <select-->
-<!--                      id="channel"-->
-<!--                      class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
-<!--                    >-->
-<!--                      <option>Select a Channel</option>-->
-<!--                      <option>Web</option>-->
-<!--                      <option>Mobile</option>-->
-<!--                      <option>Store</option>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                  <div class="block text-sm font-medium text-gray-700">-->
-<!--                    <label for="payment-method">Payment Method</label>-->
-<!--                    <select-->
-<!--                      id="payment-method"-->
-<!--                      class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
-<!--                    >-->
-<!--                      <option>Both Payment Methods</option>-->
-<!--                      <option>Online</option>-->
-<!--                      <option>Cash on Delivery</option>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                  <div class="block px-4 py-2 text-sm text-gray-700">-->
-<!--                    <label for="date-range" class="block text-sm font-medium text-gray-700">Date Range</label>-->
-<!--                    <div class="flex space-x-4">-->
-<!--                      <input type="date" id="start-date" class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">-->
-<!--                      <input type="date" id="end-date" class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-<!--                  <div class="py-2">-->
-<!--                    <button-->
-<!--                      class="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center"-->
-<!--                    >-->
-<!--                      Apply Filter-->
-<!--                    </button>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="basis-[40%]">-->
-<!--            <h1>Additional UI</h1>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </section>-->
-
-<!--    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">-->
-<!--    &lt;!&ndash; Filter section End &ndash;&gt;-->
-
-<!--    &lt;!&ndash;    Table Section Start&ndash;&gt;-->
-<!--    &lt;!&ndash; Loader &ndash;&gt;-->
-<!--    <div *ngIf="isLoading" class="flex justify-center items-center h-64">-->
-<!--      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>-->
-<!--    </div>-->
-<!--    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">-->
-<!--      <table class="w-full table-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">-->
-<!--        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">-->
-<!--        <tr>-->
-<!--          <th scope="col" class="p-3">-->
-<!--            <div class="flex items-center">-->
-<!--              <input id="checkbox-all-search" type="checkbox"-->
-<!--                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">-->
-<!--              <label for="checkbox-all-search" class="sr-only">checkbox</label>-->
-<!--            </div>-->
-<!--          </th>-->
-<!--          <th scope="col" class="px-4 py-2">Order</th>-->
-<!--          <th scope="col" class="px-4 py-2">Order Time</th>-->
-<!--          <th scope="col" class="px-4 py-2">Amount</th>-->
-<!--          <th scope="col" class="px-4 py-2">Payment Method</th>-->
-<!--          <th scope="col" class="px-4 py-2">Status</th>-->
-<!--          <th scope="col" class="px-4 py-2">Phone Number</th>-->
-<!--          <th scope="col" class="px-4 py-2">Customer Name</th>-->
-<!--          <th scope="col" class="px-4 py-2">Action</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr *ngFor="let order of paginatedOrders"-->
-<!--            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">-->
-<!--          <td class="p-3">-->
-<!--            <div class="flex items-center">-->
-<!--              <input type="checkbox"-->
-<!--                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">-->
-<!--              <label class="sr-only">checkbox</label>-->
-<!--            </div>-->
-<!--          </td>-->
-<!--          <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-<!--            {{ order.orderId }}-->
-<!--          </td>-->
-<!--          <td class="px-4 py-2">-->
-<!--            {{ order.createdAt | date: 'short' }}-->
-<!--          </td>-->
-<!--          <td class="px-4 py-2">-->
-<!--            {{ order.totalPrice }}-->
-<!--          </td>-->
-<!--          <td class="px-4 py-2 truncate">-->
-<!--            {{ order.paymentMethod || 'N/A' }}-->
-<!--          </td>-->
-<!--          <td-->
-<!--            class="px-4 py-2  font-bold"-->
-<!--            [ngClass]="{-->
-<!--                'text-orange-600': order.orderStatus === 'Received',-->
-<!--                'text-purple-600': order.orderStatus === 'Order Placed',-->
-<!--                'text-indigo-600': order.orderStatus === 'Order Confirmed',-->
-<!--                'text-yellow-600': order.orderStatus === 'Order Processing',-->
-<!--                'text-teal-600': order.orderStatus === 'Ready for Delivery',-->
-<!--                'text-green-600': order.orderStatus=== 'Order Dispatched',-->
-<!--                'text-red-600': order.orderStatus === 'Cancelled',-->
-<!--                'text-gray-600': order.orderStatus === 'Order Delivered'-->
-<!--              }"-->
-<!--          >-->
-<!--            {{ order.orderStatus || 'unknown' }}-->
-<!--          </td>-->
-<!--          <td class="px-4 py-2">-->
-<!--            {{ order.phoneNumber }}-->
-<!--          </td>-->
-<!--          <td class="px-4 py-2">-->
-<!--            {{ order.firstName }}-->
-<!--          </td>-->
-<!--          <td class="px-4 py-2 flex flex-wrap gap-2">-->
-<!--            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>-->
-<!--            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>-->
-<!--          </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--      </table>-->
-
-<!--    </div>-->
-<!--    &lt;!&ndash;    Pagination Start&ndash;&gt;-->
-
-<!--    &lt;!&ndash; Pagination &ndash;&gt;-->
-<!--    <nav aria-label="Page navigation example" class="mt-4">-->
-<!--      <ul class="flex justify-end space-x-2 text-sm">-->
-<!--        <li>-->
-<!--          <button-->
-<!--            (click)="previousPage()"-->
-<!--            [disabled]="currentPage === 1"-->
-<!--            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"-->
-<!--          >-->
-<!--            Previous-->
-<!--          </button>-->
-<!--        </li>-->
-<!--        <li *ngFor="let page of paginationPages">-->
-<!--          <button-->
-<!--            (click)="goToPage(page)"-->
-<!--            [class.bg-blue-50]="page === currentPage"-->
-<!--            [class.text-blue-600]="page === currentPage"-->
-<!--            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"-->
-<!--          >-->
-<!--            {{ page }}-->
-<!--          </button>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <button-->
-<!--            (click)="nextPage()"-->
-<!--            [disabled]="currentPage === totalPages"-->
-<!--            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"-->
-<!--          >-->
-<!--            Next-->
-<!--          </button>-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--    </nav>-->
-<!--    &lt;!&ndash;    Pagination End&ndash;&gt;-->
-<!--  </div>-->
-
-
-<!--</div>-->
-<!--<router-outlet></router-outlet>-->
-
-
 <div class="flex flex-row mx-6">
   <!-- Main Content -->
   <div class="p-4 sm:ml-64 w-full">
@@ -255,8 +7,12 @@
     </div>
 
     <!-- Filter section Start -->
+
+    <!-- Filter section Start -->
     <section class="bg-[#fefefe] lg:py-[30px] sm:py-[50px] py-[30px] mx-10">
+
       <div class="max-w-[1320px] mx-auto">
+
         <div class="flex container md:flex-row flex-col">
           <div class="basis-[60%]">
             <!-- Filter Section -->
@@ -287,7 +43,7 @@
             <!-- Dropdown menu -->
             <div
               id="dropdown"
-              class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 max-w-[320px] dark:bg-gray-700 transition-all duration-300"
+              class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 max-w-[320px]  sm:w-[300px] lg:w-[450px] dark:bg-gray-700 transition-all duration-300"
             >
               <div id="filter-dropdown" class="origin-top-right relative right-0 mt-2 w-[450px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div class="py-1 px-4 space-y-4">
@@ -365,6 +121,7 @@
         </div>
       </div>
     </section>
+
     <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
     <!-- Filter section End -->
 
@@ -373,7 +130,6 @@
     <div *ngIf="isLoading" class="flex justify-center items-center h-64">
       <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
     </div>
-    <!-- Table with scrolling -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table class="w-full table-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -417,34 +173,74 @@
           <td class="px-4 py-2 truncate">
             {{ order.paymentMethod || 'N/A' }}
           </td>
-          <td class="px-4 py-2">
-            <span
-              [ngClass]="{
-                'bg-green-100 text-green-800': order.status === 'Delivered',
-                'bg-red-100 text-red-800': order.status === 'Cancelled',
-                'bg-yellow-100 text-yellow-800': order.status === 'Pending',
-                'bg-blue-100 text-blue-800': order.status === 'Processing'
+          <td
+            class="px-4 py-2  font-bold"
+            [ngClass]="{
+                'text-orange-600': order.orderStatus === 'Received',
+                'text-purple-600': order.orderStatus === 'Order Placed',
+                'text-indigo-600': order.orderStatus === 'Order Confirmed',
+                'text-yellow-600': order.orderStatus === 'Order Processing',
+                'text-teal-600': order.orderStatus === 'Ready for Delivery',
+                'text-green-600': order.orderStatus=== 'Order Dispatched',
+                'text-red-600': order.orderStatus === 'Cancelled',
+                'text-gray-600': order.orderStatus === 'Order Delivered'
               }"
-              class="px-2 py-1 rounded-full text-xs font-medium inline-block"
-            >
-              {{ order.status }}
-            </span>
+          >
+            {{ order.orderStatus || 'unknown' }}
           </td>
           <td class="px-4 py-2">
-            {{ order.customerPhoneNumber }}
+            {{ order.phoneNumber }}
           </td>
           <td class="px-4 py-2">
-            {{ order.customerName }}
+            {{ order.firstName }}
           </td>
-          <td class="px-4 py-2">
-            <button class="text-blue-600 hover:text-blue-900">View</button>
+          <td class="px-4 py-2 flex flex-wrap gap-2">
+            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
           </td>
         </tr>
         </tbody>
       </table>
-    </div>
-    <!-- Table Section End -->
-  </div>
-</div>
 
+    </div>
+    <!--    Pagination Start-->
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example" class="mt-4">
+      <ul class="flex justify-end space-x-2 text-sm">
+        <li>
+          <button
+            (click)="previousPage()"
+            [disabled]="currentPage === 1"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Previous
+          </button>
+        </li>
+        <li *ngFor="let page of paginationPages">
+          <button
+            (click)="goToPage(page)"
+            [class.bg-blue-50]="page === currentPage"
+            [class.text-blue-600]="page === currentPage"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            {{ page }}
+          </button>
+        </li>
+        <li>
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <!--    Pagination End-->
+  </div>
+
+
+</div>
 <router-outlet></router-outlet>

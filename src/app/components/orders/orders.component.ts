@@ -11,9 +11,9 @@ import {FormsModule, NgModel} from '@angular/forms';
   styleUrls: ['./orders.component.css'],
   imports: [
     RouterOutlet,
-    DatePipe,
     NgFor,
     NgClass,
+    DatePipe,
     NgIf,
     FormsModule,
   ],
