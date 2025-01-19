@@ -25,10 +25,10 @@ export class OrdersComponent implements OnInit {
   itemsPerPage: number = 10;
   totalPages: number = 0;
   isLoading: boolean = false; // Loader state
-
-  // Define the missing property
-  orderStatuses: string[] = [
-    'All',
+  showModal: boolean = false;
+  isFilterModalOpen = false;
+  outlets = ['Outlet 1', 'Outlet 2', 'Outlet 3'];
+  orderStatuses = [
     'Received',
     'Order Placed',
     'Order Confirmed',
@@ -38,6 +38,8 @@ export class OrdersComponent implements OnInit {
     'Cancelled',
     'Order Delivered',
   ];
+  promoCodes = ['PROMO1', 'PROMO2', 'PROMO3'];
+  paymentMethods = ['Credit Card', 'PayPal', 'Cash on Delivery'];
 
 
 
@@ -47,6 +49,21 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     this.fetchOrders();
   }
+
+  openFilterModal() {
+    this.isFilterModalOpen = true;
+  }
+
+  closeFilterModal() {
+    this.isFilterModalOpen = false;
+  }
+
+  applyFilters() {
+    // Logic to apply filters
+    this.isFilterModalOpen = false;
+  }
+
+
 
   // Fetch orders with loader
   fetchOrders(): void {

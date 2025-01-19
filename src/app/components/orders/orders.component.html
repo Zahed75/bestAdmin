@@ -6,112 +6,119 @@
       <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>
     </div>
 
-    <!-- Filter section Start -->
+<!--    &lt;!&ndash; Filter Section &ndash;&gt;-->
+<!--    <section class="bg-[#fefefe] lg:py-[30px] sm:py-[50px] py-[30px] mx-10">-->
+<!--      <div class="max-w-[1320px] mx-auto">-->
+<!--        <div class="flex container md:flex-row flex-col">-->
+<!--          <div class="basis-[60%]">-->
+<!--            <button-->
+<!--              (click)="openFilterModal()"-->
+<!--              class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"-->
+<!--            >-->
+<!--              Filter-->
+<!--            </button>-->
+<!--          </div>-->
+<!--          <div class="basis-[40%]">-->
+<!--            <h1>Additional UI</h1>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
 
-    <!-- Filter section Start -->
+    <!-- Filter Section -->
     <section class="bg-[#fefefe] lg:py-[30px] sm:py-[50px] py-[30px] mx-10">
-
       <div class="max-w-[1320px] mx-auto">
-
         <div class="flex container md:flex-row flex-col">
           <div class="basis-[60%]">
             <!-- Filter Section -->
             <button
-              id="dropdownDefaultButton"
-              data-dropdown-toggle="dropdown"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="button"
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              (click)="showModal = true"
             >
-              Dropdown button
-              <svg
-                class="w-2.5 h-2.5 ms-3"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
+              Open Filters
             </button>
 
-            <!-- Dropdown menu -->
+            <!-- Modal -->
             <div
-              id="dropdown"
-              class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 max-w-[350px]   lg:w-[450px] sm:w-[50px] dark:bg-gray-700 transition-all duration-300"
+              *ngIf="showModal"
+              class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
             >
-              <div id="filter-dropdown" class="origin-top-right relative right-0 mt-2 w-[450px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div class="py-1 px-4 space-y-4">
-                  <div class="block text-sm font-medium text-gray-700">
-                    <label for="outlet" class="block">Outlet</label>
+              <div class="bg-white w-[90%] max-w-lg rounded shadow-lg p-6 relative">
+                <div class="flex justify-between items-center mb-4">
+                  <h2 class="text-2xl font-bold">Filter Options</h2>
+                  <!-- Close Button -->
+                  <button
+                    class="text-gray-500 hover:text-red-500 text-xl"
+                    (click)="showModal = false"
+                  >
+                    ✖
+                  </button>
+                </div>
+                <form>
+                  <!-- Filter Options -->
+                  <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Select Outlet</label>
                     <select
-                      id="outlet"
-                      class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     >
-                      <option>Select an Outlet</option>
-                      <option>Outlet 1</option>
-                      <option>Outlet 2</option>
-                      <option>Outlet 3</option>
+                      <option value="">All Outlets</option>
+                      <option value="outlet1">Outlet 1</option>
+                      <option value="outlet2">Outlet 2</option>
                     </select>
                   </div>
-                  <div class="block text-sm font-medium text-gray-700">
-                    <label for="order-status">Order Status</label>
+                  <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Select Order Status</label>
                     <select
-                      id="order-status"
-                      class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     >
-                      <option>Select a Status</option>
-                      <option>Pending</option>
-                      <option>Processing</option>
-                      <option>Shipped</option>
-                      <option>Delivered</option>
-                      <option>Cancelled</option>
+                      <option value="">All Statuses</option>
+                      <option value="received">Received</option>
+                      <option value="processed">Processed</option>
                     </select>
                   </div>
-                  <div class="block text-sm font-medium text-gray-700">
-                    <label for="channel">Channel</label>
+                  <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Select Promo Code</label>
                     <select
-                      id="channel"
-                      class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     >
-                      <option>Select a Channel</option>
-                      <option>Web</option>
-                      <option>Mobile</option>
-                      <option>Store</option>
+                      <option value="">All Promo Codes</option>
+                      <option value="promo1">Promo 1</option>
+                      <option value="promo2">Promo 2</option>
                     </select>
                   </div>
-                  <div class="block text-sm font-medium text-gray-700">
-                    <label for="payment-method">Payment Method</label>
+                  <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Select Payment Method</label>
                     <select
-                      id="payment-method"
-                      class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     >
-                      <option>Both Payment Methods</option>
-                      <option>Online</option>
-                      <option>Cash on Delivery</option>
+                      <option value="">All Methods</option>
+                      <option value="credit">Credit Card</option>
+                      <option value="cash">Cash</option>
                     </select>
                   </div>
-                  <div class="block px-4 py-2 text-sm text-gray-700">
-                    <label for="date-range" class="block text-sm font-medium text-gray-700">Date Range</label>
-                    <div class="flex space-x-4">
-                      <input type="date" id="start-date" class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                      <input type="date" id="end-date" class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                    </div>
+                  <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Date Range</label>
+                    <input
+                      type="date"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    />
                   </div>
-
-                  <div class="py-2">
+                  <div class="flex justify-end space-x-4">
                     <button
-                      class="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center"
+                      type="button"
+                      class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+                      (click)="showModal = false"
                     >
-                      Apply Filter
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    >
+                      Apply Filters
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -121,6 +128,97 @@
         </div>
       </div>
     </section>
+
+    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+    <!-- Filter section End -->
+
+    <!-- Modal -->
+    <div
+      *ngIf="isFilterModalOpen"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+    >
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+        <h2 class="text-lg font-bold mb-4">Filter Options</h2>
+        <form>
+          <!-- Select Outlet -->
+          <div class="mb-4">
+            <label class="block mb-2 font-semibold">Select Outlet</label>
+            <select
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">All Outlets</option>
+              <option *ngFor="let outlet of outlets" [value]="outlet">{{ outlet }}</option>
+            </select>
+          </div>
+
+          <!-- Select Order Status -->
+          <div class="mb-4">
+            <label class="block mb-2 font-semibold">Select Order Status</label>
+            <select
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">All Statuses</option>
+              <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
+            </select>
+          </div>
+
+          <!-- Select Promo Code -->
+          <div class="mb-4">
+            <label class="block mb-2 font-semibold">Select Promo Code</label>
+            <select
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">All Promo Codes</option>
+              <option *ngFor="let promoCode of promoCodes" [value]="promoCode">{{ promoCode }}</option>
+            </select>
+          </div>
+
+          <!-- Select Payment Method -->
+          <div class="mb-4">
+            <label class="block mb-2 font-semibold">Select Payment Method</label>
+            <select
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">All Methods</option>
+              <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+            </select>
+          </div>
+
+          <!-- Date Range -->
+          <div class="mb-4">
+            <label class="block mb-2 font-semibold">Date Range</label>
+            <div class="flex space-x-4">
+              <input
+                type="date"
+                class="w-1/2 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <input
+                type="date"
+                class="w-1/2 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+
+          <!-- Modal Actions -->
+          <div class="flex justify-end space-x-4">
+            <button
+              type="button"
+              (click)="closeFilterModal()"
+              class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              (click)="applyFilters()"
+              class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+            >
+              Apply Filters
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
     <!-- Filter section End -->
