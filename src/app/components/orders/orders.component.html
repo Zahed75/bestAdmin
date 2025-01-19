@@ -6,12 +6,14 @@
       <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>
     </div>
 
+
+    <!-- Filter Section -->
     <!-- Filter Section -->
     <section class="bg-[#fefefe] lg:py-[30px] sm:py-[50px] py-[30px] mx-10">
       <div class="max-w-[1320px] mx-auto">
         <div class="flex container md:flex-row flex-col">
           <div class="basis-[60%]">
-            <!-- Filter Section -->
+            <!-- Open Filter Button -->
             <button
               class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               (click)="showModal = true"
@@ -35,70 +37,73 @@
                     ✖
                   </button>
                 </div>
-                <form>
-                  <!-- Filter Options -->
+                <form (ngSubmit)="applyFilters()">
+                  <!-- Filter Fields -->
                   <div class="mb-4">
                     <label class="block text-sm font-medium mb-1">Select Outlet</label>
-                    <select
-                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    <select name="outlet"
+                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            [(ngModel)]="filterParams.outlet"
                     >
                       <option value="">All Outlets</option>
-                      <option value="outlet1">Outlet 1</option>
-                      <option value="outlet2">Outlet 2</option>
+                      <option *ngFor="let outlet of outlets" [value]="outlet._id">{{ outlet.outletName }}</option>
                     </select>
                   </div>
                   <div class="mb-4">
                     <label class="block text-sm font-medium mb-1">Select Order Status</label>
-                    <select
-                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    <select name="status"
+                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            [(ngModel)]="filterParams.orderStatus"
                     >
                       <option value="">All Statuses</option>
-                      <option value="received">Received</option>
-                      <option value="processed">Processed</option>
+                      <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
                     </select>
                   </div>
                   <div class="mb-4">
                     <label class="block text-sm font-medium mb-1">Select Promo Code</label>
-                    <select
-                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    <select name="promoCode"
+                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            [(ngModel)]="filterParams.promoCode"
                     >
                       <option value="">All Promo Codes</option>
-                      <option value="promo1">Promo 1</option>
-                      <option value="promo2">Promo 2</option>
+                      <option *ngFor="let promoCode of promoCodes" [value]="promoCode">{{ promoCode }}</option>
                     </select>
                   </div>
                   <div class="mb-4">
                     <label class="block text-sm font-medium mb-1">Select Payment Method</label>
-                    <select
-                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    <select name="paymentMethod"
+                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            [(ngModel)]="filterParams.paymentMethod"
                     >
                       <option value="">All Methods</option>
-                      <option value="credit">Credit Card</option>
-                      <option value="cash">Cash</option>
+                      <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
                     </select>
                   </div>
+
                   <!-- Date Range Section -->
                   <div class="mb-4">
                     <label class="block text-sm font-medium mb-1">Date Range</label>
                     <div class="flex gap-4">
                       <div class="w-1/2">
                         <label class="block text-sm font-medium mb-1">From</label>
-                        <input
-                          type="date"
-                          class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                          [(ngModel)]="filterDates.from"
+                        <input name="startDate"
+                               type="date"
+                               class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                               [(ngModel)]="filterParams.startDate"
                         />
                       </div>
                       <div class="w-1/2">
                         <label class="block text-sm font-medium mb-1">To</label>
-                        <input
-                          type="date"
-                          class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                          [(ngModel)]="filterDates.to"
+                        <input name="endDate"
+                               type="date"
+                               class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                               [(ngModel)]="filterParams.endDate"
                         />
                       </div>
                     </div>
                   </div>
+
+                  <!-- Modal Actions -->
                   <div class="flex justify-end space-x-4">
                     <button
                       type="button"
@@ -138,11 +143,10 @@
           <!-- Select Outlet -->
           <div class="mb-4">
             <label class="block mb-2 font-semibold">Select Outlet</label>
-            <select
-              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
+            <select id="outlet" [(ngModel)]="filterParams.outlet" name="outlet" class="w-full px-4 py-2 border rounded-md focus:outline-none
+               focus:ring-2 focus:ring-blue-500">
               <option value="">All Outlets</option>
-              <option *ngFor="let outlet of outlets" [value]="outlet">{{ outlet }}</option>
+              <option *ngFor="let outlet of outlets" [value]="outlet.id">{{ outlet.name }}</option>
             </select>
           </div>
 
@@ -337,3 +341,15 @@
 
 </div>
 <router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+

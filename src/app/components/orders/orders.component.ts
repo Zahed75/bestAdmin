@@ -16,6 +16,7 @@
 //     DatePipe,
 //     NgIf,
 //     FormsModule,
+//
 //   ],
 // })
 // export class OrdersComponent implements OnInit {
@@ -39,7 +40,7 @@
 //     'Order Delivered',
 //   ];
 //   promoCodes = ['PROMO1', 'PROMO2', 'PROMO3'];
-//   paymentMethods = ['Credit Card', 'PayPal', 'Cash on Delivery'];
+//   paymentMethods = ['Cash on Delivery','Online Payment'];
 //
 //
 //
@@ -124,32 +125,42 @@
 //
 //   // Pagination End
 //
-//
-//
 // }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../../services/orders.service';
-import { RouterOutlet } from '@angular/router';
-import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import {DatePipe, NgClass, NgFor, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
-  standalone: true, // Mark this as a standalone component
-  imports: [
-    RouterOutlet,
-    NgFor,
-    NgClass,
-    DatePipe,
-    NgIf,
-    FormsModule, // Include FormsModule for template-driven forms
-  ],
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
+  imports: [
+    FormsModule,
+    RouterOutlet,
+    NgFor,
+    NgIf,
+    FormsModule,
+    NgClass,
+    DatePipe
+  ],
 })
 export class OrdersComponent implements OnInit {
   orders: any[] = [];
@@ -157,16 +168,13 @@ export class OrdersComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
-  isLoading: boolean = false;
+  isLoading: boolean = false; // Loader state
   showModal: boolean = false;
   isFilterModalOpen = false;
 
-  filterDates = {
-    from: '', // Start date
-    to: '',   // End date
-  };
-  // Filter options
-  outlets: string[] = [];
+  outlets: any[] = [];
+  promoCodes: any[] = [];
+
   orderStatuses = [
     'Received',
     'Order Placed',
@@ -177,59 +185,58 @@ export class OrdersComponent implements OnInit {
     'Cancelled',
     'Order Delivered',
   ];
-  promoCodes: string[] = [];
   paymentMethods = ['Cash on Delivery', 'Online Payment'];
 
-  // Selected filters
-  selectedFilters = {
+  filterParams = {
     outlet: '',
     orderStatus: '',
-    paymentMethod: '',
     promoCode: '',
-    dateFrom: '',
-    dateTo: '',
+    paymentMethod: '',
+    startDate: '',
+    endDate: '',
   };
 
   constructor(private ordersService: OrdersService) {}
 
   ngOnInit(): void {
-    this.fetchFilters();
-    this.fetchOrders();
+    console.log('ngOnInit fired');
+    this.fetchOrders(); // Fetch all orders initially
+    this.fetchOutlets();
+    this.fetchPromoCodes(); // Fetch promo codes dynamically
   }
 
-  fetchFilters(): void {
-    this.ordersService.getOutlets().subscribe({
-      next: (data) => {
-        this.outlets = data.map((outlet: any) => outlet.name);
-      },
-      error: (error) => {
-        console.error('Error fetching outlets:', error);
-      },
-    });
-
-    this.ordersService.getDiscounts().subscribe({
-      next: (data) => {
-        this.promoCodes = data.map((discount: any) => discount.code);
-      },
-      error: (error) => {
-        console.error('Error fetching promo codes:', error);
-      },
-    });
+  closeFilterModal() {
+    this.isFilterModalOpen = false;
   }
 
-  fetchOrders(): void {
-    this.isLoading = true;
-    const filters: any = {};
-    if (this.selectedFilters.outlet) filters.outlet = this.selectedFilters.outlet;
-    if (this.selectedFilters.orderStatus) filters.orderStatus = this.selectedFilters.orderStatus;
-    if (this.selectedFilters.paymentMethod) filters.paymentMethod = this.selectedFilters.paymentMethod;
-    if (this.selectedFilters.promoCode) filters.promoCode = this.selectedFilters.promoCode;
-    if (this.selectedFilters.dateFrom) filters.dateFrom = this.selectedFilters.dateFrom;
-    if (this.selectedFilters.dateTo) filters.dateTo = this.selectedFilters.dateTo;
+  applyFilters() {
+    this.isFilterModalOpen = false;
+    this.fetchFilteredOrders();
+  }
 
-    this.ordersService.getOrders(filters).subscribe({
+  // Fetch filtered orders with loader
+  fetchFilteredOrders(): void {
+    this.isLoading = true; // Show loader
+    this.ordersService.getFilteredOrders(this.filterParams).subscribe({
       next: (data) => {
         this.orders = data;
+        this.updatePagination();
+        this.isLoading = false; // Hide loader after data is loaded
+      },
+      error: (error) => {
+        console.error('Error fetching orders:', error);
+        this.isLoading = false; // Hide loader even on error
+      },
+    });
+  }
+
+  // Fetch all orders initially
+  fetchOrders(): void {
+    this.isLoading = true;
+    this.ordersService.getOrders().subscribe({
+      next: (data) => {
+        console.log('Fetched orders:', data);  // Log data here
+        this.orders = Array.isArray(data) ? data : [];  // Ensure it's an array
         this.updatePagination();
         this.isLoading = false;
       },
@@ -240,20 +247,47 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  applyFilters(): void {
-    this.fetchOrders();
-    this.isFilterModalOpen = false;
+
+  // Fetch all outlets from the service
+
+  fetchOutlets(): void {
+    this.ordersService.getAllOutlets().subscribe(
+      (outlets) => {
+        console.log('Fetched outlets:', outlets);
+        this.outlets = outlets; // Assign the fetched outlets to the component's outlets property
+      },
+      (error) => {
+        console.error('Error fetching outlets:', error);
+      }
+    );
   }
 
-  closeFilterModal(): void {
-    this.isFilterModalOpen = false;
+
+
+  // Fetch all promo codes from the service
+  fetchPromoCodes(): void {
+    this.ordersService.getAllPromoCodes().subscribe({
+      next: (data) => {
+        this.promoCodes = data;
+      },
+      error: (error) => {
+        console.error('Error fetching promo codes:', error);
+      },
+    });
   }
+
+  // Pagination Start
 
   updatePagination(): void {
-    this.totalPages = Math.ceil(this.orders.length / this.itemsPerPage);
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.paginatedOrders = this.orders.slice(startIndex, startIndex + this.itemsPerPage);
+    if (Array.isArray(this.orders)) {
+      this.totalPages = Math.ceil(this.orders.length / this.itemsPerPage);
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      this.paginatedOrders = this.orders.slice(startIndex, startIndex + this.itemsPerPage);
+    } else {
+      console.error('Orders is not an array:', this.orders);
+    }
   }
+
 
   goToPage(page: number): void {
     this.currentPage = page;
@@ -279,4 +313,7 @@ export class OrdersComponent implements OnInit {
     const endPage = Math.min(this.totalPages, startPage + 4);
     return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
   }
+
+  // Pagination End
 }
+
