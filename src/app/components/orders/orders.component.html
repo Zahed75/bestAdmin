@@ -6,25 +6,6 @@
       <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>
     </div>
 
-<!--    &lt;!&ndash; Filter Section &ndash;&gt;-->
-<!--    <section class="bg-[#fefefe] lg:py-[30px] sm:py-[50px] py-[30px] mx-10">-->
-<!--      <div class="max-w-[1320px] mx-auto">-->
-<!--        <div class="flex container md:flex-row flex-col">-->
-<!--          <div class="basis-[60%]">-->
-<!--            <button-->
-<!--              (click)="openFilterModal()"-->
-<!--              class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"-->
-<!--            >-->
-<!--              Filter-->
-<!--            </button>-->
-<!--          </div>-->
-<!--          <div class="basis-[40%]">-->
-<!--            <h1>Additional UI</h1>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </section>-->
-
     <!-- Filter Section -->
     <section class="bg-[#fefefe] lg:py-[30px] sm:py-[50px] py-[30px] mx-10">
       <div class="max-w-[1320px] mx-auto">
@@ -96,12 +77,27 @@
                       <option value="cash">Cash</option>
                     </select>
                   </div>
+                  <!-- Date Range Section -->
                   <div class="mb-4">
                     <label class="block text-sm font-medium mb-1">Date Range</label>
-                    <input
-                      type="date"
-                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                    />
+                    <div class="flex gap-4">
+                      <div class="w-1/2">
+                        <label class="block text-sm font-medium mb-1">From</label>
+                        <input
+                          type="date"
+                          class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          [(ngModel)]="filterDates.from"
+                        />
+                      </div>
+                      <div class="w-1/2">
+                        <label class="block text-sm font-medium mb-1">To</label>
+                        <input
+                          type="date"
+                          class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          [(ngModel)]="filterDates.to"
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div class="flex justify-end space-x-4">
                     <button
@@ -128,7 +124,6 @@
         </div>
       </div>
     </section>
-
     <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
     <!-- Filter section End -->
 

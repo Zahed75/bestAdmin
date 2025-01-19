@@ -50,9 +50,11 @@ export class OrdersComponent implements OnInit {
     this.fetchOrders();
   }
 
-  openFilterModal() {
-    this.isFilterModalOpen = true;
-  }
+  filterDates = {
+    from: '',
+    to: '',
+  };
+
 
   closeFilterModal() {
     this.isFilterModalOpen = false;
