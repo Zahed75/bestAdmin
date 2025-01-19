@@ -141,11 +141,10 @@
 //
 
 
-
-import { Component, OnInit } from '@angular/core';
-import { OrdersService } from '../../services/orders.service';
+import {Component, OnInit} from '@angular/core';
+import {OrdersService} from '../../services/orders.service';
 import {DatePipe, NgClass, NgFor, NgIf} from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {RouterOutlet} from '@angular/router';
 
 @Component({
@@ -196,7 +195,8 @@ export class OrdersComponent implements OnInit {
     endDate: '',
   };
 
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService) {
+  }
 
   ngOnInit(): void {
     console.log('ngOnInit fired');
@@ -254,7 +254,7 @@ export class OrdersComponent implements OnInit {
     this.ordersService.getAllOutlets().subscribe(
       (outlets) => {
         console.log('Fetched outlets:', outlets);
-        this.outlets = outlets; // Assign the fetched outlets to the component's outlets property
+        this.outlets = outlets;
       },
       (error) => {
         console.error('Error fetching outlets:', error);
@@ -263,18 +263,20 @@ export class OrdersComponent implements OnInit {
   }
 
 
-
   // Fetch all promo codes from the service
+
   fetchPromoCodes(): void {
-    this.ordersService.getAllPromoCodes().subscribe({
-      next: (data) => {
-        this.promoCodes = data;
+    this.ordersService.getAllPromoCodes().subscribe(
+      (promoCodes) => {
+        this.promoCodes = promoCodes;
+        console.log('Fetched PromoCode:', promoCodes);
       },
-      error: (error) => {
-        console.error('Error fetching promo codes:', error);
-      },
-    });
+      (error) => {
+        console.error("Error Fetching PromoCodes:", error);
+      }
+    );
   }
+
 
   // Pagination Start
 
@@ -311,7 +313,7 @@ export class OrdersComponent implements OnInit {
   get paginationPages(): number[] {
     const startPage = Math.max(1, this.currentPage - 2);
     const endPage = Math.min(this.totalPages, startPage + 4);
-    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+    return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
   }
 
   // Pagination End
