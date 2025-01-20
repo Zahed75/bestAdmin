@@ -41,8 +41,6 @@ export class OrdersService {
   }
 
 
-
-
   // Method to fetch all outlets
   getAllOutlets(): Observable<any[]> {
     return this.http.get<{ message: string; outlet: any[] }>(this.outletURL).pipe(
@@ -52,8 +50,8 @@ export class OrdersService {
 
 
   getAllPromoCodes(): Observable<any[]> {
-    return this.http.get<{message:string,coupons:any[]}>(this.promoCodeURL).pipe(
-        map((response)=>response.coupons)
+    return this.http.get<{ message: string, coupons: any[] }>(this.promoCodeURL).pipe(
+      map((response) => response.coupons)
     );
   }
 
