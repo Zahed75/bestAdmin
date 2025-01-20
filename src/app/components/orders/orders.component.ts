@@ -40,7 +40,7 @@ export class OrdersComponent implements OnInit {
     'Cancelled',
     'Order Delivered',
   ];
-  paymentMethods = ['Cash on Delivery', 'Online Payment'];
+  paymentMethods = ['Cash On Delivery', 'Online Payment'];
 
   filterParams = {
     outlet: '',
@@ -146,8 +146,8 @@ export class OrdersComponent implements OnInit {
       (promoCodes) => {
         // Map promo codes to extract couponName
         this.promoCodes = promoCodes.map((promoCode: any) => ({
-          name: promoCode.general.couponName, // Extract couponName
-          id: promoCode._id, // You can also keep the ID if needed
+          name: promoCode.general.couponName,
+          id: promoCode._id,
         }));
       },
       (error) => {
