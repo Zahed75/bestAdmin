@@ -40,6 +40,9 @@ export class OrdersService {
       .pipe(map((response) => response.orders));
   }
 
+
+
+
   // Method to fetch all outlets
   getAllOutlets(): Observable<any[]> {
     return this.http.get<{ message: string; outlet: any[] }>(this.outletURL).pipe(

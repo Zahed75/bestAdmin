@@ -3,7 +3,7 @@
   <div class="p-4 sm:ml-64 w-full">
     <div>
       <h1 class="text-3xl font-bold text-black mb-6">Orders</h1>
-      <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>
+      <h3 class="text-xl font-semibold text-black mb-4">All Orders</h3>
     </div>
 
 
@@ -64,7 +64,7 @@
                             class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             [(ngModel)]="filterParams.promoCode">
                       <option value="">All Promo Codes</option>
-                      <option *ngFor="let promoCode of promoCodes" [value]="promoCode._id">
+                      <option  *ngFor="let promoCode of promoCodes" [value]="promoCode.name">
                         {{ promoCode.general.couponName }}
                       </option>
                     </select>
