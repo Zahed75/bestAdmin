@@ -8,7 +8,6 @@
 
 
     <!-- Filter Section -->
-    <!-- Filter Section -->
     <section class="bg-[#fefefe] lg:py-[30px] sm:py-[50px] py-[30px] mx-10">
       <div class="max-w-[1320px] mx-auto">
         <div class="flex container md:flex-row flex-col">
@@ -109,16 +108,24 @@
                     <button
                       type="button"
                       class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+                      (click)="clearFilter()">
+                      Reset
+                    </button>
+                    <button
+                      type="button"
+                      class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
                       (click)="showModal = false"
                     >
                       Cancel
                     </button>
+
                     <button
                       type="submit"
                       class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                     >
                       Apply Filters
                     </button>
+
                   </div>
                 </form>
               </div>
@@ -208,6 +215,8 @@
             >
               Cancel
             </button>
+
+
             <button
               type="submit"
               (click)="applyFilters()"
@@ -219,8 +228,6 @@
         </form>
       </div>
     </div>
-
-    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
     <!-- Filter section End -->
 
     <!--    Table Section Start-->
