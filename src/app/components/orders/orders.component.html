@@ -64,8 +64,8 @@
                             class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             [(ngModel)]="filterParams.promoCode">
                       <option value="">All Promo Codes</option>
-                      <option *ngFor="let promoCode of promoCodes" [value]="promoCode._id">
-                        {{ promoCode.general.couponName }}
+                      <option *ngFor="let promoCode of promoCodes" [value]="promoCode.name">
+                        {{ promoCode.name }}
                       </option>
                     </select>
                   </div>

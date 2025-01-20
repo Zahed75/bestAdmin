@@ -86,10 +86,6 @@ export class OrdersComponent implements OnInit {
 
 
 
-
-
-
-
   // Fetch filtered orders
   fetchFilteredOrders(): void {
     this.isLoading = true; // Show loader
@@ -144,17 +140,22 @@ export class OrdersComponent implements OnInit {
     );
   }
 
-  // Fetch all promo codes from the service
+// fetch PromoCodes
   fetchPromoCodes(): void {
     this.ordersService.getAllPromoCodes().subscribe(
       (promoCodes) => {
-        this.promoCodes = Array.isArray(promoCodes) ? promoCodes : [];
+        // Map promo codes to extract couponName
+        this.promoCodes = promoCodes.map((promoCode: any) => ({
+          name: promoCode.general.couponName, // Extract couponName
+          id: promoCode._id, // You can also keep the ID if needed
+        }));
       },
       (error) => {
         console.error('Error fetching promo codes:', error);
       }
     );
   }
+
 
   // Pagination logic
   updatePagination(): void {
