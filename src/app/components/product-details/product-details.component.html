@@ -91,6 +91,52 @@
 
 
           <!-- Billing & Shipping Section -->
+<!--          <div class="grid grid-cols-2 gap-6 text-left">-->
+<!--            &lt;!&ndash; Billing &ndash;&gt;-->
+<!--            <div class="bg-white p-6 rounded-lg shadow-sm">-->
+<!--              <h2 class="text-lg font-semibold mb-4">Billing</h2>-->
+<!--              <div class="space-y-4">-->
+<!--                <div>-->
+<!--                  <label class="block text-sm text-gray-600 mb-1">Billing Details</label>-->
+<!--                  <textarea readonly-->
+<!--                            class="w-full p-2 border  rounded-md bg-gray-50" rows="4">-->
+<!--                    {{order.deliveryAddress}}-->
+<!--                  </textarea>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <label class="block text-sm text-gray-600 mb-1">Email Address</label>-->
+<!--                  <input-->
+<!--                    type="email"-->
+<!--                    [value]="order.email"-->
+<!--                    class="w-full p-2 border rounded-md bg-gray-50"-->
+<!--                  />-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <label class="block text-sm text-gray-600 mb-1">Phone</label>-->
+<!--                  <input-->
+<!--                    type="tel"-->
+<!--                    [value]="order.phoneNumber"-->
+<!--                    class="w-full p-2 border rounded-md bg-gray-50"-->
+
+<!--                  />-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Shipping &ndash;&gt;-->
+<!--            <div class="bg-white p-6 rounded-lg shadow-sm">-->
+<!--              <h2 class="text-lg font-semibold mb-4">Shipping</h2>-->
+<!--              <div>-->
+<!--                <label class="block text-sm text-gray-600 mb-1">Shipping Address</label>-->
+<!--                <textarea readonly-->
+<!--                          class="w-full p-2 border rounded-md bg-gray-50"-->
+<!--                          rows="4">-->
+<!--                 {{order.deliveryAddress}}-->
+<!--                </textarea>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
           <div class="grid grid-cols-2 gap-6 text-left">
             <!-- Billing -->
             <div class="bg-white p-6 rounded-lg shadow-sm">
@@ -98,12 +144,15 @@
               <div class="space-y-4">
                 <div>
                   <label class="block text-sm text-gray-600 mb-1">Billing Details</label>
-                  <textarea readonly
-                            class="w-full p-2 border  rounded-md bg-gray-50" rows="4">
-                    {{order.deliveryAddress}}
-                  </textarea>
+                  <textarea
+                    readonly
+                    class="w-full p-2 border rounded-md bg-gray-50"
+                    rows="4"
+                  >
+          {{ order.deliveryAddress }}
+        </textarea>
                 </div>
-                <div>
+                <div *ngIf="order.email; else phoneBlock">
                   <label class="block text-sm text-gray-600 mb-1">Email Address</label>
                   <input
                     type="email"
@@ -111,15 +160,17 @@
                     class="w-full p-2 border rounded-md bg-gray-50"
                   />
                 </div>
-                <div>
-                  <label class="block text-sm text-gray-600 mb-1">Phone</label>
-                  <input
-                    type="tel"
-                    [value]="order.phoneNumber"
-                    class="w-full p-2 border rounded-md bg-gray-50"
-
-                  />
-                </div>
+                <ng-template #phoneBlock>
+                  <div>
+                    <label class="block text-sm text-gray-600 mb-1">Phone</label>
+                    <input
+                      type="tel"
+                      [value]="order.phoneNumber"
+                      class="w-full p-2 border rounded-md bg-gray-50"
+                    />
+                    <p class="text-xs text-red-500 mt-1">Email not provided for this order.</p>
+                  </div>
+                </ng-template>
               </div>
             </div>
 
@@ -128,14 +179,17 @@
               <h2 class="text-lg font-semibold mb-4">Shipping</h2>
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Shipping Address</label>
-                <textarea readonly
-                          class="w-full p-2 border rounded-md bg-gray-50"
-                          rows="4">
-                 {{order.deliveryAddress}}
-                </textarea>
+                <textarea
+                  readonly
+                  class="w-full p-2 border rounded-md bg-gray-50"
+                  rows="4"
+                >
+        {{ order.deliveryAddress }}
+      </textarea>
               </div>
             </div>
           </div>
+
 
           <!-- Order Items -->
           <div class="bg-white p-6 rounded-lg shadow-sm">
