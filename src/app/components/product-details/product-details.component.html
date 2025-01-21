@@ -10,7 +10,7 @@
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
           <a href="" routerLink="/layout/order">
-            <h1  class="text-2xl font-semibold">Order #7939 details</h1>
+            <h1  class="text-2xl font-semibold"> {{ order.orderId }}</h1>
           </a>
         </div>
         <button class="px-4 py-2 bg-black text-white rounded-md">
@@ -19,7 +19,7 @@
       </div>
 
       <p class="text-gray-600 mb-6">
-        Payment via Cash on delivery. Customer IP: 116.12.34.168
+        Payment via  {{ order.paymentMethod }} | Customer IP: 116.12.34.168
       </p>
 
 
@@ -34,7 +34,7 @@
                 <label class="block text-sm text-gray-600 mb-1">Order Date</label>
                 <input
                   type="text"
-                  [value]="'22 Oct 2023; 5:32 PM'"
+                  [value]="order.createdAt|date:'mediumDate'"
                   class="w-full p-2 border rounded-md bg-gray-50"
                   readonly
                 />
@@ -43,7 +43,7 @@
                 <label class="block text-sm text-gray-600 mb-1">Order Time</label>
                 <input
                   type="text"
-                  [value]="'17:46'"
+                  [value]="order.createdAt|date:'shortTime'"
                   class="w-full p-2 border rounded-md bg-gray-50"
                   readonly
                 />
@@ -52,7 +52,7 @@
                 <label class="block text-sm text-gray-600 mb-1">Order Status</label>
                 <input
                   type="text"
-                  [value]="'Delivered'"
+                  [value]="order.orderStatus"
                   class="w-full p-2 border rounded-md bg-gray-50"
                   readonly
                 />
@@ -61,23 +61,25 @@
                 <label class="block text-sm text-gray-600 mb-1">Customer</label>
                 <input
                   type="text"
-                  [value]="'Zahed'"
+                  [value]="order.firstName"
                   class="w-full p-2 border rounded-md bg-gray-50"
 
                 />
               </div>
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Order Type</label>
-                <select name="" id="" class="w-full p-2 border rounded-md bg-gray-50">
-                  <option value="Online">Delivery</option>
-                  <option value="Offline">Pickup</option>
-                </select>
+                <input
+                  type="text"
+                  [value]="order.orderType"
+                  class="w-full p-2 border rounded-md bg-gray-50"
+
+                />
               </div>
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Payment Type</label>
                 <input
                   type="text"
-                  [value]="'Online'"
+                  [value]="order.paymentMethod"
                   class="w-full p-2 border rounded-md bg-gray-50"
                   readonly
                 />
@@ -89,27 +91,23 @@
 
 
           <!-- Billing & Shipping Section -->
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-2 gap-6 text-left">
             <!-- Billing -->
             <div class="bg-white p-6 rounded-lg shadow-sm">
               <h2 class="text-lg font-semibold mb-4">Billing</h2>
               <div class="space-y-4">
                 <div>
                   <label class="block text-sm text-gray-600 mb-1">Billing Details</label>
-                  <textarea
-                    class="w-full p-2 border rounded-md bg-gray-50" rows="4">
-                    Engr. Syful Islam
-                    North South School, Ghorakanda,
-                    Bhairab
-                    Kishoreganj
-                    DHAKA
+                  <textarea readonly
+                    class="w-full p-2 border  rounded-md bg-gray-50" rows="4">
+                    {{order.deliveryAddress}}
                   </textarea>
                 </div>
                 <div>
                   <label class="block text-sm text-gray-600 mb-1">Email Address</label>
                   <input
                     type="email"
-                    [value]="'sariful@gmail.com'"
+                    [value]="order.email"
                     class="w-full p-2 border rounded-md bg-gray-50"
                   />
                 </div>
@@ -117,7 +115,7 @@
                   <label class="block text-sm text-gray-600 mb-1">Phone</label>
                   <input
                     type="tel"
-                    [value]="'01748710741'"
+                    [value]="order.phoneNumber"
                     class="w-full p-2 border rounded-md bg-gray-50"
 
                   />
@@ -130,10 +128,10 @@
               <h2 class="text-lg font-semibold mb-4">Shipping</h2>
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Shipping Address</label>
-                <textarea
+                <textarea readonly
                   class="w-full p-2 border rounded-md bg-gray-50"
                   rows="4">
-                  lorem ipsum dolor sit amet
+                 {{order.deliveryAddress}}
                 </textarea>
               </div>
             </div>
@@ -142,46 +140,45 @@
           <!-- Order Items -->
           <div class="bg-white p-6 rounded-lg shadow-sm">
             <h2 class="text-lg font-semibold mb-4">Order Items</h2>
-            <div class="space-y-4">
+            <div *ngIf="order?.products?.length > 0" class="space-y-4">
               <table class="w-full">
                 <thead class="text-left">
                 <tr class="border-b">
                   <th class="pb-2">PRODUCT</th>
                   <th class="pb-2">QUANTITY</th>
                   <th class="pb-2">TOTAL</th>
-                  <th class="pb-2">VAT</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="border-b">
+                <tr *ngFor="let product of order.products" class="border-b">
                   <td class="py-4">
                     <div class="flex items-center gap-3">
-                      <img src="/api/placeholder/50/50" alt="Fan" class="w-12 h-12 object-cover rounded"/>
+                      <img [src]="product.productImage"  alt="Fan" class="w-12 h-12 object-cover rounded"/>
                       <div>
-                        <p class="font-medium">Conion Signature 56" 4 Blades</p>
-                        <p class="text-sm text-gray-500">SKU: CFN-CON-5804</p>
+                        <p class="font-medium">{{product.productName}}</p>
+                        <p class="text-sm text-gray-500">SKU:{{product.sku}}</p>
                       </div>
                     </div>
                   </td>
-                  <td class="py-4">1</td>
-                  <td class="py-4">৳4000</td>
-                  <td class="py-4">৳4000</td>
+                  <td class="py-4">{{product.quantity}}</td>
+                  <td class="py-4">৳{{product.price }}</td>
+
                 </tr>
                 <!-- Repeat the above tr for each item -->
                 </tbody>
               </table>
               <div class="space-y-2 pt-4">
                 <div class="flex justify-between">
-                  <span>Items Subtotal</span>
-                  <span>৳4000</span>
+                  <span>Delivery Charge</span>
+                  <span>৳ 0</span>
                 </div>
                 <div class="flex justify-between">
                   <span>VAT</span>
-                  <span>৳4000</span>
+                  <span>৳5% Included</span>
                 </div>
                 <div class="flex justify-between font-semibold">
                   <span>Order total</span>
-                  <span>৳4000</span>
+                  <span>৳{{order.totalPrice}}</span>
                 </div>
               </div>
             </div>

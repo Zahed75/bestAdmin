@@ -2,13 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import {OrdersService} from '../../services/orders.service';
+import {DatePipe, DecimalPipe, NgFor, NgIf} from '@angular/common';
 
 
 @Component({
   selector: 'app-product-details',
   imports: [
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    DatePipe,
+    NgIf,
+    NgFor
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
