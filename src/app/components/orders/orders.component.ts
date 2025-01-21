@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrdersService} from '../../services/orders.service';
 import {DatePipe, NgClass, NgFor, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -14,7 +14,9 @@ import {RouterOutlet} from '@angular/router';
     NgFor,
     NgIf,
     NgClass,
-    DatePipe
+    DatePipe,
+    RouterLink,
+
   ],
 })
 export class OrdersComponent implements OnInit {
@@ -50,6 +52,10 @@ export class OrdersComponent implements OnInit {
     startDate: '',
     endDate: '',
   };
+
+
+
+
 
   constructor(private ordersService: OrdersService) {}
 
@@ -188,4 +194,8 @@ export class OrdersComponent implements OnInit {
     const endPage = Math.min(this.totalPages, startPage + 4);
     return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
   }
+
+
+
+
 }

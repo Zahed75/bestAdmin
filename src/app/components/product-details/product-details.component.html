@@ -1,1 +1,268 @@
-<p>product-details works!</p>
+
+<div class="flex flex-row mx-6">
+
+  <div class="p-4 sm:ml-64 w-full">
+    <div class="max-w-6xl mx-auto p-4">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <h1 class="text-2xl font-semibold">Order #7939 details</h1>
+        </div>
+        <button class="px-4 py-2 bg-black text-white rounded-md">
+          Save Changes
+        </button>
+      </div>
+
+      <p class="text-gray-600 mb-6">
+        Payment via Cash on delivery. Customer IP: 116.12.34.168
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Left Column -->
+        <div class="md:col-span-2 space-y-6">
+          <!-- General Section -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold mb-4">General</h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Order Date</label>
+                <input
+                  type="text"
+                  [value]="'22 Oct 2023; 5:32 PM'"
+                  class="w-full p-2 border rounded-md bg-gray-50"
+                  readonly
+                />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Order Time</label>
+                <input
+                  type="text"
+                  [value]="'17:46'"
+                  class="w-full p-2 border rounded-md bg-gray-50"
+                  readonly
+                />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Order Status</label>
+                <select class="w-full p-2 border rounded-md">
+                  <option>Processing</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Customer</label>
+                <select class="w-full p-2 border rounded-md">
+                  <option>Sariful Islam</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Order Type</label>
+                <input
+                  type="text"
+                  [value]="'Pickup'"
+                  class="w-full p-2 border rounded-md bg-gray-50"
+                  readonly
+                />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Payment Type</label>
+                <input
+                  type="text"
+                  [value]="'Online'"
+                  class="w-full p-2 border rounded-md bg-gray-50"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Billing & Shipping Section -->
+          <div class="grid grid-cols-2 gap-6">
+            <!-- Billing -->
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h2 class="text-lg font-semibold mb-4">Billing</h2>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm text-gray-600 mb-1">Billing Details</label>
+                  <textarea
+                    class="w-full p-2 border rounded-md bg-gray-50"
+                    rows="4"
+                    readonly>Engr. Syful Islam
+North South School, Ghorakanda,
+Bhairab
+Kishoreganj
+DHAKA</textarea>
+                </div>
+                <div>
+                  <label class="block text-sm text-gray-600 mb-1">Email Address</label>
+                  <input
+                    type="email"
+                    [value]="'sariful@gmail.com'"
+                    class="w-full p-2 border rounded-md bg-gray-50"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm text-gray-600 mb-1">Phone</label>
+                  <input
+                    type="tel"
+                    [value]="'01748710741'"
+                    class="w-full p-2 border rounded-md bg-gray-50"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping -->
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h2 class="text-lg font-semibold mb-4">Shipping</h2>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Shipping Address</label>
+                <textarea
+                  class="w-full p-2 border rounded-md bg-gray-50"
+                  rows="4"
+                  readonly>Engr. Syful Islam
+North South School, Ghorakanda,
+Bhairab
+Kishoreganj
+DHAKA</textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Items -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold mb-4">Order Items</h2>
+            <div class="space-y-4">
+              <table class="w-full">
+                <thead class="text-left">
+                <tr class="border-b">
+                  <th class="pb-2">PRODUCT</th>
+                  <th class="pb-2">QUANTITY</th>
+                  <th class="pb-2">TOTAL</th>
+                  <th class="pb-2">VAT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="border-b">
+                  <td class="py-4">
+                    <div class="flex items-center gap-3">
+                      <img src="/api/placeholder/50/50" alt="Fan" class="w-12 h-12 object-cover rounded"/>
+                      <div>
+                        <p class="font-medium">Conion Signature 56" 4 Blades</p>
+                        <p class="text-sm text-gray-500">SKU: CFN-CON-5804</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4">1</td>
+                  <td class="py-4">৳4000</td>
+                  <td class="py-4">৳4000</td>
+                </tr>
+                <!-- Repeat the above tr for each item -->
+                </tbody>
+              </table>
+              <div class="space-y-2 pt-4">
+                <div class="flex justify-between">
+                  <span>Items Subtotal</span>
+                  <span>৳4000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>VAT</span>
+                  <span>৳4000</span>
+                </div>
+                <div class="flex justify-between font-semibold">
+                  <span>Order total</span>
+                  <span>৳4000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="space-y-6">
+          <!-- Action -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold mb-4">Action</h2>
+            <div class="space-y-4">
+              <select class="w-full p-2 border rounded-md">
+                <option>Choose an action</option>
+              </select>
+              <button class="w-full py-2 bg-black text-white rounded-md">
+                Proceed
+              </button>
+            </div>
+          </div>
+
+          <!-- Order Attribution -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold mb-4">Order Attribution</h2>
+            <div class="space-y-4">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Origin</span>
+                <span>Direct</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Source Type</span>
+                <span>typein</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">UTM Source</span>
+                <span>Direct</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Device Type</span>
+                <span>Mobile</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Session Page Views</span>
+                <span>5</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer History -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold mb-4">Customer History</h2>
+            <div class="space-y-4">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Total Orders</span>
+                <span>5</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Total Revenue</span>
+                <span>৳4000</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Average Order Value</span>
+                <span>৳4000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Notes -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold mb-4">Order Notes</h2>
+            <div class="space-y-4">
+              <div class="p-4 bg-gray-50 rounded-md">
+                <p class="text-sm">Payment to be made upon delivery. Order status changed from Pending payment to Processing.</p>
+                <p class="text-sm text-gray-500 mt-2">Feb 28, 2024, 17:59</p>
+              </div>
+              <select class="w-full p-2 border rounded-md">
+                <option>Choose an action</option>
+              </select>
+              <button class="w-full py-2 bg-black text-white rounded-md">
+                Add Note
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<router-outlet></router-outlet>

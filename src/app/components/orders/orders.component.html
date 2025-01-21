@@ -234,7 +234,7 @@
 
 
 
-    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+    <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
 
 
     <section class="bg-gray-50 lg:py-4 sm:py-12 py-8">
@@ -300,7 +300,7 @@
 
 
 
-    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+    <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
     <!-- Filter section End -->
 
     <!-- Modal  start -->
@@ -434,8 +434,8 @@
               <label class="sr-only">checkbox</label>
             </div>
           </td>
-          <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            {{ order.orderId }}
+          <td  class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <a href="" class="underline">{{ order.orderId }}</a>
           </td>
           <td class="px-4 py-2">
             {{ order.createdAt | date: 'short' }}
@@ -449,7 +449,7 @@
           <td
             class="px-4 py-2  font-bold"
             [ngClass]="{
-                'text-orange-600': order.orderStatus === 'Received',
+                'text-[blue]': order.orderStatus === 'Received',
                 'text-purple-600': order.orderStatus === 'Order Placed',
                 'text-indigo-600': order.orderStatus === 'Order Confirmed',
                 'text-yellow-600': order.orderStatus === 'Order Processing',
@@ -468,7 +468,7 @@
             {{ order.firstName }}
           </td>
           <td class="px-4 py-2 flex flex-wrap gap-2">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+            <a href="" routerLink="/layout/product-details" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
             <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
           </td>
         </tr>

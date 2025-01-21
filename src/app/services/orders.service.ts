@@ -11,8 +11,10 @@ export class OrdersService {
   private baseURL = `${environment.apiBaseUrl}/order/orders`;
   private outletURL = `${environment.apiBaseUrl}/outlet/getAllOutlet`;
   private promoCodeURL = `${environment.apiBaseUrl}/discount/getAllCoupon`;
-  private filterURL = `${environment.apiBaseUrl}/admin/orders/filters`;  // New endpoint for filtering
+  private filterURL = `${environment.apiBaseUrl}/admin/orders/filters`;
+  private updateOrderByIdURL = `${environment.apiBaseUrl}/order/updateOrder`; // Added this line
   private http = inject(HttpClient);
+
 
   // Method to fetch all orders
   getOrders(): Observable<any[]> {
@@ -56,4 +58,25 @@ export class OrdersService {
   }
 
 
+  // update order by id
+
+
+  // Method to update an order by ID
+  updateOrderById(orderId: string, orderData: any): Observable<any> {
+    return this.http.put<{ message: string; updatedOrder: any }>(
+      `${this.updateOrderByIdURL}/${orderId}`,
+      orderData
+    );
+  }
+
+
 }
+
+
+
+
+
+
+
+
+
