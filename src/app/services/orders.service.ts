@@ -12,7 +12,8 @@ export class OrdersService {
   private outletURL = `${environment.apiBaseUrl}/outlet/getAllOutlet`;
   private promoCodeURL = `${environment.apiBaseUrl}/discount/getAllCoupon`;
   private filterURL = `${environment.apiBaseUrl}/admin/orders/filters`;
-  private updateOrderByIdURL = `${environment.apiBaseUrl}/order/updateOrder`; // Added this line
+  private getOrderByIdURL = `${environment.apiBaseUrl}/order/getOrderById`;
+  private updateOrderByIdURL = `${environment.apiBaseUrl}/order/updateOrder`;
   private http = inject(HttpClient);
 
 
@@ -58,17 +59,13 @@ export class OrdersService {
   }
 
 
-  // update order by id
 
 
-  // Method to update an order by ID
-  updateOrderById(orderId: string, orderData: any): Observable<any> {
-    return this.http.put<{ message: string; updatedOrder: any }>(
-      `${this.updateOrderByIdURL}/${orderId}`,
-      orderData
-    );
+// getOrderByID
+
+  getOrderById(orderId:string):Observable<any>{
+    return this.http.get<any>(`${this.getOrderByIdURL}/${orderId}`);
   }
-
 
 }
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrdersService} from '../../services/orders.service';
 import {DatePipe, NgClass, NgFor, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {ActivatedRoute, RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -25,12 +25,12 @@ export class OrdersComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
-  isLoading: boolean = false; // Loader state
+  isLoading: boolean = false;
   isFilterModalOpen = false;
 
   outlets: any[] = [];
   promoCodes: any[] = [];
-  errorMessage: string = ''; // To display any errors during filtering
+  errorMessage: string = '';
   showModal: boolean = false;
   orderStatuses = [
     'Received',
@@ -55,14 +55,16 @@ export class OrdersComponent implements OnInit {
 
 
 
-
-
-  constructor(private ordersService: OrdersService) {}
+  constructor(
+    private ordersService: OrdersService,
+    private route: ActivatedRoute,
+  ) {
+  }
 
   ngOnInit(): void {
-    this.fetchOrders(); // Fetch all orders initially
+    this.fetchOrders();
     this.fetchOutlets();
-    this.fetchPromoCodes(); // Fetch promo codes dynamically
+    this.fetchPromoCodes();
   }
 
   // Close the filter modal
@@ -91,7 +93,6 @@ export class OrdersComponent implements OnInit {
   }
 
 
-
   // Fetch filtered orders
   fetchFilteredOrders(): void {
     this.isLoading = true; // Show loader
@@ -113,8 +114,6 @@ export class OrdersComponent implements OnInit {
       },
     });
   }
-
-
 
 
   // Fetch all orders initially
@@ -194,7 +193,6 @@ export class OrdersComponent implements OnInit {
     const endPage = Math.min(this.totalPages, startPage + 4);
     return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
   }
-
 
 
 

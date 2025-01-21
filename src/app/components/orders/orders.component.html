@@ -435,7 +435,9 @@
             </div>
           </td>
           <td  class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            <a href="" class="underline">{{ order.orderId }}</a>
+            <a [routerLink]="['/layout/product-details', order._id]" class="underline">
+              {{ order.orderId }}
+            </a>
           </td>
           <td class="px-4 py-2">
             {{ order.createdAt | date: 'short' }}
