@@ -4,13 +4,13 @@
     <div class="max-w-6xl mx-auto p-4">
       <!-- Header -->
       <div class="flex justify-between items-center mb-6">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2" *ngIf="order">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
           <a href="" routerLink="/layout/order">
-            <h1  class="text-2xl font-semibold"> {{ order.orderId }}</h1>
+            <h1 class="text-2xl font-semibold"> {{ order.orderId }}</h1>
           </a>
         </div>
         <button class="px-4 py-2 bg-black text-white rounded-md">
@@ -99,7 +99,7 @@
                 <div>
                   <label class="block text-sm text-gray-600 mb-1">Billing Details</label>
                   <textarea readonly
-                    class="w-full p-2 border  rounded-md bg-gray-50" rows="4">
+                            class="w-full p-2 border  rounded-md bg-gray-50" rows="4">
                     {{order.deliveryAddress}}
                   </textarea>
                 </div>
@@ -129,8 +129,8 @@
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Shipping Address</label>
                 <textarea readonly
-                  class="w-full p-2 border rounded-md bg-gray-50"
-                  rows="4">
+                          class="w-full p-2 border rounded-md bg-gray-50"
+                          rows="4">
                  {{order.deliveryAddress}}
                 </textarea>
               </div>
@@ -153,15 +153,15 @@
                 <tr *ngFor="let product of order.products" class="border-b">
                   <td class="py-4">
                     <div class="flex items-center gap-3">
-                      <img [src]="product.productImage"  alt="Fan" class="w-12 h-12 object-cover rounded"/>
+                      <img [src]="product.productImage" alt="Fan" class="w-12 h-12 object-cover rounded"/>
                       <div>
-                        <p class="font-medium">{{product.productName}}</p>
-                        <p class="text-sm text-gray-500">SKU:{{product.sku}}</p>
+                        <p class="font-medium">{{ product.productName }}</p>
+                        <p class="text-sm text-gray-500">SKU:{{ product.sku }}</p>
                       </div>
                     </div>
                   </td>
-                  <td class="py-4">{{product.quantity}}</td>
-                  <td class="py-4">৳{{product.price }}</td>
+                  <td class="py-4">{{ product.quantity }}</td>
+                  <td class="py-4">৳{{ product.totalPrice }}</td>
 
                 </tr>
                 <!-- Repeat the above tr for each item -->
@@ -178,12 +178,14 @@
                 </div>
                 <div class="flex justify-between font-semibold">
                   <span>Order total</span>
-                  <span>৳{{order.totalPrice}}</span>
+                  <span>৳{{ order.totalPrice }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!--        Order Status Start -->
 
         <!-- Right Column -->
         <div class="space-y-6">
@@ -201,6 +203,8 @@
               </button>
             </div>
           </div>
+
+          <!--          Order Status End-->
 
           <!-- Transfer Order-->
           <div class="bg-white p-6 rounded-lg shadow-sm">

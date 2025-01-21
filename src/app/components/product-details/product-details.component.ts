@@ -20,7 +20,7 @@ import {DatePipe, DecimalPipe, NgFor, NgIf} from '@angular/common';
 
 export class ProductDetailsComponent implements OnInit {
 
-  order: any = null; // To store order details
+  order: any = {}; // To store order details
   isLoading = false; // To show a loader while fetching data
 
   constructor(
