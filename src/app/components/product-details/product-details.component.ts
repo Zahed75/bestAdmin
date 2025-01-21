@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
+import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import {OrdersService} from '../../services/orders.service';
 
@@ -7,7 +7,8 @@ import {OrdersService} from '../../services/orders.service';
 @Component({
   selector: 'app-product-details',
   imports: [
-    RouterOutlet
+    RouterOutlet,
+    RouterLink
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
