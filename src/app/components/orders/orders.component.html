@@ -8,13 +8,202 @@
 
     <!--    Filter Section Start-->
 
+<!--    <section class="bg-[#fefefe] lg:py-[5px] sm:mt-3 sm:py-[40px] py-[20px]">-->
+<!--      <div class="max-w-[1320px] mx-auto">-->
+<!--        <div class="flex container md:flex-row flex-col">-->
+<!--          <div class="basis-[15%]">-->
+<!--            &lt;!&ndash; Open Filter Button &ndash;&gt;-->
+<!--            <button-->
+<!--              class="bg-blue-500 text-white px-3 py-1.5 rounded text-sm hover:bg-blue-600"-->
+<!--              (click)="showModal = true"-->
+<!--            >-->
+<!--              Open Filters-->
+<!--            </button>-->
+
+<!--            &lt;!&ndash; Modal &ndash;&gt;-->
+<!--            <div-->
+<!--              *ngIf="showModal"-->
+<!--              class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"-->
+<!--            >-->
+<!--              <div class="bg-white w-[90%] max-w-lg rounded shadow-lg p-4 relative">-->
+<!--                <div class="flex justify-between items-center mb-3">-->
+<!--                  <h2 class="text-xl font-bold">Filter Options</h2>-->
+<!--                  &lt;!&ndash; Close Button &ndash;&gt;-->
+<!--                  <button-->
+<!--                    class="text-gray-500 hover:text-red-500 text-lg"-->
+<!--                    (click)="showModal = false"-->
+<!--                  >-->
+<!--                    ✖-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--                <form (ngSubmit)="applyFilters()">-->
+<!--                  &lt;!&ndash; Filter Fields &ndash;&gt;-->
+<!--                  <div class="mb-3">-->
+<!--                    <label class="block text-sm font-medium mb-1">Select Outlet</label>-->
+<!--                    <select name="outlet"-->
+<!--                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
+<!--                            [(ngModel)]="filterParams.outlet"-->
+<!--                    >-->
+<!--                      <option value="">All Outlets</option>-->
+<!--                      <option *ngFor="let outlet of outlets" [value]="outlet._id">{{ outlet.outletName }}</option>-->
+<!--                    </select>-->
+<!--                  </div>-->
+<!--                  <div class="mb-3">-->
+<!--                    <label class="block text-sm font-medium mb-1">Select Order Status</label>-->
+<!--                    <select name="status"-->
+<!--                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
+<!--                            [(ngModel)]="filterParams.orderStatus"-->
+<!--                    >-->
+<!--                      <option value="">All Statuses</option>-->
+<!--                      <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>-->
+<!--                    </select>-->
+<!--                  </div>-->
+<!--                  <div class="mb-3">-->
+<!--                    <label class="block text-sm font-medium mb-1">Select Promo Code</label>-->
+<!--                    <select name="promoCode"-->
+<!--                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
+<!--                            [(ngModel)]="filterParams.promoCode">-->
+<!--                      <option value="">All Promo Codes</option>-->
+<!--                      <option *ngFor="let promoCode of promoCodes" [value]="promoCode.name">-->
+<!--                        {{ promoCode.name }}-->
+<!--                      </option>-->
+<!--                    </select>-->
+<!--                  </div>-->
+<!--                  <div class="mb-3">-->
+<!--                    <label class="block text-sm font-medium mb-1">Select Payment Method</label>-->
+<!--                    <select name="paymentMethod"-->
+<!--                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
+<!--                            [(ngModel)]="filterParams.paymentMethod"-->
+<!--                    >-->
+<!--                      <option value="">All Methods</option>-->
+<!--                      <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>-->
+<!--                    </select>-->
+<!--                  </div>-->
+
+<!--                  &lt;!&ndash; Date Range Section &ndash;&gt;-->
+<!--                  <div class="mb-3">-->
+<!--                    <label class="block text-sm font-medium mb-1">Date Range</label>-->
+<!--                    <div class="flex gap-4">-->
+<!--                      <div class="w-1/2">-->
+<!--                        <label class="block text-sm font-medium mb-1">From</label>-->
+<!--                        <input name="startDate"-->
+<!--                               type="date"-->
+<!--                               class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
+<!--                               [(ngModel)]="filterParams.startDate"-->
+<!--                        />-->
+<!--                      </div>-->
+<!--                      <div class="w-1/2">-->
+<!--                        <label class="block text-sm font-medium mb-1">To</label>-->
+<!--                        <input name="endDate"-->
+<!--                               type="date"-->
+<!--                               class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"-->
+<!--                               [(ngModel)]="filterParams.endDate"-->
+<!--                        />-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                  &lt;!&ndash; Modal Actions &ndash;&gt;-->
+<!--                  <div class="flex justify-end space-x-2">-->
+<!--                    <button-->
+<!--                      type="button"-->
+<!--                      class="bg-gray-200 text-gray-700 px-3 py-1.5 rounded text-sm hover:bg-gray-300"-->
+<!--                      (click)="clearFilter()">-->
+<!--                      Reset-->
+<!--                    </button>-->
+<!--                    <button-->
+<!--                      type="button"-->
+<!--                      class="bg-gray-200 text-gray-700 px-3 py-1.5 rounded text-sm hover:bg-gray-300"-->
+<!--                      (click)="showModal = false"-->
+<!--                    >-->
+<!--                      Cancel-->
+<!--                    </button>-->
+
+<!--                    <button-->
+<!--                      type="submit"-->
+<!--                      class="bg-blue-500 text-white px-3 py-1.5 rounded text-sm hover:bg-blue-600"-->
+<!--                    >-->
+<!--                      Apply Filters-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                </form>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="basis-[40%]">-->
+<!--            <form class="max-w-md mx-auto">-->
+<!--              <div class="relative">-->
+<!--                <input-->
+<!--                  type="search"-->
+<!--                  id="default-search"-->
+<!--                  class="block w-full p-2 ps-8 text-sm text-gray-500 border border-gray-300 rounded-lg bg-gray-50 focus:ring-black focus:border-black"-->
+<!--                  placeholder="Search Order ID .."-->
+<!--                  required-->
+<!--                />-->
+<!--              </div>-->
+<!--            </form>-->
+<!--          </div>-->
+
+<!--          <div class="basis-[45%]">-->
+<!--            <div class="flex mx-[50px]">-->
+<!--              <button-->
+<!--                id="dropdownDefaultButton"-->
+<!--                data-dropdown-toggle="dropdown"-->
+<!--                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 inline-flex items-center"-->
+<!--                type="button"-->
+<!--              >-->
+<!--                Export-->
+<!--                <svg-->
+<!--                  class="w-2.5 h-2.5 ms-3"-->
+<!--                  xmlns="http://www.w3.org/2000/svg"-->
+<!--                  fill="none"-->
+<!--                  viewBox="0 0 10 6"-->
+<!--                >-->
+<!--                  <path-->
+<!--                    stroke="currentColor"-->
+<!--                    stroke-linecap="round"-->
+<!--                    stroke-linejoin="round"-->
+<!--                    stroke-width="2"-->
+<!--                    d="m1 1 4 4 4-4"-->
+<!--                  />-->
+<!--                </svg>-->
+<!--              </button>-->
+
+<!--              &lt;!&ndash; Dropdown menu &ndash;&gt;-->
+<!--              <div-->
+<!--                id="dropdown"-->
+<!--                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44"-->
+<!--              >-->
+<!--                <ul class="py-2 text-sm text-gray-700">-->
+<!--                  <li>-->
+<!--                    <a-->
+<!--                      href="#"-->
+<!--                      class="block px-4 py-2 hover:bg-gray-100"-->
+<!--                    >Dashboard</a-->
+<!--                    >-->
+<!--                  </li>-->
+<!--                  <li>-->
+<!--                    <a-->
+<!--                      href="#"-->
+<!--                      class="block px-4 py-2 hover:bg-gray-100"-->
+<!--                    >Settings</a-->
+<!--                    >-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
+
     <section class="bg-[#fefefe] lg:py-[5px] sm:mt-3 sm:py-[40px] py-[20px]">
-      <div class="max-w-[1320px] mx-auto">
-        <div class="flex container md:flex-row flex-col">
-          <div class="basis-[15%]">
+      <div class="max-w-[1320px] mx-auto px-4">
+        <div class="flex flex-wrap md:flex-nowrap container">
+          <div class="basis-full md:basis-[15%] mb-4 md:mb-0">
             <!-- Open Filter Button -->
             <button
-              class="bg-blue-500 text-white px-3 py-1.5 rounded text-sm hover:bg-blue-600"
+              class="bg-blue-500 text-white px-3 py-1.5 rounded text-sm hover:bg-blue-600 w-full md:w-auto"
               (click)="showModal = true"
             >
               Open Filters
@@ -40,43 +229,72 @@
                   <!-- Filter Fields -->
                   <div class="mb-3">
                     <label class="block text-sm font-medium mb-1">Select Outlet</label>
-                    <select name="outlet"
-                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                            [(ngModel)]="filterParams.outlet"
+                    <select
+                      name="outlet"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      [(ngModel)]="filterParams.outlet"
                     >
                       <option value="">All Outlets</option>
-                      <option *ngFor="let outlet of outlets" [value]="outlet._id">{{ outlet.outletName }}</option>
+                      <option
+                        *ngFor="let outlet of outlets"
+                        [value]="outlet._id"
+                      >
+                        {{ outlet.outletName }}
+                      </option>
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label class="block text-sm font-medium mb-1">Select Order Status</label>
-                    <select name="status"
-                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                            [(ngModel)]="filterParams.orderStatus"
+                    <label class="block text-sm font-medium mb-1"
+                    >Select Order Status</label
+                    >
+                    <select
+                      name="status"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      [(ngModel)]="filterParams.orderStatus"
                     >
                       <option value="">All Statuses</option>
-                      <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
+                      <option
+                        *ngFor="let status of orderStatuses"
+                        [value]="status"
+                      >
+                        {{ status }}
+                      </option>
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label class="block text-sm font-medium mb-1">Select Promo Code</label>
-                    <select name="promoCode"
-                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                            [(ngModel)]="filterParams.promoCode">
+                    <label class="block text-sm font-medium mb-1"
+                    >Select Promo Code</label
+                    >
+                    <select
+                      name="promoCode"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      [(ngModel)]="filterParams.promoCode"
+                    >
                       <option value="">All Promo Codes</option>
-                      <option *ngFor="let promoCode of promoCodes" [value]="promoCode.name">
+                      <option
+                        *ngFor="let promoCode of promoCodes"
+                        [value]="promoCode.name"
+                      >
                         {{ promoCode.name }}
                       </option>
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label class="block text-sm font-medium mb-1">Select Payment Method</label>
-                    <select name="paymentMethod"
-                            class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                            [(ngModel)]="filterParams.paymentMethod"
+                    <label class="block text-sm font-medium mb-1"
+                    >Select Payment Method</label
+                    >
+                    <select
+                      name="paymentMethod"
+                      class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      [(ngModel)]="filterParams.paymentMethod"
                     >
                       <option value="">All Methods</option>
-                      <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+                      <option
+                        *ngFor="let method of paymentMethods"
+                        [value]="method"
+                      >
+                        {{ method }}
+                      </option>
                     </select>
                   </div>
 
@@ -86,18 +304,20 @@
                     <div class="flex gap-4">
                       <div class="w-1/2">
                         <label class="block text-sm font-medium mb-1">From</label>
-                        <input name="startDate"
-                               type="date"
-                               class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                               [(ngModel)]="filterParams.startDate"
+                        <input
+                          name="startDate"
+                          type="date"
+                          class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          [(ngModel)]="filterParams.startDate"
                         />
                       </div>
                       <div class="w-1/2">
                         <label class="block text-sm font-medium mb-1">To</label>
-                        <input name="endDate"
-                               type="date"
-                               class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                               [(ngModel)]="filterParams.endDate"
+                        <input
+                          name="endDate"
+                          type="date"
+                          class="w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          [(ngModel)]="filterParams.endDate"
                         />
                       </div>
                     </div>
@@ -108,7 +328,8 @@
                     <button
                       type="button"
                       class="bg-gray-200 text-gray-700 px-3 py-1.5 rounded text-sm hover:bg-gray-300"
-                      (click)="clearFilter()">
+                      (click)="clearFilter()"
+                    >
                       Reset
                     </button>
                     <button
@@ -130,7 +351,8 @@
               </div>
             </div>
           </div>
-          <div class="basis-[40%]">
+
+          <div class="basis-full md:basis-[40%] mb-4 md:mb-0">
             <form class="max-w-md mx-auto">
               <div class="relative">
                 <input
@@ -144,8 +366,8 @@
             </form>
           </div>
 
-          <div class="basis-[45%]">
-            <div class="flex mx-[50px]">
+          <div class="basis-full md:basis-[45%]">
+            <div class="flex justify-center md:justify-end">
               <button
                 id="dropdownDefaultButton"
                 data-dropdown-toggle="dropdown"
@@ -179,20 +401,88 @@
                     <a
                       href="#"
                       class="block px-4 py-2 hover:bg-gray-100"
-                    >Dashboard</a
                     >
+                      Dashboard
+                    </a>
                   </li>
                   <li>
                     <a
                       href="#"
                       class="block px-4 py-2 hover:bg-gray-100"
-                    >Settings</a
                     >
+                      Settings
+                    </a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+
+
+    <section class="bg-gray-50 lg:py-4 sm:py-12 py-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <!-- Wrap the button container with a horizontal scrolling container -->
+        <div class="flex gap-2 overflow-x-auto scrollbar-hide">
+          <!-- All -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-black text-white hover:bg-gray-900 transition-colors duration-200">
+            All (1090)
+          </button>
+
+          <!-- Pending Payment -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            Received (576)
+          </button>
+
+          <!-- Processing -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            Placed (576)
+          </button>
+
+          <!-- Completed -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            Confirmed (576)
+          </button>
+
+          <!-- Cancelled -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            Processing (576)
+          </button>
+
+          <!-- Ready -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            Ready (576)
+          </button>
+
+          <!-- Dispatched -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            Dispatched (576)
+          </button>
+
+          <!-- Cancelled -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            Cancelled (576)
+          </button>
+
+          <!-- Delivered -->
+          <button
+            class="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            Delivered (576)
+          </button>
         </div>
       </div>
     </section>
@@ -416,10 +706,6 @@
 
 </div>
 <router-outlet></router-outlet>
-
-
-
-
 
 
 
