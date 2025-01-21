@@ -1,4 +1,3 @@
-
 <div class="flex flex-row mx-6">
 
   <div class="p-4 sm:ml-64 w-full">
@@ -6,7 +5,8 @@
       <!-- Header -->
       <div class="flex justify-between items-center mb-6">
         <div class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
           <h1 class="text-2xl font-semibold">Order #7939 details</h1>
@@ -20,10 +20,11 @@
         Payment via Cash on delivery. Customer IP: 116.12.34.168
       </p>
 
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Left Column -->
         <div class="md:col-span-2 space-y-6">
-          <!-- General Section -->
+          <!--      Order General Section Start-->
           <div class="bg-white p-6 rounded-lg shadow-sm">
             <h2 class="text-lg font-semibold mb-4">General</h2>
             <div class="grid grid-cols-2 gap-4">
@@ -47,24 +48,28 @@
               </div>
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Order Status</label>
-                <select class="w-full p-2 border rounded-md">
-                  <option>Processing</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-sm text-gray-600 mb-1">Customer</label>
-                <select class="w-full p-2 border rounded-md">
-                  <option>Sariful Islam</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-sm text-gray-600 mb-1">Order Type</label>
                 <input
                   type="text"
-                  [value]="'Pickup'"
+                  [value]="'Delivered'"
                   class="w-full p-2 border rounded-md bg-gray-50"
                   readonly
                 />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Customer</label>
+                <input
+                  type="text"
+                  [value]="'Zahed'"
+                  class="w-full p-2 border rounded-md bg-gray-50"
+
+                />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Order Type</label>
+                <select name="" id="" class="w-full p-2 border rounded-md bg-gray-50">
+                  <option value="Online">Delivery</option>
+                  <option value="Offline">Pickup</option>
+                </select>
               </div>
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Payment Type</label>
@@ -78,6 +83,9 @@
             </div>
           </div>
 
+          <!--     General Section End     -->
+
+
           <!-- Billing & Shipping Section -->
           <div class="grid grid-cols-2 gap-6">
             <!-- Billing -->
@@ -87,13 +95,13 @@
                 <div>
                   <label class="block text-sm text-gray-600 mb-1">Billing Details</label>
                   <textarea
-                    class="w-full p-2 border rounded-md bg-gray-50"
-                    rows="4"
-                    readonly>Engr. Syful Islam
-North South School, Ghorakanda,
-Bhairab
-Kishoreganj
-DHAKA</textarea>
+                    class="w-full p-2 border rounded-md bg-gray-50" rows="4">
+                    Engr. Syful Islam
+                    North South School, Ghorakanda,
+                    Bhairab
+                    Kishoreganj
+                    DHAKA
+                  </textarea>
                 </div>
                 <div>
                   <label class="block text-sm text-gray-600 mb-1">Email Address</label>
@@ -101,7 +109,6 @@ DHAKA</textarea>
                     type="email"
                     [value]="'sariful@gmail.com'"
                     class="w-full p-2 border rounded-md bg-gray-50"
-                    readonly
                   />
                 </div>
                 <div>
@@ -110,7 +117,7 @@ DHAKA</textarea>
                     type="tel"
                     [value]="'01748710741'"
                     class="w-full p-2 border rounded-md bg-gray-50"
-                    readonly
+
                   />
                 </div>
               </div>
@@ -123,12 +130,9 @@ DHAKA</textarea>
                 <label class="block text-sm text-gray-600 mb-1">Shipping Address</label>
                 <textarea
                   class="w-full p-2 border rounded-md bg-gray-50"
-                  rows="4"
-                  readonly>Engr. Syful Islam
-North South School, Ghorakanda,
-Bhairab
-Kishoreganj
-DHAKA</textarea>
+                  rows="4">
+                  lorem ipsum dolor sit amet
+                </textarea>
               </div>
             </div>
           </div>
@@ -186,16 +190,36 @@ DHAKA</textarea>
         <div class="space-y-6">
           <!-- Action -->
           <div class="bg-white p-6 rounded-lg shadow-sm">
-            <h2 class="text-lg font-semibold mb-4">Action</h2>
+            <h2 class="text-lg font-semibold mb-4">Change Order Status</h2>
             <div class="space-y-4">
               <select class="w-full p-2 border rounded-md">
                 <option>Choose an action</option>
+                <option>Choose an action</option>
+                <option>Choose an action</option>
               </select>
               <button class="w-full py-2 bg-black text-white rounded-md">
-                Proceed
+                Update
               </button>
             </div>
           </div>
+
+          <!-- Transfer Order-->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold mb-4">Transfer Order</h2>
+            <div class="space-y-4">
+              <p class="text-sm">If you are running out of stock you can transfer.</p>
+              <select class="w-full p-2 border rounded-md">
+                <option>BEL</option>
+                <option>BEL</option>
+                <option>BEL</option>
+              </select>
+              <button class="w-full py-2 bg-black text-white rounded-md">
+                Transfer
+              </button>
+            </div>
+          </div>
+
+          <!--          Transfer Order End-->
 
           <!-- Order Attribution -->
           <div class="bg-white p-6 rounded-lg shadow-sm">
@@ -243,26 +267,12 @@ DHAKA</textarea>
             </div>
           </div>
 
-          <!-- Order Notes -->
-          <div class="bg-white p-6 rounded-lg shadow-sm">
-            <h2 class="text-lg font-semibold mb-4">Order Notes</h2>
-            <div class="space-y-4">
-              <div class="p-4 bg-gray-50 rounded-md">
-                <p class="text-sm">Payment to be made upon delivery. Order status changed from Pending payment to Processing.</p>
-                <p class="text-sm text-gray-500 mt-2">Feb 28, 2024, 17:59</p>
-              </div>
-              <select class="w-full p-2 border rounded-md">
-                <option>Choose an action</option>
-              </select>
-              <button class="w-full py-2 bg-black text-white rounded-md">
-                Add Note
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
 
-</div>
+  </div>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+
+
