@@ -14,7 +14,7 @@
           </a>
         </div>
         <button class="px-4 py-2 bg-black text-white rounded-md">
-          Save Changes
+          Update
         </button>
       </div>
 
@@ -48,15 +48,21 @@
 
                 />
               </div>
+
+
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Order Status</label>
-                <input
-                  type="text"
-                  [value]="order.orderStatus"
-                  class="w-full p-2 border rounded-md bg-gray-50"
 
-                />
+                <select
+                  class="w-full p-2 border rounded-md text-orange-600 font-bold"
+                  [(ngModel)]="order.orderStatus"
+
+                >
+                  <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
+                </select>
               </div>
+
+
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Customer</label>
                 <input
@@ -68,13 +74,14 @@
               </div>
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Order Type</label>
-                <input
-                  type="text"
-                  [value]="order.orderType"
-                  class="w-full p-2 border rounded-md bg-gray-50"
-
-                />
+                <select
+                  class="w-full p-2 border rounded-md text-orange-600 font-bold"
+                  [(ngModel)]="order.orderType"
+                >
+                  <option *ngFor="let ordersType of  deliveryType" [value]="ordersType">{{ ordersType }}</option>
+                </select>
               </div>
+
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Payment Type</label>
                 <input
@@ -283,6 +290,6 @@
 
   </div>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 
 
