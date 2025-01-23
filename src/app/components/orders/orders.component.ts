@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OrdersService} from '../../services/orders.service';
-import {DatePipe, NgClass, NgFor, NgIf} from '@angular/common';
+import {DatePipe, DecimalPipe, NgClass, NgFor, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {ActivatedRoute, RouterLink, RouterOutlet} from '@angular/router';
 
@@ -16,7 +16,6 @@ import {ActivatedRoute, RouterLink, RouterOutlet} from '@angular/router';
     NgClass,
     DatePipe,
     RouterLink,
-
   ],
 })
 export class OrdersComponent implements OnInit {
@@ -132,6 +131,8 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+
+
   // Fetch all outlets from the service
   fetchOutlets(): void {
     this.ordersService.getAllOutlets().subscribe(
@@ -143,6 +144,11 @@ export class OrdersComponent implements OnInit {
       }
     );
   }
+
+
+
+
+
 
 // fetch PromoCodes
   fetchPromoCodes(): void {
@@ -159,6 +165,8 @@ export class OrdersComponent implements OnInit {
       }
     );
   }
+
+
 
 
   // Pagination logic
@@ -198,7 +206,6 @@ export class OrdersComponent implements OnInit {
     const result = confirm('Are you sure you want to delete this order?');
     if (result) {
       this.ordersService.deleteOrderById(id).subscribe((res: any) => {
-          alert("Employee Deleted Successfully")
           alert("Order deleted successfully");
           this.fetchOrders()
         }, (error) => {

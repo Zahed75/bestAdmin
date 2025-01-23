@@ -14,6 +14,7 @@ export class OrdersService {
   private filterURL = `${environment.apiBaseUrl}/admin/orders/filters`;
   private getOrderByIdURL = `${environment.apiBaseUrl}/order/getOrderById`;
   private deleteOrderByIdURL = `${environment.apiBaseUrl}/order/deleteOrder`;
+  private updateOrderByIdURL = `${environment.apiBaseUrl}/order/updateOrder`;
   private http = inject(HttpClient);
 
 
@@ -59,22 +60,23 @@ export class OrdersService {
   }
 
 
-
-
 // getOrderByID
 
-  getOrderById(orderId:string):Observable<any>{
+  getOrderById(orderId: string): Observable<any> {
     return this.http.get<any>(`${this.getOrderByIdURL}/${orderId}`);
   };
 
 
   // delete Order
-  deleteOrderById(id:number):Observable<any>{
+  deleteOrderById(id: number): Observable<any> {
     return this.http.delete(`${this.deleteOrderByIdURL}/${id}`);
   }
 
 
 
+  updateOrderById(id:number):Observable<any>{
+    return this.http.put(`${this.updateOrderByIdURL}/${id}`,id);
+  }
 
 
 }

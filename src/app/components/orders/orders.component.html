@@ -419,8 +419,8 @@
           <th scope="col" class="px-4 py-2">Amount</th>
           <th scope="col" class="px-4 py-2">Payment Method</th>
           <th scope="col" class="px-4 py-2">Status</th>
-          <th scope="col" class="px-4 py-2">Phone Number</th>
-          <th scope="col" class="px-4 py-2">Customer Name</th>
+          <th scope="col" class="px-4 py-2">Customer Number</th>
+          <th scope="col" class="px-4 py-2">Outlet Name</th>
           <th scope="col" class="px-4 py-2">Action</th>
         </tr>
         </thead>
@@ -466,11 +466,11 @@
           <td class="px-4 py-2">
             {{ order.phoneNumber }}
           </td>
-          <td class="px-4 py-2">
-            {{ order.firstName }}
+          <td  class="px-4 py-2">
+            {{ order.outletName }}
           </td>
           <td class="px-4 py-2 flex flex-wrap gap-2">
-            <a href="" routerLink="/layout/product-details" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+            <a  routerLink="/layout/product-details" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
             <a  (click)="onDelete(order._id)" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
           </td>
         </tr>
