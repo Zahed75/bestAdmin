@@ -73,11 +73,25 @@ export class OrderDetailsComponent implements OnInit {
     this.checkUserPermissions();
   }
 
+  // fetchOrderDetails(orderId: string): void {
+  //   this.isLoading = true;
+  //   this.ordersService.getOrderById(orderId).subscribe({
+  //     next: (response) => {
+  //       this.order = response.order;
+  //       this.isLoading = false;
+  //     },
+  //     error: (error) => {
+  //       console.error('Error fetching order details:', error);
+  //       this.isLoading = false;
+  //     },
+  //   });
+  // }
   fetchOrderDetails(orderId: string): void {
     this.isLoading = true;
     this.ordersService.getOrderById(orderId).subscribe({
       next: (response) => {
         this.order = response.order;
+        this.order.id = orderId; // Ensure the `id` is set
         this.isLoading = false;
       },
       error: (error) => {
@@ -86,6 +100,7 @@ export class OrderDetailsComponent implements OnInit {
       },
     });
   }
+
 
   // Check if the current user has "HQ" role
   checkUserPermissions(): void {
@@ -106,19 +121,26 @@ export class OrderDetailsComponent implements OnInit {
   }
 
 
-
-  onEdit(id: number) {
-    const result = confirm("Are you sure you want to edit this order?");
+  onEdit(id: string) {
+    const result = confirm('Are you sure you want to edit this order?');
     if (result) {
-      this.ordersService.updateOrderById(id).subscribe((res: any) => {
-          alert("Order updated successfully");
-          this.fetchOrderDetails
-        }, error => {
-          alert("Error updating order");
+      const updatedOrderData = {
+        ...this.order, // Send the current order data with any changes
+      };
+
+      this.ordersService.updateOrderById(id, updatedOrderData).subscribe(
+        (res: any) => {
+          alert('Order updated successfully');
+          this.fetchOrderDetails(id); // Refresh the details
+        },
+        (error) => {
+          console.error('Error updating order:', error);
+          alert('Error updating order');
         }
-      )
+      );
     }
   }
+
 
 
 }

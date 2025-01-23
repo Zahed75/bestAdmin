@@ -74,9 +74,10 @@ export class OrdersService {
 
 
 
-  updateOrderById(id:number):Observable<any>{
-    return this.http.put(`${this.updateOrderByIdURL}/${id}`,id);
+  updateOrderById(id: string, orderData: any): Observable<any> {
+    return this.http.put(`${this.updateOrderByIdURL}/${id}`, orderData);
   }
+
 
 
 }
