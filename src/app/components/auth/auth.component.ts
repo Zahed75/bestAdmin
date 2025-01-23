@@ -1,50 +1,3 @@
-// import { Component, inject } from '@angular/core';
-// import { Router, RouterOutlet } from '@angular/router';
-// import { FormsModule } from '@angular/forms';
-// import { AuthService } from '../../services/auth.service';
-// import {NgIf} from '@angular/common';
-//
-// @Component({
-//   selector: 'app-auth',
-//   imports: [
-//     FormsModule,
-//     RouterOutlet,
-//     NgIf
-//   ],
-//   templateUrl: './auth.component.html',
-//   styleUrls: ['./auth.component.css'],
-//
-// })
-// export class AuthComponent {
-//   loginData = {
-//     email: '',
-//     password: '',
-//   };
-//
-//   authService = inject(AuthService);
-//   router = inject(Router);
-//
-//   onLogin() {
-//     this.authService.signInAdmin(this.loginData).subscribe(
-//
-//       (res: any) => {
-//         if (res.user?.accessToken) {
-//           localStorage.setItem('accessToken', res.user.accessToken);
-//           localStorage.setItem('users', JSON.stringify(res.user));
-//           this.router.navigateByUrl("layout/dashboard");
-//         } else {
-//           alert(res.message || 'Login failed.');
-//         }
-//       },
-//       (err) => {
-//         alert(err.error?.message || 'An error occurred. Please try again.');
-//       }
-//     );
-//   }
-//
-//
-// }
-
 import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -96,6 +49,8 @@ export class AuthComponent {
     );
   }
 
+
+
   redirectUserBasedOnRole() {
     switch (this.userRole) {
       case 'HQ':
@@ -115,5 +70,7 @@ export class AuthComponent {
         alert('Unauthorized role detected. Please contact support.');
     }
   }
+
+
 }
 

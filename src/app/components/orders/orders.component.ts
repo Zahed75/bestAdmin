@@ -54,7 +54,6 @@ export class OrdersComponent implements OnInit {
   };
 
 
-
   constructor(
     private ordersService: OrdersService,
     private route: ActivatedRoute,
@@ -194,6 +193,21 @@ export class OrdersComponent implements OnInit {
     return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
   }
 
+
+  onDelete(id: number) {
+    const result = confirm('Are you sure you want to delete this order?');
+    if (result) {
+      this.ordersService.deleteOrderById(id).subscribe((res: any) => {
+          alert("Employee Deleted Successfully")
+          alert("Order deleted successfully");
+          this.fetchOrders()
+        }, (error) => {
+          alert("Error deleting order");
+        }
+      )
+    }
+
+  }
 
 
 }

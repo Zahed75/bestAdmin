@@ -20,13 +20,26 @@ import {DatePipe, DecimalPipe, NgFor, NgIf} from '@angular/common';
 
 export class ProductDetailsComponent implements OnInit {
 
+
   order: any = {}; // To store order details
   isLoading = false; // To show a loader while fetching data
+
+  orderStatuses = [
+    'Received',
+    'Order Placed',
+    'Order Confirmed',
+    'Order Processing',
+    'Ready for Delivery',
+    'Order Dispatched',
+    'Cancelled',
+    'Order Delivered',
+  ];
 
   constructor(
     private route: ActivatedRoute,
     private ordersService: OrdersService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     // Get orderId from route parameters
@@ -49,4 +62,5 @@ export class ProductDetailsComponent implements OnInit {
       },
     });
   }
+
 }

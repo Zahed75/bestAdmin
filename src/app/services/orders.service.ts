@@ -13,7 +13,7 @@ export class OrdersService {
   private promoCodeURL = `${environment.apiBaseUrl}/discount/getAllCoupon`;
   private filterURL = `${environment.apiBaseUrl}/admin/orders/filters`;
   private getOrderByIdURL = `${environment.apiBaseUrl}/order/getOrderById`;
-  private updateOrderByIdURL = `${environment.apiBaseUrl}/order/updateOrder`;
+  private deleteOrderByIdURL = `${environment.apiBaseUrl}/order/deleteOrder`;
   private http = inject(HttpClient);
 
 
@@ -65,7 +65,17 @@ export class OrdersService {
 
   getOrderById(orderId:string):Observable<any>{
     return this.http.get<any>(`${this.getOrderByIdURL}/${orderId}`);
+  };
+
+
+  // delete Order
+  deleteOrderById(id:number):Observable<any>{
+    return this.http.delete(`${this.deleteOrderByIdURL}/${id}`);
   }
+
+
+
+
 
 }
 
