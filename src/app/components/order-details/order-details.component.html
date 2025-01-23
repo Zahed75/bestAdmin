@@ -36,7 +36,7 @@
                   type="text"
                   [value]="order.createdAt|date:'mediumDate'"
                   class="w-full p-2 border rounded-md bg-gray-50"
-                  readonly
+
                 />
               </div>
               <div>
@@ -45,7 +45,7 @@
                   type="text"
                   [value]="order.createdAt|date:'shortTime'"
                   class="w-full p-2 border rounded-md bg-gray-50"
-                  readonly
+
                 />
               </div>
               <div>
@@ -54,7 +54,7 @@
                   type="text"
                   [value]="order.orderStatus"
                   class="w-full p-2 border rounded-md bg-gray-50"
-                  readonly
+
                 />
               </div>
               <div>
@@ -81,7 +81,7 @@
                   type="text"
                   [value]="order.paymentMethod"
                   class="w-full p-2 border rounded-md bg-gray-50"
-                  readonly
+
                 />
               </div>
             </div>
@@ -98,7 +98,7 @@
                 <div>
                   <label class="block text-sm text-gray-600 mb-1">Billing Details</label>
                   <textarea
-                    readonly
+
                     class="w-full p-2 border rounded-md bg-gray-50"
                     rows="4"
                   >
@@ -133,7 +133,7 @@
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Shipping Address</label>
                 <textarea
-                  readonly
+
                   class="w-full p-2 border rounded-md bg-gray-50"
                   rows="4"
                 >
@@ -283,6 +283,6 @@
 
   </div>
 
-  <router-outlet></router-outlet>
+<router-outlet></router-outlet>
 
 
