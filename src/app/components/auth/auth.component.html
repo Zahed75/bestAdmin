@@ -52,6 +52,22 @@
       </div>
     </form>
 
+    <!-- Role-based content display -->
+    <div *ngIf="userRole" class="mt-8 text-center">
+      <p *ngIf="userRole === 'HQ'" class="text-sm/6 font-medium text-gray-900">
+        Welcome, HQ user! You have full access.
+      </p>
+      <p *ngIf="userRole === 'BA'" class="text-sm/6 font-medium text-gray-900">
+        Welcome, BA user! Limited features available.
+      </p>
+      <p *ngIf="userRole === 'MGR'" class="text-sm/6 font-medium text-gray-900">
+        Welcome, Manager! Access granted to manager-specific features.
+      </p>
+      <p *ngIf="userRole === 'CUS'" class="text-sm/6 font-medium  text-gray-900">
+        Welcome, Customer! Permission Forbidden! You have access to customer-specific pages.
+      </p>
+    </div>
+
     <p class="mt-10 text-center text-sm/6 text-gray-500">
       Not have a account?
       <a href="#" class="font-semibold text-black hover:text-orange-500">Sign Up Here</a>
