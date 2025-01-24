@@ -28,7 +28,7 @@ export class OrderDetailsComponent implements OnInit {
   isLoading = false; // To show a loader while fetching data
   canEditOrder = false;  // To show a loader while fetching data
   outlets: any[] = [];
-
+  selectedOutletId: string = '';
   orderStatuses = [
     'Received',
     'Order Placed',
@@ -137,7 +137,7 @@ export class OrderDetailsComponent implements OnInit {
   fetchOutlets(): void {
     this.detailsOrderService.getAllOutlets().subscribe({
       next: (outlets) => {
-        console.log('Fetched outlets:', outlets); // Log the fetched outlets
+        console.log('Fetched outlets:', outlets);  // Check if outlets data is correct
         this.outlets = Array.isArray(outlets) ? outlets : [];
       },
       error: (error) => {
@@ -146,6 +146,41 @@ export class OrderDetailsComponent implements OnInit {
     });
   }
 
+
+  onTransferOrder(): void {
+    const orderId = this.order.id; // Ensure orderId is correctly populated
+    const outletId = this.selectedOutletId; // Ensure outletId is correctly selected
+
+    console.log('Order ID:', orderId);
+    console.log('Selected Outlet ID:', outletId);
+
+    if (!orderId || !outletId) {
+      alert('Please select an outlet and ensure the order ID is valid.');
+      return;
+    }
+
+    const confirmation = confirm(`Are you sure you want to transfer this order to outlet?`);
+    if (!confirmation) return;
+
+    // Prepare the payload
+    const payload = {
+      orderId: orderId,
+      outletId: outletId
+    };
+
+    // Call the service to transfer the order
+    this.detailsOrderService.transferOrder(payload).subscribe({
+      next: (response) => {
+        console.log('Transfer Response:', response);
+        alert(response.message || 'Order transferred successfully');
+        this.fetchOrderDetails(orderId); // Refresh order details
+      },
+      error: (error) => {
+        console.error('Error transferring order:', error);
+        alert('Error transferring order');
+      }
+    });
+  }
 
 
 

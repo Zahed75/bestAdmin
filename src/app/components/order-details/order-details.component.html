@@ -227,22 +227,20 @@
             <div class="space-y-4">
               <p class="text-sm">If you are running out of stock, you can transfer.</p>
 
-              <select class="w-full p-2 border rounded-md">
+              <select class="w-full p-2 border rounded-md" [(ngModel)]="selectedOutletId">
                 <option value="" disabled>Select an outlet</option>
-                <option *ngFor="let outlet of outlets" [value]="outlet.outletId">
+                <option *ngFor="let outlet of outlets" [value]="outlet._id">
                   {{ outlet.outletName }}
                 </option>
-
-
               </select>
 
 
-              <button class="w-full py-2 bg-black text-white rounded-md">
+
+              <button (click)="onTransferOrder()" class="w-full py-2 bg-black text-white rounded-md">
                 Transfer
               </button>
             </div>
           </div>
-
 
 
           <!--          Transfer Order End-->
