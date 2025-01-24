@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import { RouterLink, RouterOutlet} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import {OrdersService} from '../../services/orders.service';
-import {DatePipe, NgFor, NgIf} from '@angular/common';
-
-import { AuthService } from '../../services/auth.service';
+import {DetailsOrderService} from '../../services/details-order.service';
+import {DatePipe, JsonPipe, NgFor, NgIf} from '@angular/common';
+import {AuthService} from '../../services/auth.service';
 import {FormsModule} from '@angular/forms';
+
 @Component({
   selector: 'app-order-details',
   imports: [
@@ -14,7 +15,7 @@ import {FormsModule} from '@angular/forms';
     DatePipe,
     NgIf,
     NgFor,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.css'
@@ -46,22 +47,12 @@ export class OrderDetailsComponent implements OnInit {
 
   ]
 
-  paymentMethods = ['Cash On Delivery', 'Online Payment'];
-
-  filterParams = {
-    outlet: '',
-    orderStatus: '',
-    promoCode: '',
-    paymentMethod: '',
-    startDate: '',
-    endDate: '',
-  };
-  selectedStatus: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private ordersService: OrdersService,
-    private authService: AuthService
+    private authService: AuthService,
+    private detailsOrderService: DetailsOrderService
   ) {
   }
 
@@ -72,6 +63,7 @@ export class OrderDetailsComponent implements OnInit {
       this.fetchOrderDetails(orderId);
     }
     this.checkUserPermissions();
+    this.fetchOutlets();
   }
 
   fetchOrderDetails(orderId: string): void {
@@ -94,18 +86,6 @@ export class OrderDetailsComponent implements OnInit {
   checkUserPermissions(): void {
     const userRole = this.authService.getRole(); // Assuming this method returns the current user's role
     this.canEditOrder = userRole === 'HQ';
-  }
-
-
-  fetchOutlets(): void {
-    this.ordersService.getAllOutlets().subscribe(
-      (outlets) => {
-        this.outlets = Array.isArray(outlets) ? outlets : [];
-      },
-      (error) => {
-        console.error('Error fetching outlets:', error);
-      }
-    );
   }
 
 
@@ -153,6 +133,17 @@ export class OrderDetailsComponent implements OnInit {
   }
 
 
+  fetchOutlets(): void {
+    this.detailsOrderService.getAllOutlets().subscribe({
+      next: (outlets) => {
+        console.log('Fetched outlets:', outlets); // Log the fetched outlets
+        this.outlets = Array.isArray(outlets) ? outlets : [];
+      },
+      error: (error) => {
+        console.error('Error fetching outlets:', error); // Log errors
+      }
+    });
+  }
 
 
 

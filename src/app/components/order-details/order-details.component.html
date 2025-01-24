@@ -213,17 +213,11 @@
               <select class="w-full p-2 border rounded-md">
                 <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
               </select>
-              <button (click)="onUpdateStatus(order.orderStatus)"  class="w-full py-2 bg-black text-white rounded-md">
+              <button (click)="onUpdateStatus(order.orderStatus)" class="w-full py-2 bg-black text-white rounded-md">
                 Update
               </button>
             </div>
           </div>
-
-
-
-
-
-
 
           <!--          Order Status End-->
 
@@ -231,17 +225,23 @@
           <div class="bg-white p-6 rounded-lg shadow-sm">
             <h2 class="text-lg font-semibold mb-4">Transfer Order</h2>
             <div class="space-y-4">
-              <p class="text-sm">If you are running out of stock you can transfer.</p>
+              <p class="text-sm">If you are running out of stock, you can transfer.</p>
+
               <select class="w-full p-2 border rounded-md">
-                <option>BEL</option>
-                <option>BEL</option>
-                <option>BEL</option>
+                <option value="" disabled>Select an outlet</option>
+                <option *ngFor="let outlet of outlets" [value]="outlet.id">
+                  {{ outlet.name }}
+                </option>
               </select>
+
+
               <button class="w-full py-2 bg-black text-white rounded-md">
                 Transfer
               </button>
             </div>
           </div>
+
+
 
           <!--          Transfer Order End-->
 
@@ -298,5 +298,5 @@
   </div>
 </div>
 
-  <router-outlet></router-outlet>
+<router-outlet></router-outlet>
 
