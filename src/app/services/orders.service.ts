@@ -15,6 +15,7 @@ export class OrdersService {
   private getOrderByIdURL = `${environment.apiBaseUrl}/order/getOrderById`;
   private deleteOrderByIdURL = `${environment.apiBaseUrl}/order/deleteOrder`;
   private updateOrderByIdURL = `${environment.apiBaseUrl}/order/updateOrder`;
+  private updateOrderStatusURL = `${environment.apiBaseUrl}/order`;
   private http = inject(HttpClient);
 
 
@@ -78,6 +79,11 @@ export class OrdersService {
     return this.http.put(`${this.updateOrderByIdURL}/${id}`, orderData);
   }
 
+
+  updateOrderStatus(orderId: string, orderStatus: string): Observable<any> {
+    const payload = { orderStatus }; // Payload as per your API
+    return this.http.put(`${this.updateOrderStatusURL}/${orderId}`, payload);
+  }
 
 
 }

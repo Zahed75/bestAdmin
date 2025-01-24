@@ -39,7 +39,7 @@ export class OrderDetailsComponent implements OnInit {
     'Order Delivered',
   ];
 
-  deliveryType =[
+  deliveryType = [
     "Delivery",
     "Pickup",
     "Online"
@@ -56,6 +56,7 @@ export class OrderDetailsComponent implements OnInit {
     startDate: '',
     endDate: '',
   };
+  selectedStatus: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -73,19 +74,6 @@ export class OrderDetailsComponent implements OnInit {
     this.checkUserPermissions();
   }
 
-  // fetchOrderDetails(orderId: string): void {
-  //   this.isLoading = true;
-  //   this.ordersService.getOrderById(orderId).subscribe({
-  //     next: (response) => {
-  //       this.order = response.order;
-  //       this.isLoading = false;
-  //     },
-  //     error: (error) => {
-  //       console.error('Error fetching order details:', error);
-  //       this.isLoading = false;
-  //     },
-  //   });
-  // }
   fetchOrderDetails(orderId: string): void {
     this.isLoading = true;
     this.ordersService.getOrderById(orderId).subscribe({
@@ -142,8 +130,40 @@ export class OrderDetailsComponent implements OnInit {
   }
 
 
+  // Method to update the order status
+  onUpdateStatus(newStatus: string): void {
+    if (!this.order.id) {
+      console.error('Order ID is not available.');
+      return;
+    }
+
+    const confirmation = confirm(`Are you sure you want to update the status to "${newStatus}"?`);
+    if (!confirmation) return;
+
+    this.ordersService.updateOrderStatus(this.order.id, newStatus).subscribe({
+      next: (response) => {
+        alert(response.message || 'Order status updated successfully');
+        this.order.orderStatus = newStatus; // Update the UI
+      },
+      error: (error) => {
+        console.error('Error updating order status:', error);
+        alert('Error updating order status');
+      },
+    });
+  }
+
+
+
+
+
 
 }
+
+
+
+
+
+
 
 
 
