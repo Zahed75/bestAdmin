@@ -229,9 +229,11 @@
 
               <select class="w-full p-2 border rounded-md">
                 <option value="" disabled>Select an outlet</option>
-                <option *ngFor="let outlet of outlets" [value]="outlet.id">
-                  {{ outlet.name }}
+                <option *ngFor="let outlet of outlets" [value]="outlet.outletId">
+                  {{ outlet.outletName }}
                 </option>
+
+
               </select>
 
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import {OrdersService} from '../../services/orders.service';
@@ -52,7 +52,8 @@ export class OrderDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private ordersService: OrdersService,
     private authService: AuthService,
-    private detailsOrderService: DetailsOrderService
+    private detailsOrderService: DetailsOrderService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
