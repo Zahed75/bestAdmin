@@ -19,6 +19,7 @@ export class OutletsComponent implements OnInit, AfterViewInit {
 
   outlets: any[] = []
   managers: any[] = []
+  isLoading: boolean = false;
 
   ngAfterViewInit(): void {
     initFlowbite();
@@ -31,7 +32,6 @@ export class OutletsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private outletService: OutletService,
-
   ) {
   }
 
@@ -41,6 +41,7 @@ export class OutletsComponent implements OnInit, AfterViewInit {
 
   fetchManagersAndOutlets() {
     // Fetch managers and outlets together
+    this.isLoading = true;
     this.outletService.getAllManagers().subscribe(
       (managers: any[]) => {
         this.managers = managers; // Save all managers for later use
@@ -62,23 +63,24 @@ export class OutletsComponent implements OnInit, AfterViewInit {
                 managerName: manager ? manager.userName : 'N/A', // Use 'N/A' if no manager is found
               };
             });
+            this.isLoading = false;
 
             console.log('Outlets with managers:', this.outlets);
           },
           (error) => {
             console.error('Error fetching outlets:', error);
             alert('Error fetching outlets');
+            this.isLoading=false;
           }
         );
       },
       (error) => {
         console.error('Error fetching managers:', error);
         alert('Error fetching managers');
+        this.isLoading=false;
       }
     );
   }
-
-
 
 
 }

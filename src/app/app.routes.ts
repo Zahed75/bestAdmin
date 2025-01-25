@@ -10,6 +10,7 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
 import { UsersComponent } from './components/users/users.component';
 import { ReportingComponent } from './components/reporting/reporting.component';
 import { authGuard } from './guard/auth.guard';
+import {OutletDetailsComponent} from './components/outlet-details/outlet-details.component';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,12 @@ export const routes: Routes = [
         data: { roles: ['HQ', 'BA', 'AD'] }, // Only HQ, BA, AD can access
       },
       {
+        path:'outlet-details',
+        component:OutletDetailsComponent,
+        canActivate:[authGuard],
+        data: { roles: ['HQ', 'BA', 'AD'] }
+      },
+      {
         path: 'discount',
         component: DiscountComponent,
         canActivate: [authGuard],
@@ -61,6 +68,7 @@ export const routes: Routes = [
         canActivate: [authGuard],
         data: { roles: ['HQ', 'BA', 'AD', 'MGR'] }, // HQ, BA, AD, MGR can access
       },
+
       {
         path: 'users',
         component: UsersComponent,
