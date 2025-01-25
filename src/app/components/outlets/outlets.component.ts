@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {NgForOf, NgIf} from '@angular/common';
-
+import { initFlowbite } from 'flowbite';
 @Component({
   selector: 'app-outlets',
   imports: [
@@ -11,6 +10,13 @@ import {NgForOf, NgIf} from '@angular/common';
   templateUrl: './outlets.component.html',
   styleUrl: './outlets.component.css'
 })
-export class OutletsComponent {
+export class OutletsComponent  implements AfterViewInit {
+
+  ngAfterViewInit(): void {
+    // Initialize Flowbite after the view is fully loaded
+    initFlowbite();
+  }
+
+
 
 }
