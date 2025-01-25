@@ -121,6 +121,25 @@
     <!--    Outlet Head End-->
 
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+
+    <!--    Permission Start-->
+    <!-- Role-based content display -->
+    <div *ngIf="userRole" class="mt-8 text-center">
+      <p *ngIf="userRole === 'HQ'" class="text-sm/6 font-medium text-gray-900">
+        Welcome, HQ user! You have full access.
+      </p>
+      <p *ngIf="userRole === 'BA'" class="text-sm/6 font-medium text-gray-900">
+        Welcome, BA user! Limited features available.
+      </p>
+      <p *ngIf="userRole === 'MGR'" class="text-sm/6 font-medium text-gray-900">
+        Welcome, Manager! Access granted to manager-specific features.
+      </p>
+      <p *ngIf="userRole === 'CUS'" class="text-sm/6 font-medium  text-gray-900">
+        Welcome, Customer! Permission Forbidden! You have access to customer-specific pages.
+      </p>
+    </div>
+
+    <!--    Permission End-->
     <!--Outlet Table Start-->
 
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
@@ -143,18 +162,18 @@
               </thead>
               <tbody>
 
-              <tr  *ngFor="let outlet of outlets;" class="border-b dark:border-gray-700">
+              <tr *ngFor="let outlet of outlets;" class="border-b dark:border-gray-700">
 
                 <a href="">
-                  <th scope="row"  class="px-4 py-3 font-bold underline text-gray-900 whitespace-nowrap dark:text-white">
-                    {{outlet.outletName}}
+                  <th scope="row" class="px-4 py-3 font-bold underline text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ outlet.outletName }}
                   </th>
                 </a>
 
-                <td class="px-4 py-3">{{outlet.areaName}}</td>
-                <td class="px-4 py-3">{{outlet.cityName}}</td>
-                <td class="px-4 py-3">{{outlet.outletManagerPhone}}</td>
-                <td  class="px-4 py-3">{{outlet.managerName}}</td>
+                <td class="px-4 py-3">{{ outlet.areaName }}</td>
+                <td class="px-4 py-3">{{ outlet.cityName }}</td>
+                <td class="px-4 py-3">{{ outlet.outletManagerPhone }}</td>
+                <td class="px-4 py-3">{{ outlet.managerName }}</td>
                 <td class="flex items-center px-4 py-3">
                   <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                   <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>

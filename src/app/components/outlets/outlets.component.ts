@@ -1,29 +1,37 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import { initFlowbite } from 'flowbite';
-import { OutletService } from '../../services/outlet.service';
-import {NgFor} from '@angular/common';
+import {initFlowbite} from 'flowbite';
+import {OutletService} from '../../services/outlet.service';
+import {NgFor, NgIf} from '@angular/common';
+import {Router} from '@angular/router';
+
 @Component({
   selector: 'app-outlets',
   imports: [
     FormsModule,
-    NgFor
+    NgFor,
+    NgIf
   ],
   templateUrl: './outlets.component.html',
   styleUrl: './outlets.component.css'
 })
-export class OutletsComponent  implements OnInit, AfterViewInit {
+export class OutletsComponent implements OnInit, AfterViewInit {
 
-  outlets:any[]=[]
-  managers:any[]=[]
+  outlets: any[] = []
+  managers: any[] = []
 
   ngAfterViewInit(): void {
     initFlowbite();
   }
 
+  router = inject(Router);
+
+  userRole: string | null = null; // To store the user's role after login.
+
 
   constructor(
-    private outletService: OutletService
+    private outletService: OutletService,
+
   ) {
   }
 
@@ -69,10 +77,6 @@ export class OutletsComponent  implements OnInit, AfterViewInit {
       }
     );
   }
-
-
-
-
 
 
 
