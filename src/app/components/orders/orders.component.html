@@ -466,8 +466,12 @@
           <td class="px-4 py-2">
             {{ order.phoneNumber }}
           </td>
-          <td  class="px-4 py-2">
-            {{ order.outletName }}
+          <td class="px-1 py-1 truncate max-w-[100px] relative group">
+            <span class="truncate">{{ order.outletName }}</span>
+            <!-- Tooltip -->
+            <div class="absolute z-10 invisible group-hover:visible bg-black text-white text-xs px-2 py-1 rounded bottom-full mb-2 left-1/2 transform -translate-x-1/2">
+              {{ order.outletName }}
+            </div>
           </td>
           <td class="px-4 py-2 flex flex-wrap gap-2">
             <a  routerLink="/layout/product-details" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>

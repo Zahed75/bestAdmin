@@ -1,0 +1,18 @@
+/* Add this to your styles.css or component's CSS file */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+th, td {
+  padding: 0.25rem; /* Further reduce padding */
+  font-size: 0.75rem; /* Further reduce font size */
+}
+
+tr:hover {
+  background-color: #f9fafb; /* Light gray hover effect */
+}
+
+.dark tr:hover {
+  background-color: #374151; /* Dark mode hover effect */
+}
