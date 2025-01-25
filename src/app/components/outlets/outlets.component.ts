@@ -82,5 +82,9 @@ export class OutletsComponent implements OnInit, AfterViewInit {
     );
   }
 
+  selectedOutlets: Set<any> = new Set(); // Stores selected outlets
+
+
+
 
 }
