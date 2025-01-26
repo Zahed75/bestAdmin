@@ -40,10 +40,7 @@ export class OutletsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.fetchManagersAndOutlets();
-    const outletId = this.route.snapshot.paramMap.get('outletId');
-    if(outletId){
-      this.fetchOutletDetails(outletId);
-    }
+
   }
 
   fetchManagersAndOutlets() {
@@ -91,19 +88,6 @@ export class OutletsComponent implements OnInit, AfterViewInit {
 
 
 
-fetchOutletDetails(outletId: string): void {
-    this.isLoading = true;
-    this.outletService.getOutletById(outletId).subscribe({
-      next: (response) => {
-        this.outlets = response.outlet;
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('Error fetching outlet details:', error);
-        this.isLoading = false;
-      },
-    });
-  }
 
 
 
