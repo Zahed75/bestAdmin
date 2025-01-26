@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, inject, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {initFlowbite} from 'flowbite';
 import {OutletService} from '../../services/outlet.service';
 import {NgFor, NgIf} from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-outlets',
@@ -33,11 +33,17 @@ export class OutletsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private outletService: OutletService,
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
     this.fetchManagersAndOutlets();
+    const outletId = this.route.snapshot.paramMap.get('outletId');
+    if(outletId){
+      this.fetchOutletDetails(outletId);
+    }
   }
 
   fetchManagersAndOutlets() {
