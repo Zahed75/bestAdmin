@@ -3,14 +3,15 @@ import {FormsModule} from '@angular/forms';
 import {initFlowbite} from 'flowbite';
 import {OutletService} from '../../services/outlet.service';
 import {NgFor, NgIf} from '@angular/common';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-outlets',
   imports: [
     FormsModule,
+    NgIf,
     NgFor,
-    NgIf
+    RouterLink
   ],
   templateUrl: './outlets.component.html',
   styleUrl: './outlets.component.css'
@@ -82,7 +83,22 @@ export class OutletsComponent implements OnInit, AfterViewInit {
     );
   }
 
-  selectedOutlets: Set<any> = new Set(); // Stores selected outlets
+
+
+fetchOutletDetails(outletId: string): void {
+    this.isLoading = true;
+    this.outletService.getOutletById(outletId).subscribe({
+      next: (response) => {
+        this.outlets = response.outlet;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching outlet details:', error);
+        this.isLoading = false;
+      },
+    });
+  }
+
 
 
 

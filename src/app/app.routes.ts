@@ -51,7 +51,7 @@ export const routes: Routes = [
         data: { roles: ['HQ', 'BA', 'AD'] }, // Only HQ, BA, AD can access
       },
       {
-        path:'outlet-details',
+        path:'outlet-details/:outletId',
         component:OutletDetailsComponent,
         canActivate:[authGuard],
         data: { roles: ['HQ', 'BA', 'AD'] }
