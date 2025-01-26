@@ -323,7 +323,7 @@
                 <label for="outlet-manager" class="block text-gray-700 font-medium mb-1">Outlet Manager</label>
                 <select id="outlet-manager"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        (change)="onManagerSelect($event.target.value)">
+                        (change)="onManagerSelect($event)">
                   <option value="">Select manager</option>
                   <option *ngFor="let manager of managers" [value]="manager._id">{{ manager.userName }}</option>
                 </select>

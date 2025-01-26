@@ -80,7 +80,7 @@ import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-outlet-details',
-  imports: [RouterLink, FormsModule, NgFor, RouterLink],
+  imports: [FormsModule, NgFor, RouterLink],
   templateUrl: './outlet-details.component.html',
   styleUrl: './outlet-details.component.css',
 })
@@ -137,15 +137,18 @@ export class OutletDetailsComponent implements OnInit {
   }
 
   // Handle manager selection
-  onManagerSelect(managerId: string): void {
+  onManagerSelect(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement; // Cast to HTMLSelectElement
+    const managerId = selectElement.value; // Get the selected value
+
     if (managerId) {
       // Find the selected manager from the managers array
       this.selectedManager = this.managers.find((manager) => manager._id === managerId);
 
       // Update the outlet's manager phone and email
       if (this.selectedManager) {
-        this.outlet.outletManagerPhone = this.selectedManager.phone;
-        this.outlet.outletManagerEmail = this.selectedManager.email;
+        this.outlet.outletManagerPhone = this.selectedManager.phoneNumber; // Use phoneNumber
+        this.outlet.outletManagerEmail = this.selectedManager.email; // Use email
       }
     } else {
       // Reset if no manager is selected
@@ -154,4 +157,6 @@ export class OutletDetailsComponent implements OnInit {
       this.outlet.outletManagerEmail = '';
     }
   }
+
+
 }
