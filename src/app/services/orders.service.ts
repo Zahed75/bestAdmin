@@ -19,6 +19,8 @@ export class OrdersService {
   private http = inject(HttpClient);
 
 
+
+
   // Method to fetch all orders
   getOrders(): Observable<any[]> {
     return this.http.get<{ message: string; orders: any[] }>(this.baseURL).pipe(
@@ -74,14 +76,13 @@ export class OrdersService {
   }
 
 
-
   updateOrderById(id: string, orderData: any): Observable<any> {
     return this.http.put(`${this.updateOrderByIdURL}/${id}`, orderData);
   }
 
 
   updateOrderStatus(orderId: string, orderStatus: string): Observable<any> {
-    const payload = { orderStatus }; // Payload as per your API
+    const payload = {orderStatus}; // Payload as per your API
     return this.http.put(`${this.updateOrderStatusURL}/${orderId}`, payload);
   }
 

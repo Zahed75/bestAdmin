@@ -32,4 +32,7 @@ export class OutletService {
     return this.http.get<any>(`${this.getOutletByIdURL}/${outletId}`);
   }
 
+
+
+
 }
