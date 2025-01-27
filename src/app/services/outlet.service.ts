@@ -13,6 +13,7 @@ export class OutletService {
   private allManagerURL = `${environment.apiBaseUrl}/auth/managers`;
   private getOutletByIdURL = `${environment.apiBaseUrl}/outlet/getOutletById`;
   private updateOutletByIdURL = `${environment.apiBaseUrl}/outlet/updateOutlet`;
+  private deleteOutletByIdURL=`${environment.apiBaseUrl}/outlet/deleteOutlet`;
   private http = inject(HttpClient);
 
 
@@ -37,6 +38,12 @@ export class OutletService {
 
   updateOutletById(outletId: string, outlet: any): Observable<any> {
     return this.http.put<any>(`${this.updateOutletByIdURL}/${outletId}`, outlet);
+  }
+
+
+
+  deleteOutletById(id:number):Observable<any>{
+    return this.http.delete(`${this.deleteOutletByIdURL}/${id}`)
   }
 
 }

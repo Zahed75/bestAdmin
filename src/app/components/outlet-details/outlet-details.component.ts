@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {OutletService} from '../../services/outlet.service';
 import {NgFor} from '@angular/common';
@@ -16,6 +16,7 @@ export class OutletDetailsComponent implements OnInit {
   errorMessage: string = '';
   managers: any[] = [];
   selectedManager: any = null; // To store the selected manager's details
+  managerList:any={}
   outletObj: any = {
 
     outletName: '',
@@ -28,6 +29,7 @@ export class OutletDetailsComponent implements OnInit {
     areaName: ''
 
   }
+  router = inject(Router);
 
   constructor(
     private outletService: OutletService,
@@ -40,7 +42,9 @@ export class OutletDetailsComponent implements OnInit {
     if (outletId) {
       this.fetchOutletDetails(outletId);
       this.getAllManagers();
+      this.fetchOutletDetailsAndManagers(outletId);
     }
+
   }
 
   fetchOutletDetails(outletId: string): void {
@@ -97,12 +101,48 @@ export class OutletDetailsComponent implements OnInit {
   }
 
 
+  fetchOutletDetailsAndManagers(outletId: string): void {
+    this.isLoading = true;
+
+    // Fetch outlet details and managers simultaneously
+    Promise.all([
+      this.outletService.getOutletById(outletId).toPromise(),
+      this.outletService.getAllManagers().toPromise()
+    ])
+      .then(([outletResponse, managers]) => {
+        // Set outlet data
+        this.outlet = outletResponse.outlet;
+        this.outlet.id = outletId;
+
+        // Set managers list
+        this.managerList = managers;
+
+        // Set default manager details based on `outlet.outletManager`
+        const selectedManager = this.managers.find(
+          (manager) => manager._id === this.outlet.outletManager
+        );
+
+        if (selectedManager) {
+          this.outlet.outletManagerPhone = selectedManager.phoneNumber;
+          this.outlet.outletManagerEmail = selectedManager.email;
+        }
+
+        this.isLoading = false;
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        this.errorMessage = 'Failed to load outlet details and managers.';
+        this.isLoading = false;
+      });
+  }
+
 
   UpdateOutletById(outletId: string): void {
     this.outletService.updateOutletById(outletId, this.outlet).subscribe({
       next: (res: any) => {
         if(res.message==="Outlet Updated successfully"){
           alert('Outlet Updated Successfully');
+          this.router.navigateByUrl('/layout/outlets')
         }else{
           alert("Failed to Update")
         }
@@ -114,4 +154,8 @@ export class OutletDetailsComponent implements OnInit {
   }
 
 
+
+
 }
+
+

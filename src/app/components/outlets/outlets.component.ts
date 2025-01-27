@@ -88,6 +88,25 @@ export class OutletsComponent implements OnInit, AfterViewInit {
 
 
 
+  onDeleteOutlet(id: number): void {
+    const result = confirm('Are you sure you want to delete this outlet?');
+    if (result) {
+      this.isLoading = true; // Start loading
+      this.outletService.deleteOutletById(id).subscribe(
+        (res: any) => {
+          alert('Outlet deleted successfully');
+          this.fetchManagersAndOutlets();
+          this.isLoading = false; // Stop loading after fetching updated data
+        },
+        (error) => {
+          console.error('Error deleting outlet:', error);
+          alert('Error deleting outlet');
+          this.isLoading = false; // Stop loading in case of an error
+        }
+      );
+    }
+  }
+
 
 
 
