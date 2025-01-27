@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { OutletService } from '../../services/outlet.service';
-import { NgFor } from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {OutletService} from '../../services/outlet.service';
+import {NgFor} from '@angular/common';
 
 @Component({
   selector: 'app-outlet-details',
@@ -16,11 +16,24 @@ export class OutletDetailsComponent implements OnInit {
   errorMessage: string = '';
   managers: any[] = [];
   selectedManager: any = null; // To store the selected manager's details
+  outletObj: any = {
+
+    outletName: '',
+    outletLocation: '',
+    outletImage: '',
+    outletManager: '',
+    cityName: '',
+    outletManagerEmail: '',
+    outletManagerPhone: '',
+    areaName: ''
+
+  }
 
   constructor(
     private outletService: OutletService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     const outletId = this.route.snapshot.paramMap.get('outletId');
@@ -81,6 +94,23 @@ export class OutletDetailsComponent implements OnInit {
       this.outlet.outletManagerPhone = '';
       this.outlet.outletManagerEmail = '';
     }
+  }
+
+
+
+  UpdateOutletById(outletId: string): void {
+    this.outletService.updateOutletById(outletId, this.outlet).subscribe({
+      next: (res: any) => {
+        if(res.message==="Outlet Updated successfully"){
+          alert('Outlet Updated Successfully');
+        }else{
+          alert("Failed to Update")
+        }
+      },
+      error: (error) => {
+        alert('An error occurred. Please try again.');
+      },
+    });
   }
 
 

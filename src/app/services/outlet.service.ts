@@ -12,6 +12,7 @@ export class OutletService {
   private outletURL = `${environment.apiBaseUrl}/outlet/getAllOutlet`;
   private allManagerURL = `${environment.apiBaseUrl}/auth/managers`;
   private getOutletByIdURL = `${environment.apiBaseUrl}/outlet/getOutletById`;
+  private updateOutletByIdURL = `${environment.apiBaseUrl}/outlet/updateOutlet`;
   private http = inject(HttpClient);
 
 
@@ -34,5 +35,8 @@ export class OutletService {
 
 
 
+  updateOutletById(outletId: string, outlet: any): Observable<any> {
+    return this.http.put<any>(`${this.updateOutletByIdURL}/${outletId}`, outlet);
+  }
 
 }
