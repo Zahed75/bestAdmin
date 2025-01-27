@@ -26,11 +26,15 @@ export class OrdersComponent implements OnInit {
   totalPages: number = 0;
   isLoading: boolean = false;
   isFilterModalOpen = false;
-
   outlets: any[] = [];
   promoCodes: any[] = [];
   errorMessage: string = '';
   showModal: boolean = false;
+  filteredOrders: any[] = []; // Orders to display based on search
+ // Paginated data
+  searchQuery: string = '';
+  totalItems: number = 0; // Total number of items after filtering
+
   orderStatuses = [
     'Received',
     'Order Placed',
@@ -115,12 +119,22 @@ export class OrdersComponent implements OnInit {
 
 
   // Fetch all orders initially
+
   fetchOrders(): void {
     this.isLoading = true;
     this.ordersService.getOrders().subscribe({
       next: (data) => {
-        console.log('Fetched orders:', data);  // Log data here
-        this.orders = Array.isArray(data) ? data : [];  // Ensure it's an array
+        console.log('Fetched orders:', data); // Log the fetched data
+
+        // Ensure the data is an array and assign it to both `orders` and `filteredOrders`
+        this.orders = Array.isArray(data) ? data : [];
+        this.filteredOrders = [...this.orders];
+
+        // Update pagination variables
+        this.totalItems = this.filteredOrders.length;
+        this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+        this.currentPage = 1; // Reset to the first page
+
         this.updatePagination();
         this.isLoading = false;
       },
@@ -130,6 +144,7 @@ export class OrdersComponent implements OnInit {
       },
     });
   }
+
 
 
 
@@ -168,13 +183,14 @@ export class OrdersComponent implements OnInit {
 
 
 
-
-  // Pagination logic
   updatePagination(): void {
-    this.totalPages = Math.ceil(this.orders.length / this.itemsPerPage);
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.paginatedOrders = this.orders.slice(startIndex, startIndex + this.itemsPerPage);
+    const endIndex = startIndex + this.itemsPerPage;
+
+    // Update paginated data from filteredOrders
+    this.paginatedOrders = this.filteredOrders.slice(startIndex, endIndex);
   }
+
 
   goToPage(page: number): void {
     this.currentPage = page;
@@ -217,4 +233,40 @@ export class OrdersComponent implements OnInit {
   }
 
 
+
+  // Search logic similar to the outlet search
+  onSearchChange(): void {
+    const query = this.searchQuery.trim().toLowerCase();
+
+    if (query === '') {
+      // Reset filteredOrders to original orders when search query is empty
+      this.filteredOrders = [...this.orders];
+    } else {
+      // Filter orders based on the search query
+      this.filteredOrders = this.orders.filter((order) =>
+        (order.orderId && order.orderId.toString().toLowerCase().includes(query)) ||
+        (order.status && order.status.toLowerCase().includes(query)) ||
+        (order.customerName && order.customerName.toLowerCase().includes(query)) ||
+        (order.customerPhone && order.customerPhone.includes(query)) || // Phone numbers are numeric
+        (order.customerEmail && order.customerEmail.toLowerCase().includes(query)) ||
+        (order.address && order.address.toLowerCase().includes(query)) ||
+        (order.orderType && order.orderType.toLowerCase().includes(query))
+      );
+    }
+
+    // Update pagination based on the filtered results
+    this.totalItems = this.filteredOrders.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.currentPage = 1; // Reset to the first page
+    this.updatePagination();
+  }
+
+
+
+
+
 }
+
+
+
+
