@@ -4,8 +4,8 @@ import {NgFor, NgIf} from '@angular/common';
 @Component({
   selector: 'app-add-product',
   imports: [
-    NgFor,
-    NgIf
+    NgIf,
+    NgFor
   ],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'

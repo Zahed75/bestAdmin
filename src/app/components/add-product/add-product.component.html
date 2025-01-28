@@ -18,7 +18,7 @@
             <input
               type="text"
               placeholder="Product Name"
-              class="w-full mt-2 p-2 border rounded-lg focus:ring focus:ring-blue-300"
+              class="w-full mt-2 p-2 border rounded-lg focus:ring focus:ring-gray-300"
             />
           </div>
 
@@ -72,37 +72,77 @@
                 </div>
               </div>
             </div>
-
-
           </div>
 
         <!-- Right Side -->
         <div class="w-full md:w-1/4 space-y-4">
           <div class="bg-white p-4 shadow-md rounded-lg">
             <h2 class="text-lg font-semibold">Product Categories</h2>
-            <div class="relative">
-              <button class="w-full text-left border p-2 rounded-lg flex justify-between items-center">
-                Select Categories
-                <span>&#9660;</span>
-              </button>
-              <div class="absolute w-full bg-white shadow-md mt-2 rounded-lg hidden">
-                <ul class="max-h-40 overflow-auto p-2">
-                  <li><input type="checkbox"/> All</li>
-                  <li>
-                    <input type="checkbox"/> Canton
-                    <ul class="pl-4">
-                      <li><input type="checkbox"/> Canton Tx Sweepstakes</li>
-                    </ul>
-                  </li>
-                </ul>
+            <div class="mt-4">
+              <label class="block text-sm font-medium text-gray-700">Parent Category</label>
+              <select class="mt-1 block w-full p-2 border rounded-lg">
+                <option>Select a category</option>
+                <option>AC</option>
+                <option>Freege</option>
+                <option>Freedge</option>
+              </select>
+            </div>
+
+            <!-- Scrollable Categories Section -->
+            <div class="mt-4 max-h-48 overflow-y-auto">
+              <div class="space-y-2">
+                <!-- AC Category -->
+                <div>
+                  <div class="flex items-center">
+                    <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                    <span class="ml-2 text-gray-700">AC</span>
+                  </div>
+                  <div class="ml-6 space-y-2">
+                    <div class="flex items-center">
+                      <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                      <span class="ml-2 text-gray-700">Hisense</span>
+                    </div>
+                    <div class="flex items-center">
+                      <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                      <span class="ml-2 text-gray-700">LG</span>
+                    </div>
+                    <div class="flex items-center">
+                      <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                      <span class="ml-2 text-gray-700">Samsung</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Freege Category -->
+                <div>
+                  <div class="flex items-center">
+                    <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                    <span class="ml-2 text-gray-700">Freege</span>
+                  </div>
+                  <div class="ml-6 space-y-2">
+                    <div class="flex items-center">
+                      <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                      <span class="ml-2 text-gray-700">Hisense</span>
+                    </div>
+                    <div class="flex items-center">
+                      <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                      <span class="ml-2 text-gray-700">Whirlpool</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Freedge Category -->
+                <div>
+                  <div class="flex items-center">
+                    <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                    <span class="ml-2 text-gray-700">Freedge</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!--        Categories Section-->
+            <button class="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-lg">+ Add New Category</button>
 
-
-        </div>
       </div>
 
 
