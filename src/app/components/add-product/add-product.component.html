@@ -87,9 +87,9 @@
 
             <!-- Product SEO section Start -->
              
-          <div class="max-w-[890px] mx-auto p-6 bg-white shadow-md rounded-lg">
-              <h2 class="text-2xl font-semibold mb-4">Product SEO</h2>
-          
+            <div class="max-w-[890px] mx-auto p-4 sm:p-6 bg-white shadow-md rounded-lg">
+              <h2 class="text-xl sm:text-2xl font-semibold mb-4">Product SEO</h2>
+            
               <div class="space-y-4">
                 <!-- SEO Title Input -->
                 <div>
@@ -113,7 +113,7 @@
                     </span>
                   </div>
                 </div>
-          
+            
                 <!-- SEO Description Input -->
                 <div>
                   <label for="seoDescription" class="block text-sm font-medium text-gray-700">SEO Description</label>
@@ -136,7 +136,7 @@
                     </span>
                   </div>
                 </div>
-          
+            
                 <!-- Product Thumbnail Upload -->
                 <div>
                   <label class="block text-sm font-medium text-gray-700">Product Thumbnail</label>
@@ -147,10 +147,10 @@
                     class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm cursor-pointer bg-gray-50"
                   />
                 </div>
-          
+            
                 <!-- SEO Preview Box -->
                 <div class="mt-6 border rounded-lg p-4 bg-gray-50">
-                  <div class="flex flex-row items-center justify-between">
+                  <div class="flex flex-col sm:flex-row items-center justify-between">
                     <!-- SEO Title and Description Preview -->
                     <div class="flex-1">
                       <h1 class="mb-1 font-semibold">Best Electronics</h1>
@@ -158,18 +158,22 @@
                       <p class="text-lg font-semibold text-blue-800">{{ seoTitle || 'SEO Title Preview' }}</p>
                       <p class="text-sm text-gray-600">{{ seoDescription || 'SEO Description Preview' }}</p>
                     </div>
-          
+            
                     <!-- SEO Thumbnail Preview -->
-                    <div *ngIf="seoThumbnail" class="ml-4">
-                      <img [src]="seoThumbnail" alt="SEO Thumbnail" class="w-[120px] h-[120px] object-cover rounded-lg shadow-md" />
+                    <div *ngIf="seoThumbnail" class="mt-4 sm:mt-0 sm:ml-4">
+                      <img 
+                        [src]="seoThumbnail" 
+                        alt="SEO Thumbnail" 
+                        class="w-[120px] h-[120px] object-cover rounded-lg shadow-md"
+                      />
                     </div>
                   </div>
-          
+            
                   <!-- SEO Analytics Bar -->
                   <div class="mt-4">
-                    <div class="flex flex-row items-center space-x-4">
+                    <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
                       <!-- SEO Title Analytics -->
-                      <div class="flex-1">
+                      <div class="flex-1 w-full sm:w-auto">
                         <div class="h-2 bg-gray-200 rounded-full">
                           <div
                             [ngClass]="{
@@ -184,9 +188,9 @@
                         </div>
                         <p class="text-xs text-gray-600 mt-1">SEO Title: {{ seoTitle.length }}/60</p>
                       </div>
-          
+            
                       <!-- SEO Description Analytics -->
-                      <div class="flex-1">
+                      <div class="flex-1 w-full sm:w-auto">
                         <div class="h-2 bg-gray-200 rounded-full">
                           <div
                             [ngClass]="{
