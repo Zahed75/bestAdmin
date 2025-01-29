@@ -54,6 +54,7 @@ export class AddProductComponent implements OnInit {
   seoThumbnail: string | ArrayBuffer | null = '';
   seoTitleFeedback: string = 'gray'; // gray, green, yellow, red
   seoDescriptionFeedback: string = 'gray'; // gray, green, yellow, red
+  activeTab: string = 'general';
 
   public Editor: typeof ClassicEditor | null = null;
 	public config: EditorConfig | null = null;
