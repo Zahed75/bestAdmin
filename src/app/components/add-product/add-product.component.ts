@@ -33,8 +33,8 @@ const cloudConfig = {
   standalone: true,
   imports: [
      CKEditorModule,
-     // NgIf,
-     // NgFor,
+     NgIf,
+     NgFor,
      FormsModule,
      CommonModule
     ],
