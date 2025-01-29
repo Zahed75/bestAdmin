@@ -55,6 +55,10 @@ export class AddProductComponent implements OnInit {
   seoTitleFeedback: string = 'gray'; // gray, green, yellow, red
   seoDescriptionFeedback: string = 'gray'; // gray, green, yellow, red
   activeTab: string = 'general';
+  weight: number = 0;
+  length: number = 0;
+  width: number = 0;
+  height: number = 0;
 
   public Editor: typeof ClassicEditor | null = null;
 	public config: EditorConfig | null = null;

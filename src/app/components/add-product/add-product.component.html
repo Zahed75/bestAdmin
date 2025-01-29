@@ -30,7 +30,7 @@
               <h2 class="text-lg font-semibold">Featured Image</h2>
               <label class="border-2 border-dashed rounded-lg p-6 flex flex-col justify-center items-center cursor-pointer">
                 <input type="file" class="hidden" (change)="onFeaturedImageChange($event)" />
-                <img *ngIf="featuredImage" [src]="featuredImage" alt="Upload" class="h-24 w-24 rounded-lg shadow-md" />
+                <img *ngIf="featuredImage" [src]="featuredImage" alt="Upload" class="h-24 w-24 object-cover rounded-lg shadow-md" />
                 <span *ngIf="!featuredImage" class="text-gray-500">Click to upload</span>
               </label>
             </div>
@@ -361,27 +361,47 @@
     <!-- Shipping Tab Content -->
     <div *ngIf="activeTab === 'shipping'" class="space-y-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Tax Status</label>
-          <select
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option>Taxable</option>
-            <option>Non-Taxable</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Tax Class</label>
-          <select
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option>Standard</option>
-            <option>Reduced</option>
-            <option>Zero Rate</option>
-          </select>
+
+        
+          <!-- Weight Section -->
+          <div class="space-y-4">
+            <!-- Weight (KG) -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Weight (KG)</label>
+              <input
+                type="number"
+                value="0"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+              />
+            </div>
+        
+            <!-- Dimensions -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Dimensions (L x W x H)</label>
+              <div class="mt-1 grid grid-cols-3 gap-3">
+                <input
+                  type="number"
+                  value="0"
+                  class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  placeholder="Length"
+                />
+                <input
+                  type="number"
+                  value="0"
+                  class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  placeholder="Width"
+                />
+                <input
+                  type="number"
+                  value="0"
+                  class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  placeholder="Height"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </div>
 <!-- Product Price Section End -->
