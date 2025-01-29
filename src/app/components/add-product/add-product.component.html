@@ -215,6 +215,7 @@
 
 
 
+
 <!-- Product Price Section Start -->
 <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
   <h2 class="text-2xl font-semibold text-gray-800 mb-6">Product Data</h2>
@@ -407,6 +408,17 @@
 <!-- Product Price Section End -->
            
             
+
+<!-- Product Short Description Start -->
+<div class="flex flex-wrap gap-4">
+  <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
+    <h3 class="font-bold mb-2">Product Short Description</h3>
+
+   <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
+  </div>
+</div>
+<!-- Product Short Description End -->
+
             
 
 
