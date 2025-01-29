@@ -299,81 +299,65 @@
 
     <!-- Inventory Tab Content -->
     <div *ngIf="activeTab === 'inventory'" class="space-y-6">
-      <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Inventory</h2>
+
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Inventory</h2>
       
         <!-- Stock Management Section -->
-        <div class="space-y-6">
+        <div class="space-y-4">
+
+
+           <!-- SKU -->
+           <div>
+            <label class="block text-sm font-medium text-gray-700">SKU</label>
+            <input
+              type="text"
+              value="IRN-PHL-2401"
+              class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
+          </div>
+          
           <!-- Track Stock Quantity -->
-          <div class="bg-gray-50 p-4 sm:p-6 rounded-lg shadow-sm">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Stock Management</h3>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Track Stock Quantity for This Product</label>
-                <div class="mt-2 flex items-center">
-                  <input
-                    type="checkbox"
-                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-600">Enable stock management</span>
-                </div>
-              </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Track Stock Quantity</label>
+            <div class="mt-1 flex items-center">
+              <input
+                type="checkbox"
+                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span class="ml-2 text-sm text-gray-600">Enable stock management</span>
             </div>
           </div>
       
           <!-- Stock Status -->
-          <div class="bg-gray-50 p-4 sm:p-6 rounded-lg shadow-sm">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Stock Status</h3>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Current Stock Status</label>
-                <select
-                  class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option>In Stock</option>
-                  <option>Out of Stock</option>
-                  <option>On Backorder</option>
-                </select>
-              </div>
-            </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Stock Status</label>
+            <select
+              class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            >
+              <option>In Stock</option>
+              <option>Out of Stock</option>
+              <option>On Backorder</option>
+            </select>
           </div>
       
           <!-- Sold Individually -->
-          <div class="bg-gray-50 p-4 sm:p-6 rounded-lg shadow-sm">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Sold Individually</h3>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Limit Purchase to 1 Item per Order</label>
-                <div class="mt-2 flex items-center">
-                  <input
-                    type="checkbox"
-                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-600">Enable sold individually</span>
-                </div>
-              </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Sold Individually</label>
+            <div class="mt-1 flex items-center">
+              <input
+                type="checkbox"
+                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span class="ml-2 text-sm text-gray-600">Limit purchase to 1 item per order</span>
             </div>
           </div>
       
-          <!-- SKU -->
-          <div class="bg-gray-50 p-4 sm:p-6 rounded-lg shadow-sm">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">SKU</h3>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Stock Keeping Unit</label>
-                <input
-                  type="text"
-                  value="IRN-PHL-2401"
-                  class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-            </div>
-          </div>
+         
         </div>
-      </div>
+    
     </div>
 
-
+    
     <!-- Shipping Tab Content -->
     <div *ngIf="activeTab === 'shipping'" class="space-y-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
