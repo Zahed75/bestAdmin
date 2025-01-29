@@ -59,6 +59,8 @@ export class AddProductComponent implements OnInit {
   length: number = 0;
   width: number = 0;
   height: number = 0;
+  newTag: string = ""; // Holds the value of the new tag input
+  tags: string[] = ["Philips"]; // Initial tags
 
   public Editor: typeof ClassicEditor | null = null;
 	public config: EditorConfig | null = null;
@@ -359,10 +361,22 @@ export class AddProductComponent implements OnInit {
   addNewSpecification() {
     this.productSpecifications.push({ key: "", value: "" });
   }
-  
+
    // Delete a specification row
    deleteSpecification(index: number) {
     this.productSpecifications.splice(index, 1);
+  }
+
+  addTag() {
+    if (this.newTag.trim() && !this.tags.includes(this.newTag.trim())) {
+      this.tags.push(this.newTag.trim());
+      this.newTag = ""; // Clear the input field
+    }
+  }
+
+  // Remove a tag
+  removeTag(index: number) {
+    this.tags.splice(index, 1);
   }
 
 }
