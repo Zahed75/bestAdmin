@@ -352,6 +352,19 @@ export class AddProductComponent implements OnInit {
 	}
   }
 
+  productSpecifications: { key: string; value: string }[] = [
+   
+  ];
+
+  addNewSpecification() {
+    this.productSpecifications.push({ key: "", value: "" });
+  }
+  
+   // Delete a specification row
+   deleteSpecification(index: number) {
+    this.productSpecifications.splice(index, 1);
+  }
+
 }
 
 

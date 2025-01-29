@@ -419,6 +419,97 @@
 </div>
 <!-- Product Short Description End -->
 
+
+
+<!-- Product Specification Start -->
+<div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
+  <h2 class="text-xl font-semibold text-gray-800 mb-4">Product Specification</h2>
+
+  <!-- File Upload Section -->
+  <!-- <div class="mb-6">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Upload Specification File</label>
+    <div class="flex items-center">
+      <input
+        type="file"
+        class="hidden"
+        id="fileInput"
+      />
+      <label
+        for="fileInput"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700"
+      >
+        Choose File
+      </label>
+      <span class="ml-4 text-sm text-gray-600">No file chosen</span>
+      <a
+        href="#"
+        class="ml-4 text-sm text-blue-600 hover:text-blue-700"
+      >
+        DOWNLOAD SAMPLE
+      </a>
+    </div>
+  </div> -->
+
+  <!-- Dynamic Table for Product Specifications -->
+  <div class="space-y-4">
+    <!-- Table Header -->
+    <div class="grid grid-cols-3 gap-4">
+      <div class="font-semibold text-gray-700">Key</div>
+      <div class="font-semibold text-gray-700">Value</div>
+      <div class="font-semibold text-gray-700">Action</div>
+    </div>
+
+    <!-- Dynamic Rows -->
+    <div *ngFor="let spec of productSpecifications; let i = index" class="grid grid-cols-3 gap-4 items-center">
+      <!-- Key Input -->
+      <input
+        type="text"
+        [(ngModel)]="spec.key"
+        class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+        placeholder="Enter key"
+      />
+
+      <!-- Value Input -->
+      <input
+        type="text"
+        [(ngModel)]="spec.value"
+        class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+        placeholder="Enter value"
+      />
+
+      <!-- Delete Button -->
+      <button
+        (click)="deleteSpecification(i)"
+        class="text-red-600 hover:text-red-700"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Add New Row Button -->
+    <div class="mt-4">
+      <button
+        (click)="addNewSpecification()"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+      >
+        + Add New Specification
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Product Specification End -->
+
             
 
 
