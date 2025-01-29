@@ -70,9 +70,20 @@
                 <div class="flex justify-end mt-4">
                   <button (click)="closeGalleryModal()" class="px-4 py-2 bg-black text-white rounded-lg">Close</button>
                 </div>
+
+              </div>
+
+            </div>
+
+            <div class="flex flex-wrap gap-4">
+              <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
+                <h3>Product Description</h3>
+                <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
               </div>
             </div>
+            
           </div>
+
 
         <!-- Right Side -->
         <div class="w-full md:w-1/4 space-y-4">
