@@ -77,11 +77,67 @@
 
             <div class="flex flex-wrap gap-4">
               <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
-                <h3>Product Description</h3>
-                <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
+                <h3 class="font-bold mb-2">Product Description</h3>
+
+               <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
+              </div>
+            </div>
+
+            <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
+              <h2 class="text-2xl font-semibold mb-4">Add Product</h2>
+            
+              <div class="space-y-4">
+                <!-- SEO Title Input -->
+                <div>
+                  <label for="seoTitle" class="block text-sm font-medium text-gray-700">SEO Title</label>
+                  <input
+                    type="text"
+                    id="seoTitle"
+                    [(ngModel)]="seoTitle"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Enter SEO Title"
+                  />
+                </div>
+            
+                <!-- SEO Description Input -->
+                <div>
+                  <label for="seoDescription" class="block text-sm font-medium text-gray-700">SEO Description</label>
+                  <textarea
+                    id="seoDescription"
+                    [(ngModel)]="seoDescription"
+                    rows="3"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Enter SEO Description"
+                  ></textarea>
+                </div>
+            
+                <!-- Product Thumbnail Upload -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Product Thumbnail</label>
+                  <input
+                    type="file"
+                    (change)="onThumbnailChange($event)"
+                    accept="image/*"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm cursor-pointer bg-gray-50"
+                  />
+                </div>
+            
+                <!-- SEO Preview Box -->
+                <div class="mt-6 border rounded-lg p-4 bg-gray-50">
+                  <p class="text-lg font-semibold text-gray-800">{{ seoTitle || 'SEO Title Preview' }}</p>
+                  <p class="text-sm text-gray-600">{{ seoDescription || 'SEO Description Preview' }}</p>
+            
+                  <!-- SEO Thumbnail Preview -->
+                  <div *ngIf="seoThumbnail" class="mt-3 flex justify-center">
+                    <img [src]="seoThumbnail" alt="SEO Thumbnail" class="w-[350px] h-[120px] object-cover rounded-lg shadow-md" />
+                  </div>
+                </div>
               </div>
             </div>
             
+            
+
+
           </div>
 
 
@@ -161,5 +217,7 @@
 
   </div>
 </div>
+</div>
+  </div>
 </div>
 

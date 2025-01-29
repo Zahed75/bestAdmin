@@ -49,6 +49,9 @@ export class AddProductComponent implements OnInit {
   featuredImage: string | ArrayBuffer | null = '';
   galleryImages: string[] = [];
   isGalleryModalOpen: boolean = false;
+  seoTitle: string = '';
+  seoDescription: string = '';
+  seoThumbnail: string | ArrayBuffer | null = '';
 
   public Editor: typeof ClassicEditor | null = null;
 	public config: EditorConfig | null = null;
@@ -291,6 +294,18 @@ export class AddProductComponent implements OnInit {
   // Remove an Image
   removeImage(imgSrc: string): void {
     this.galleryImages = this.galleryImages.filter((img) => img !== imgSrc);
+  }
+
+  onThumbnailChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.seoThumbnail = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
 
