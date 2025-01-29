@@ -33,8 +33,8 @@ const cloudConfig = {
   standalone: true,
   imports: [
      CKEditorModule,
-     NgIf,
-     NgFor,
+     // NgIf,
+     // NgFor,
      FormsModule,
      CommonModule
     ],
@@ -61,12 +61,14 @@ export class AddProductComponent implements OnInit {
   height: number = 0;
   newTag: string = ""; // Holds the value of the new tag input
   tags: string[] = ["Philips"]; // Initial tags
-
+  newBrand: string = ""; // Holds the value of the new brand input
+  brands: string[] = ["Philips", "Samsung", "LG"]; // Initial brands
+  activeBrand:string =''
   public Editor: typeof ClassicEditor | null = null;
 	public config: EditorConfig | null = null;
 
 
-	
+
 
 	private _setupEditor(cloud: CKEditorCloudResult<typeof cloudConfig>) {
 		const {
@@ -251,7 +253,7 @@ export class AddProductComponent implements OnInit {
 			placeholder: 'Type or paste your content here!'
 		};
 
-		
+
 	}
 
 
@@ -260,7 +262,7 @@ export class AddProductComponent implements OnInit {
       .then(cloud => this._setupEditor(cloud))
       .catch(error => console.error('Error loading CKEditor:', error));
   }
-  
+
 
   constructor() {}
 
@@ -355,7 +357,7 @@ export class AddProductComponent implements OnInit {
   }
 
   productSpecifications: { key: string; value: string }[] = [
-   
+
   ];
 
   addNewSpecification() {
@@ -377,6 +379,15 @@ export class AddProductComponent implements OnInit {
   // Remove a tag
   removeTag(index: number) {
     this.tags.splice(index, 1);
+  }
+
+
+  addBrand() {
+    if (this.newBrand.trim() && !this.brands.includes(this.newBrand.trim())) {
+      this.brands.push(this.newBrand.trim());
+      this.newBrand = ""; // Clear the input field
+      this.activeBrand = "brandList"; // Switch back to the Brand List tab
+    }
   }
 
 }

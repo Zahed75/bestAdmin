@@ -5,7 +5,6 @@
 
     </div>
 
-
     <!-- Main Container -->
     <div class="container mx-auto p-6">
 
@@ -15,11 +14,7 @@
         <div class="w-full md:w-3/4 space-y-4">
           <div class="bg-white p-4 shadow-md rounded-lg">
             <h2 class="text-lg font-semibold">General</h2>
-            <input
-              type="text"
-              placeholder="Product Name"
-              class="w-full mt-2 p-2 border rounded-lg focus:ring focus:ring-gray-300"
-            />
+            <input type="text" placeholder="Product Name" class="w-full mt-2 p-2 border rounded-lg focus:ring focus:ring-gray-300" />
           </div>
 
 
@@ -36,74 +31,65 @@
             </div>
 
 
-              <!-- Image Gallery -->
-              <div class="w-full md:w-1/2 bg-white p-4 shadow-md rounded-lg">
-                <h2 class="text-lg font-semibold">Image Gallery</h2>
-                <div class="border-2 border-dashed rounded-lg p-6 flex flex-col justify-center items-center cursor-pointer"
-                     (click)="openGalleryModal()">
-                  <span class="text-gray-500">Click to upload multiple images</span>
-                </div>
+            <!-- Image Gallery -->
+            <div class="w-full md:w-1/2 bg-white p-4 shadow-md rounded-lg">
+              <h2 class="text-lg font-semibold">Image Gallery</h2>
+              <div class="border-2 border-dashed rounded-lg p-6 flex flex-col justify-center items-center cursor-pointer" (click)="openGalleryModal()">
+                <span class="text-gray-500">Click to upload multiple images</span>
               </div>
             </div>
+          </div>
 
-            <!-- Image Gallery Modal -->
-            <div *ngIf="isGalleryModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div class="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] max-h-[80vh] overflow-y-auto">
-                <h2 class="text-xl font-semibold mb-4">Upload Gallery Images</h2>
+          <!-- Image Gallery Modal -->
+          <div *ngIf="isGalleryModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] max-h-[80vh] overflow-y-auto">
+              <h2 class="text-xl font-semibold mb-4">Upload Gallery Images</h2>
 
-                <label class="block w-full p-2 border rounded-lg bg-gray-100 text-center cursor-pointer">
-                  <input type="file" multiple (change)="onGalleryImagesChange($event)" class="hidden" />
-                  <span class="text-blue-600 font-semibold">Choose Files</span>
-                </label>
+              <label class="block w-full p-2 border rounded-lg bg-gray-100 text-center cursor-pointer">
+                <input type="file" multiple (change)="onGalleryImagesChange($event)" class="hidden" />
+                <span class="text-blue-600 font-semibold">Choose Files</span>
+              </label>
 
-                <!-- Images Grid -->
-                <div class="grid grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-                  <div *ngFor="let img of galleryImages" class="relative group">
-                    <img [src]="img" class="h-20 w-20 object-cover rounded-lg shadow-md" />
-                    <button (click)="removeImage(img)"
-                            class="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
-                      ✕
-                    </button>
-                  </div>
+              <!-- Images Grid -->
+              <div class="grid grid-cols-3 md:grid-cols-4 gap-4 mt-4">
+                <div *ngFor="let img of galleryImages" class="relative group">
+                  <img [src]="img" class="h-20 w-20 object-cover rounded-lg shadow-md" />
+                  <button (click)="removeImage(img)" class="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
+                    ✕
+                  </button>
                 </div>
+              </div>
 
-                <div class="flex justify-end mt-4">
-                  <button (click)="closeGalleryModal()" class="px-4 py-2 bg-black text-white rounded-lg">Close</button>
-                </div>
-
+              <div class="flex justify-end mt-4">
+                <button (click)="closeGalleryModal()" class="px-4 py-2 bg-black text-white rounded-lg">Close</button>
               </div>
 
             </div>
 
-            <div class="flex flex-wrap gap-4">
-              <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
-                <h3 class="font-bold mb-2">Product Description</h3>
+          </div>
 
-               <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
-              </div>
+          <div class="flex flex-wrap gap-4">
+            <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
+              <h3 class="font-bold mb-2">Product Description</h3>
+
+              <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
             </div>
+          </div>
 
-          
 
-            <!-- Product SEO section Start -->
-             
-            <div class="max-w-[890px] mx-auto p-4 sm:p-6 bg-white shadow-md rounded-lg">
-              <h2 class="text-xl sm:text-2xl font-semibold mb-4">Product SEO</h2>
-            
-              <div class="space-y-4">
-                <!-- SEO Title Input -->
-                <div>
-                  <label for="seoTitle" class="block text-sm font-medium text-gray-700">SEO Title</label>
-                  <input
-                    type="text"
-                    id="seoTitle"
-                    [(ngModel)]="seoTitle"
-                    (ngModelChange)="onSeoTitleChange()"
-                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Enter SEO Title"
-                  />
-                  <div class="mt-1 text-sm">
-                    <span [ngClass]="{
+
+          <!-- Product SEO section Start -->
+
+          <div class="max-w-[890px] mx-auto p-4 sm:p-6 bg-white shadow-md rounded-lg">
+            <h2 class="text-xl sm:text-2xl font-semibold mb-4">Product SEO</h2>
+
+            <div class="space-y-4">
+              <!-- SEO Title Input -->
+              <div>
+                <label for="seoTitle" class="block text-sm font-medium text-gray-700">SEO Title</label>
+                <input type="text" id="seoTitle" [(ngModel)]="seoTitle" (ngModelChange)="onSeoTitleChange()" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter SEO Title" />
+                <div class="mt-1 text-sm">
+                                    <span [ngClass]="{
                       'text-green-500': seoTitleFeedback === 'green',
                       'text-yellow-500': seoTitleFeedback === 'yellow',
                       'text-red-500': seoTitleFeedback === 'red',
@@ -111,22 +97,15 @@
                     }">
                       {{ seoTitle.length }}/60 characters
                     </span>
-                  </div>
                 </div>
-            
-                <!-- SEO Description Input -->
-                <div>
-                  <label for="seoDescription" class="block text-sm font-medium text-gray-700">SEO Description</label>
-                  <textarea
-                    id="seoDescription"
-                    [(ngModel)]="seoDescription"
-                    (ngModelChange)="onSeoDescriptionChange()"
-                    rows="3"
-                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Enter SEO Description"
-                  ></textarea>
-                  <div class="mt-1 text-sm">
-                    <span [ngClass]="{
+              </div>
+
+              <!-- SEO Description Input -->
+              <div>
+                <label for="seoDescription" class="block text-sm font-medium text-gray-700">SEO Description</label>
+                <textarea id="seoDescription" [(ngModel)]="seoDescription" (ngModelChange)="onSeoDescriptionChange()" rows="3" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter SEO Description"></textarea>
+                <div class="mt-1 text-sm">
+                                    <span [ngClass]="{
                       'text-green-500': seoDescriptionFeedback === 'green',
                       'text-yellow-500': seoDescriptionFeedback === 'yellow',
                       'text-red-500': seoDescriptionFeedback === 'red',
@@ -134,384 +113,282 @@
                     }">
                       {{ seoDescription.length }}/160 characters
                     </span>
+                </div>
+              </div>
+
+              <!-- Product Thumbnail Upload -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Product Thumbnail</label>
+                <input type="file" (change)="onThumbnailChange($event)" accept="image/*" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm cursor-pointer bg-gray-50" />
+              </div>
+
+              <!-- SEO Preview Box -->
+              <div class="mt-6 border rounded-lg p-4 bg-gray-50">
+                <div class="flex flex-col sm:flex-row items-center justify-between">
+                  <!-- SEO Title and Description Preview -->
+                  <div class="flex-1">
+                    <h1 class="mb-1 font-semibold">Best Electronics</h1>
+                    <p class="mb-2 font-light">www.bestelectronics.com.bd - Electronics Store</p>
+                    <p class="text-lg font-semibold text-blue-800">{{ seoTitle || 'SEO Title Preview' }}</p>
+                    <p class="text-sm text-gray-600">{{ seoDescription || 'SEO Description Preview' }}</p>
+                  </div>
+
+                  <!-- SEO Thumbnail Preview -->
+                  <div *ngIf="seoThumbnail" class="mt-4 sm:mt-0 sm:ml-4">
+                    <img [src]="seoThumbnail" alt="SEO Thumbnail" class="w-[120px] h-[120px] object-cover rounded-lg shadow-md" />
                   </div>
                 </div>
-            
-                <!-- Product Thumbnail Upload -->
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Product Thumbnail</label>
-                  <input
-                    type="file"
-                    (change)="onThumbnailChange($event)"
-                    accept="image/*"
-                    class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm cursor-pointer bg-gray-50"
-                  />
-                </div>
-            
-                <!-- SEO Preview Box -->
-                <div class="mt-6 border rounded-lg p-4 bg-gray-50">
-                  <div class="flex flex-col sm:flex-row items-center justify-between">
-                    <!-- SEO Title and Description Preview -->
-                    <div class="flex-1">
-                      <h1 class="mb-1 font-semibold">Best Electronics</h1>
-                      <p class="mb-2 font-light">www.bestelectronics.com.bd - Electronics Store</p>
-                      <p class="text-lg font-semibold text-blue-800">{{ seoTitle || 'SEO Title Preview' }}</p>
-                      <p class="text-sm text-gray-600">{{ seoDescription || 'SEO Description Preview' }}</p>
-                    </div>
-            
-                    <!-- SEO Thumbnail Preview -->
-                    <div *ngIf="seoThumbnail" class="mt-4 sm:mt-0 sm:ml-4">
-                      <img 
-                        [src]="seoThumbnail" 
-                        alt="SEO Thumbnail" 
-                        class="w-[120px] h-[120px] object-cover rounded-lg shadow-md"
-                      />
-                    </div>
-                  </div>
-            
-                  <!-- SEO Analytics Bar -->
-                  <div class="mt-4">
-                    <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                      <!-- SEO Title Analytics -->
-                      <div class="flex-1 w-full sm:w-auto">
-                        <div class="h-2 bg-gray-200 rounded-full">
-                          <div
-                            [ngClass]="{
+
+                <!-- SEO Analytics Bar -->
+                <div class="mt-4">
+                  <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <!-- SEO Title Analytics -->
+                    <div class="flex-1 w-full sm:w-auto">
+                      <div class="h-2 bg-gray-200 rounded-full">
+                        <div [ngClass]="{
                               'bg-green-500': seoTitleFeedback === 'green',
                               'bg-yellow-500': seoTitleFeedback === 'yellow',
                               'bg-red-500': seoTitleFeedback === 'red',
                               'bg-gray-500': seoTitleFeedback === 'gray'
-                            }"
-                            class="h-2 rounded-full"
-                            [style.width]="(seoTitle.length / 60) * 100 + '%'"
-                          ></div>
-                        </div>
-                        <p class="text-xs text-gray-600 mt-1">SEO Title: {{ seoTitle.length }}/60</p>
+                            }" class="h-2 rounded-full" [style.width]="(seoTitle.length / 60) * 100 + '%'"></div>
                       </div>
-            
-                      <!-- SEO Description Analytics -->
-                      <div class="flex-1 w-full sm:w-auto">
-                        <div class="h-2 bg-gray-200 rounded-full">
-                          <div
-                            [ngClass]="{
+                      <p class="text-xs text-gray-600 mt-1">SEO Title: {{ seoTitle.length }}/60</p>
+                    </div>
+
+                    <!-- SEO Description Analytics -->
+                    <div class="flex-1 w-full sm:w-auto">
+                      <div class="h-2 bg-gray-200 rounded-full">
+                        <div [ngClass]="{
                               'bg-green-500': seoDescriptionFeedback === 'green',
                               'bg-yellow-500': seoDescriptionFeedback === 'yellow',
                               'bg-red-500': seoDescriptionFeedback === 'red',
                               'bg-gray-500': seoDescriptionFeedback === 'gray'
-                            }"
-                            class="h-2 rounded-full"
-                            [style.width]="(seoDescription.length / 160) * 100 + '%'"
-                          ></div>
-                        </div>
-                        <p class="text-xs text-gray-600 mt-1">SEO Description: {{ seoDescription.length }}/160</p>
+                            }" class="h-2 rounded-full" [style.width]="(seoDescription.length / 160) * 100 + '%'"></div>
+                      </div>
+                      <p class="text-xs text-gray-600 mt-1">SEO Description: {{ seoDescription.length }}/160</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product SEO section End -->
+
+
+
+
+          <!-- Product Price Section Start -->
+          <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Product Data</h2>
+
+            <!-- Tabs Navigation -->
+            <div class="flex space-x-4 border-b border-gray-200">
+              <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none" [class.text-blue-600]="activeTab === 'general'" (click)="activeTab = 'general'">
+                General
+              </button>
+              <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none" [class.text-blue-600]="activeTab === 'inventory'" (click)="activeTab = 'inventory'">
+                Inventory
+              </button>
+              <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none" [class.text-blue-600]="activeTab === 'shipping'" (click)="activeTab = 'shipping'">
+                Shipping
+              </button>
+            </div>
+
+            <!-- Tabs Content -->
+            <div class="mt-6">
+              <!-- General Tab Content -->
+              <div *ngIf="activeTab === 'general'" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Regular Price</label>
+                    <input type="text" value="4290" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Sale Price</label>
+                    <input type="text" value="4183" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Sale Start (Optional)</label>
+                    <input type="date" value="2025-01-29" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Sale End (Optional)</label>
+                    <input type="date" value="2025-01-29" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Inventory Status</label>
+                    <select class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                      <option>Online & Offline</option>
+                      <option>Online Only</option>
+                      <option>Offline Only</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Inventory Tab Content -->
+              <div *ngIf="activeTab === 'inventory'" class="space-y-6">
+
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Inventory</h2>
+
+                <!-- Stock Management Section -->
+                <div class="space-y-4">
+
+
+                  <!-- SKU -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">SKU</label>
+                    <input type="text" value="IRN-PHL-2401" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" />
+                  </div>
+
+                  <!-- Track Stock Quantity -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Track Stock Quantity</label>
+                    <div class="mt-1 flex items-center">
+                      <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                      <span class="ml-2 text-sm text-gray-600">Enable stock management</span>
+                    </div>
+                  </div>
+
+                  <!-- Stock Status -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Stock Status</label>
+                    <select class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm">
+                      <option>In Stock</option>
+                      <option>Out of Stock</option>
+                      <option>On Backorder</option>
+                    </select>
+                  </div>
+
+                  <!-- Sold Individually -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Sold Individually</label>
+                    <div class="mt-1 flex items-center">
+                      <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                      <span class="ml-2 text-sm text-gray-600">Limit purchase to 1 item per order</span>
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+
+
+              <!-- Shipping Tab Content -->
+              <div *ngIf="activeTab === 'shipping'" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+
+                  <!-- Weight Section -->
+                  <div class="space-y-4">
+                    <!-- Weight (KG) -->
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700">Weight (KG)</label>
+                      <input type="number" value="0" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" />
+                    </div>
+
+                    <!-- Dimensions -->
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700">Dimensions (L x W x H)</label>
+                      <div class="mt-1 grid grid-cols-3 gap-3">
+                        <input type="number" value="0" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Length" />
+                        <input type="number" value="0" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Width" />
+                        <input type="number" value="0" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Height" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-<!-- Product SEO section End -->
-
-
-
-
-<!-- Product Price Section Start -->
-<div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
-  <h2 class="text-2xl font-semibold text-gray-800 mb-6">Product Data</h2>
-
-  <!-- Tabs Navigation -->
-  <div class="flex space-x-4 border-b border-gray-200">
-    <button
-      class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none"
-      [class.text-blue-600]="activeTab === 'general'"
-      (click)="activeTab = 'general'"
-    >
-      General
-    </button>
-    <button
-      class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none"
-      [class.text-blue-600]="activeTab === 'inventory'"
-      (click)="activeTab = 'inventory'"
-    >
-      Inventory
-    </button>
-    <button
-      class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none"
-      [class.text-blue-600]="activeTab === 'shipping'"
-      (click)="activeTab = 'shipping'"
-    >
-      Shipping
-    </button>
-  </div>
-
-  <!-- Tabs Content -->
-  <div class="mt-6">
-    <!-- General Tab Content -->
-    <div *ngIf="activeTab === 'general'" class="space-y-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Regular Price</label>
-          <input
-            type="text"
-            value="4290"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Sale Price</label>
-          <input
-            type="text"
-            value="4183"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Sale Start (Optional)</label>
-          <input
-            type="date"
-            value="2025-01-29"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Sale End (Optional)</label>
-          <input
-            type="date"
-            value="2025-01-29"
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Inventory Status</label>
-          <select
-            class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option>Online & Offline</option>
-            <option>Online Only</option>
-            <option>Offline Only</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Inventory Tab Content -->
-    <div *ngIf="activeTab === 'inventory'" class="space-y-6">
-
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Inventory</h2>
-      
-        <!-- Stock Management Section -->
-        <div class="space-y-4">
-
-
-           <!-- SKU -->
-           <div>
-            <label class="block text-sm font-medium text-gray-700">SKU</label>
-            <input
-              type="text"
-              value="IRN-PHL-2401"
-              class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-            />
           </div>
-          
-          <!-- Track Stock Quantity -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Track Stock Quantity</label>
-            <div class="mt-1 flex items-center">
-              <input
-                type="checkbox"
-                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <span class="ml-2 text-sm text-gray-600">Enable stock management</span>
+          <!-- Product Price Section End -->
+
+
+
+          <!-- Product Short Description Start -->
+          <div class="flex flex-wrap gap-4">
+            <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
+              <h3 class="font-bold mb-2">Product Short Description</h3>
+
+              <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
             </div>
           </div>
-      
-          <!-- Stock Status -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Stock Status</label>
-            <select
-              class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-            >
-              <option>In Stock</option>
-              <option>Out of Stock</option>
-              <option>On Backorder</option>
-            </select>
-          </div>
-      
-          <!-- Sold Individually -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Sold Individually</label>
-            <div class="mt-1 flex items-center">
-              <input
-                type="checkbox"
-                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <span class="ml-2 text-sm text-gray-600">Limit purchase to 1 item per order</span>
-            </div>
-          </div>
-      
-         
-        </div>
-    
-    </div>
+          <!-- Product Short Description End -->
 
-    
-    <!-- Shipping Tab Content -->
-    <div *ngIf="activeTab === 'shipping'" class="space-y-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-        
-          <!-- Weight Section -->
-          <div class="space-y-4">
-            <!-- Weight (KG) -->
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Weight (KG)</label>
-              <input
-                type="number"
-                value="0"
-                class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              />
-            </div>
-        
-            <!-- Dimensions -->
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Dimensions (L x W x H)</label>
-              <div class="mt-1 grid grid-cols-3 gap-3">
-                <input
-                  type="number"
-                  value="0"
-                  class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  placeholder="Length"
-                />
-                <input
-                  type="number"
-                  value="0"
-                  class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  placeholder="Width"
-                />
-                <input
-                  type="number"
-                  value="0"
-                  class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  placeholder="Height"
-                />
+
+          <!-- Product Specification Start -->
+          <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Product Specification</h2>
+
+            <!-- File Upload Section -->
+            <!-- <div class="mb-6">
+<label class="block text-sm font-medium text-gray-700 mb-2">Upload Specification File</label>
+<div class="flex items-center">
+<input
+type="file"
+class="hidden"
+id="fileInput"
+/>
+<label
+for="fileInput"
+class="px-4 py-2 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700"
+>
+Choose File
+</label>
+<span class="ml-4 text-sm text-gray-600">No file chosen</span>
+<a
+href="#"
+class="ml-4 text-sm text-blue-600 hover:text-blue-700"
+>
+DOWNLOAD SAMPLE
+</a>
+</div>
+</div> -->
+
+            <!-- Dynamic Table for Product Specifications -->
+            <div class="space-y-4">
+              <!-- Table Header -->
+              <div class="grid grid-cols-3 gap-4">
+                <div class="font-semibold text-gray-700">Key</div>
+                <div class="font-semibold text-gray-700">Value</div>
+                <div class="font-semibold text-gray-700">Action</div>
+              </div>
+
+              <!-- Dynamic Rows -->
+              <div *ngFor="let spec of productSpecifications; let i = index" class="grid grid-cols-3 gap-4 items-center">
+                <!-- Key Input -->
+                <input type="text" [(ngModel)]="spec.key" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Enter key" />
+
+                <!-- Value Input -->
+                <input type="text" [(ngModel)]="spec.value" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Enter value" />
+
+                <!-- Delete Button -->
+                <button (click)="deleteSpecification(i)" class="text-red-600 hover:text-red-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Add New Row Button -->
+              <div class="mt-4">
+                <button (click)="addNewSpecification()" class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700">
+                  + Add New Specification
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-</div>
-<!-- Product Price Section End -->
-           
-            
-
-<!-- Product Short Description Start -->
-<div class="flex flex-wrap gap-4">
-  <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
-    <h3 class="font-bold mb-2">Product Short Description</h3>
-
-   <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
-  </div>
-</div>
-<!-- Product Short Description End -->
 
 
-
-<!-- Product Specification Start -->
-<div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
-  <h2 class="text-xl font-semibold text-gray-800 mb-4">Product Specification</h2>
-
-  <!-- File Upload Section -->
-  <!-- <div class="mb-6">
-    <label class="block text-sm font-medium text-gray-700 mb-2">Upload Specification File</label>
-    <div class="flex items-center">
-      <input
-        type="file"
-        class="hidden"
-        id="fileInput"
-      />
-      <label
-        for="fileInput"
-        class="px-4 py-2 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700"
-      >
-        Choose File
-      </label>
-      <span class="ml-4 text-sm text-gray-600">No file chosen</span>
-      <a
-        href="#"
-        class="ml-4 text-sm text-blue-600 hover:text-blue-700"
-      >
-        DOWNLOAD SAMPLE
-      </a>
-    </div>
-  </div> -->
-
-  <!-- Dynamic Table for Product Specifications -->
-  <div class="space-y-4">
-    <!-- Table Header -->
-    <div class="grid grid-cols-3 gap-4">
-      <div class="font-semibold text-gray-700">Key</div>
-      <div class="font-semibold text-gray-700">Value</div>
-      <div class="font-semibold text-gray-700">Action</div>
-    </div>
-
-    <!-- Dynamic Rows -->
-    <div *ngFor="let spec of productSpecifications; let i = index" class="grid grid-cols-3 gap-4 items-center">
-      <!-- Key Input -->
-      <input
-        type="text"
-        [(ngModel)]="spec.key"
-        class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-        placeholder="Enter key"
-      />
-
-      <!-- Value Input -->
-      <input
-        type="text"
-        [(ngModel)]="spec.value"
-        class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-        placeholder="Enter value"
-      />
-
-      <!-- Delete Button -->
-      <button
-        (click)="deleteSpecification(i)"
-        class="text-red-600 hover:text-red-700"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Add New Row Button -->
-    <div class="mt-4">
-      <button
-        (click)="addNewSpecification()"
-        class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700"
-      >
-        + Add New Specification
-      </button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- Product Specification End -->
-
+        <!-- Product Specification End -->
 
 
         <!-- Right Side -->
@@ -580,20 +457,100 @@
                 </div>
               </div>
             </div>
-
             <button class="mt-4 w-full px-4 py-2 bg-black text-white rounded-lg">+ Add New Category</button>
+          </div>
 
-         
+
+          <!-- products Tage Start -->
+          <div class="w-full md:w-1/1 space-y-4">
+            <!-- Product Tags Heading -->
+            <h4 class="font-bold">Product Tags</h4>
+
+            <!-- Add Tag Section -->
+            <div class="mb-6">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Add New Tag</label>
+              <div class="flex items-center">
+                <input type="text" [(ngModel)]="newTag" (keyup.enter)="addTag()" class="flex-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Enter tag" />
+                <button (click)="addTag()" class="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                  Add
+                </button>
+              </div>
+            </div>
+
+            <!-- Tags List -->
+            <div class="space-y-2">
+              <div *ngFor="let tag of tags; let i = index" class="flex items-center justify-between bg-gray-100 px-3 py-2 rounded-lg text-sm text-gray-700">
+                <span>{{ tag }}</span>
+                <button (click)="removeTag(i)" class="text-gray-500 hover:text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- products Tage End -->
+
+          <!-- Product brand section start -->
+          <div class="w-full md:w-1/1 space-y-4">
+            <!-- Product Brand Heading -->
+            <h4 class="font-bold">Product Brand</h4>
+
+            <!-- Tabs Navigation -->
+            <div class="flex space-x-4 border-b border-gray-200">
+              <button
+                class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none"
+                [class.text-blue-600]="activeBrand === 'brandList'"
+                (click)="activeTab = 'brandList'"
+              >
+                Brand List
+              </button>
+              <button
+                class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none"
+                [class.text-blue-600]="activeBrand === 'addBrand'"
+                (click)="activeTab = 'addBrand'"
+              >
+                Add New Brand
+              </button>
+            </div>
+
+            <!-- Tabs Content -->
+            <div class="mt-4">
+              <!-- Brand List Tab -->
+              <div *ngIf="activeTab === 'brandList'" class="space-y-4">
+                <label class="block text-sm font-medium text-gray-700">Select Brand</label>
+                <select
+                  class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                >
+                  <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+                </select>
+              </div>
+
+              <!-- Add New Brand Tab -->
+              <div *ngIf="activeTab === 'addBrand'" class="space-y-4">
+                <label class="block text-sm font-medium text-gray-700">Brand Name</label>
+                <input
+                  type="text"
+                  [(ngModel)]="newBrand"
+                  class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  placeholder="Enter brand name"
+                />
+                <button
+                  (click)="addBrand()"
+                  class="w-full px-2 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                  ADD BRAND
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!--  Product Brand section End        -->
+
+        </div>
       </div>
-    
-
-      <!-- products Tage Start -->
-     
-      <!-- products Tage End -->
-
-
-
-
+    </div>
   </div>
 </div>
 
