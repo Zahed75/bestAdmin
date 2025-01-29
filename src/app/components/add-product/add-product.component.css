@@ -23,3 +23,20 @@
 	min-width: 795px;
 	max-width: 795px;
 }
+
+
+.text-green-500 {
+	color: #10B981;
+  }
+  
+  .text-yellow-500 {
+	color: #F59E0B;
+  }
+  
+  .text-red-500 {
+	color: #EF4444;
+  }
+  
+  .text-gray-500 {
+	color: #6B7280;
+  }

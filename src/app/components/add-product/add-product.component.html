@@ -83,9 +83,13 @@
               </div>
             </div>
 
+          
+
+            <!-- Product SEO section Start -->
+             
             <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
-              <h2 class="text-2xl font-semibold mb-4">Add Product</h2>
-            
+              <h2 class="text-2xl font-semibold mb-4">Product SEO</h2>
+          
               <div class="space-y-4">
                 <!-- SEO Title Input -->
                 <div>
@@ -94,23 +98,45 @@
                     type="text"
                     id="seoTitle"
                     [(ngModel)]="seoTitle"
+                    (ngModelChange)="onSeoTitleChange()"
                     class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Enter SEO Title"
                   />
+                  <div class="mt-1 text-sm">
+                    <span [ngClass]="{
+                      'text-green-500': seoTitleFeedback === 'green',
+                      'text-yellow-500': seoTitleFeedback === 'yellow',
+                      'text-red-500': seoTitleFeedback === 'red',
+                      'text-gray-500': seoTitleFeedback === 'gray'
+                    }">
+                      {{ seoTitle.length }}/60 characters
+                    </span>
+                  </div>
                 </div>
-            
+          
                 <!-- SEO Description Input -->
                 <div>
                   <label for="seoDescription" class="block text-sm font-medium text-gray-700">SEO Description</label>
                   <textarea
                     id="seoDescription"
                     [(ngModel)]="seoDescription"
+                    (ngModelChange)="onSeoDescriptionChange()"
                     rows="3"
                     class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Enter SEO Description"
                   ></textarea>
+                  <div class="mt-1 text-sm">
+                    <span [ngClass]="{
+                      'text-green-500': seoDescriptionFeedback === 'green',
+                      'text-yellow-500': seoDescriptionFeedback === 'yellow',
+                      'text-red-500': seoDescriptionFeedback === 'red',
+                      'text-gray-500': seoDescriptionFeedback === 'gray'
+                    }">
+                      {{ seoDescription.length }}/160 characters
+                    </span>
+                  </div>
                 </div>
-            
+          
                 <!-- Product Thumbnail Upload -->
                 <div>
                   <label class="block text-sm font-medium text-gray-700">Product Thumbnail</label>
@@ -121,24 +147,71 @@
                     class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm cursor-pointer bg-gray-50"
                   />
                 </div>
-            
+          
                 <!-- SEO Preview Box -->
                 <div class="mt-6 border rounded-lg p-4 bg-gray-50">
-                  <p class="text-lg font-semibold text-gray-800">{{ seoTitle || 'SEO Title Preview' }}</p>
-                  <p class="text-sm text-gray-600">{{ seoDescription || 'SEO Description Preview' }}</p>
-            
-                  <!-- SEO Thumbnail Preview -->
-                  <div *ngIf="seoThumbnail" class="mt-3 flex justify-center">
-                    <img [src]="seoThumbnail" alt="SEO Thumbnail" class="w-[350px] h-[120px] object-cover rounded-lg shadow-md" />
+                  <div class="flex flex-row items-center justify-between">
+                    <!-- SEO Title and Description Preview -->
+                    <div class="flex-1">
+                      <p class="text-lg font-semibold text-gray-800">{{ seoTitle || 'SEO Title Preview' }}</p>
+                      <p class="text-sm text-gray-600">{{ seoDescription || 'SEO Description Preview' }}</p>
+                    </div>
+          
+                    <!-- SEO Thumbnail Preview -->
+                    <div *ngIf="seoThumbnail" class="ml-4">
+                      <img [src]="seoThumbnail" alt="SEO Thumbnail" class="w-[120px] h-[120px] object-cover rounded-lg shadow-md" />
+                    </div>
+                  </div>
+          
+                  <!-- SEO Analytics Bar -->
+                  <div class="mt-4">
+                    <div class="flex flex-row items-center space-x-4">
+                      <!-- SEO Title Analytics -->
+                      <div class="flex-1">
+                        <div class="h-2 bg-gray-200 rounded-full">
+                          <div
+                            [ngClass]="{
+                              'bg-green-500': seoTitleFeedback === 'green',
+                              'bg-yellow-500': seoTitleFeedback === 'yellow',
+                              'bg-red-500': seoTitleFeedback === 'red',
+                              'bg-gray-500': seoTitleFeedback === 'gray'
+                            }"
+                            class="h-2 rounded-full"
+                            [style.width]="(seoTitle.length / 60) * 100 + '%'"
+                          ></div>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1">SEO Title: {{ seoTitle.length }}/60</p>
+                      </div>
+          
+                      <!-- SEO Description Analytics -->
+                      <div class="flex-1">
+                        <div class="h-2 bg-gray-200 rounded-full">
+                          <div
+                            [ngClass]="{
+                              'bg-green-500': seoDescriptionFeedback === 'green',
+                              'bg-yellow-500': seoDescriptionFeedback === 'yellow',
+                              'bg-red-500': seoDescriptionFeedback === 'red',
+                              'bg-gray-500': seoDescriptionFeedback === 'gray'
+                            }"
+                            class="h-2 rounded-full"
+                            [style.width]="(seoDescription.length / 160) * 100 + '%'"
+                          ></div>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1">SEO Description: {{ seoDescription.length }}/160</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+<!-- Product SEO section End -->
+           
             
             
 
 
-          </div>
+</div>
 
 
         <!-- Right Side -->

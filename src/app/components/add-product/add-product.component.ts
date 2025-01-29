@@ -52,6 +52,8 @@ export class AddProductComponent implements OnInit {
   seoTitle: string = '';
   seoDescription: string = '';
   seoThumbnail: string | ArrayBuffer | null = '';
+  seoTitleFeedback: string = 'gray'; // gray, green, yellow, red
+  seoDescriptionFeedback: string = 'gray'; // gray, green, yellow, red
 
   public Editor: typeof ClassicEditor | null = null;
 	public config: EditorConfig | null = null;
@@ -296,18 +298,54 @@ export class AddProductComponent implements OnInit {
     this.galleryImages = this.galleryImages.filter((img) => img !== imgSrc);
   }
 
-  onThumbnailChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.seoThumbnail = reader.result;
-      };
-      reader.readAsDataURL(file);
+ // Method to analyze SEO Title
+ analyzeSeoTitle(): void {
+    const length = this.seoTitle.length;
+    if (length === 0) {
+      this.seoTitleFeedback = 'gray';
+    } else if (length > 0 && length <= 50) {
+      this.seoTitleFeedback = 'green';
+    } else if (length > 50 && length <= 60) {
+      this.seoTitleFeedback = 'yellow';
+    } else {
+      this.seoTitleFeedback = 'red';
     }
   }
 
+  // Method to analyze SEO Description
+  analyzeSeoDescription(): void {
+    const length = this.seoDescription.length;
+    if (length === 0) {
+      this.seoDescriptionFeedback = 'gray';
+    } else if (length > 0 && length <= 150) {
+      this.seoDescriptionFeedback = 'green';
+    } else if (length > 150 && length <= 160) {
+      this.seoDescriptionFeedback = 'yellow';
+    } else {
+      this.seoDescriptionFeedback = 'red';
+    }
+  }
+
+  // Call these methods when the input changes
+  onSeoTitleChange(): void {
+    this.analyzeSeoTitle();
+  }
+
+  onSeoDescriptionChange(): void {
+    this.analyzeSeoDescription();
+  }
+
+  onThumbnailChange(event: Event): void {
+	const input = event.target as HTMLInputElement;
+	if (input.files && input.files.length > 0) {
+	  const file = input.files[0];
+	  const reader = new FileReader();
+	  reader.onload = () => {
+		this.seoThumbnail = reader.result;
+	  };
+	  reader.readAsDataURL(file);
+	}
+  }
 
 }
 
