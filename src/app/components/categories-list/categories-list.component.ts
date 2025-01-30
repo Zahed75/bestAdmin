@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {NgClass, NgFor, NgIf} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-categories-list',
@@ -14,7 +14,8 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './categories-list.component.css'
 })
 export class CategoriesListComponent {
-  isEditSubCategoryModalOpen = false;
+  isAddCategoryModalOpen = false; // Controls the "Add Category" modal
+  isEditSubCategoryModalOpen = false; // Controls the "Edit Sub-Category" modal
 
   // Sample data for categories with isExpanded property
   categories: any[] = [
@@ -29,6 +30,28 @@ export class CategoriesListComponent {
       isExpanded: false
     }
   ];
+
+  // Open Add Category Modal
+  openAddCategoryModal() {
+    this.isAddCategoryModalOpen = true;
+  }
+
+  // Close Add Category Modal
+  closeAddCategoryModal() {
+    this.isAddCategoryModalOpen = false;
+  }
+
+  // Handle Add Category Form Submission
+  onAddCategorySubmit(form: any) {
+    const newCategory = {
+      name: form.value.categoryName,
+      subCategories: [],
+      isExpanded: false
+    };
+    this.categories.push(newCategory); // Add the new category to the list
+    this.closeAddCategoryModal(); // Close the modal
+    form.reset(); // Reset the form
+  }
 
   // Toggle category expansion
   toggleCategory(category: any) {

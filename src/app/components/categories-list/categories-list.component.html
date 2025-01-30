@@ -8,7 +8,7 @@
 
     <!-- Add Category Button -->
     <div class="flex justify-end mb-6">
-      <button class="flex items-center justify-center text-white bg-black hover:bg-black focus:ring-2 focus:ring-black font-medium rounded-lg text-sm px-4 py-2">
+      <button class="flex items-center justify-center text-white bg-black hover:bg-black focus:ring-2 focus:ring-black font-medium rounded-lg text-sm px-4 py-2" (click)="openAddCategoryModal()">
         <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
         </svg>
@@ -43,6 +43,44 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Add Category Modal -->
+<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isAddCategoryModalOpen">
+  <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">Add Category</h3>
+      <button class="text-gray-500 hover:text-gray-700" (click)="closeAddCategoryModal()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Form -->
+    <form (ngSubmit)="onAddCategorySubmit($event)">
+      <div class="mb-4">
+        <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>
+        <input type="text" id="categoryName" name="categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required>
+      </div>
+      <div class="mb-4">
+        <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>
+        <select id="parentCategory" name="parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+          <option value="">Select Parent Category</option>
+          <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea id="description" name="description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" rows="3"></textarea>
+      </div>
+      <div class="flex justify-end space-x-4">
+        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200" (click)="closeAddCategoryModal()">Cancel</button>
+        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Add Category</button>
+      </div>
+    </form>
   </div>
 </div>
 
