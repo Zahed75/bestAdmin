@@ -12,6 +12,7 @@ import type {
   ClassicEditor,
   EditorConfig,
 } from 'https://cdn.ckeditor.com/typings/ckeditor5.d.ts';
+import {RouterLink} from '@angular/router';
 
 const LICENSE_KEY =
   'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3Njk2NDQ3OTksImp0aSI6IjliY2M4ODM1LTc3ZjMtNDMwOC1hZjIxLTgzYzQxNGNmOTc5OCIsImxpY2Vuc2VkSG9zdHMiOlsiMTI3LjAuMC4xIiwibG9jYWxob3N0IiwiMTkyLjE2OC4qLioiLCIxMC4qLiouKiIsIjE3Mi4qLiouKiIsIioudGVzdCIsIioubG9jYWxob3N0IiwiKi5sb2NhbCJdLCJ1c2FnZUVuZHBvaW50IjoiaHR0cHM6Ly9wcm94eS1ldmVudC5ja2VkaXRvci5jb20iLCJkaXN0cmlidXRpb25DaGFubmVsIjpbImNsb3VkIiwiZHJ1cGFsIl0sImxpY2Vuc2VUeXBlIjoiZGV2ZWxvcG1lbnQiLCJmZWF0dXJlcyI6WyJEUlVQIl0sInZjIjoiMmM0MmQ2ZDIifQ.TkcaS4YFgY77J7GHhjKgr5PsHSsWbPMPRAdrIj8zrhoa1bdoUEW9aSdfIS6AM4Dq0x9DUz_aBw5Uyk8txwfrlw';
@@ -32,12 +33,13 @@ const cloudConfig = {
   selector: 'app-add-product',
   standalone: true,
   imports: [
-     CKEditorModule,
-     NgIf,
-     NgFor,
-     FormsModule,
-     CommonModule
-    ],
+    CKEditorModule,
+    NgIf,
+    NgFor,
+    FormsModule,
+    CommonModule,
+    RouterLink
+  ],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css',
   encapsulation: ViewEncapsulation.None

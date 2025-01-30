@@ -14,6 +14,7 @@ import {OutletDetailsComponent} from './components/outlet-details/outlet-details
 import {OutletCreationComponent} from './components/outlet-creation/outlet-creation.component';
 import {AddProductComponent} from './components/add-product/add-product.component';
 import {ProductsComponent} from './components/products/products.component';
+import {CategoriesListComponent} from './components/categories-list/categories-list.component';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,12 @@ export const routes: Routes = [
       {
         path: 'customers',
         component: CustomersComponent,
+        canActivate: [authGuard],
+        data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
+      },
+      {
+        path: 'categories',
+        component: CategoriesListComponent,
         canActivate: [authGuard],
         data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
       },
