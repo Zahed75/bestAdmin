@@ -49,6 +49,12 @@ export const routes: Routes = [
         data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
       },
       {
+        path: 'discount',
+        component: DiscountComponent,
+        canActivate: [authGuard],
+        data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
+      },
+      {
         path: 'add-product',
         component: AddProductComponent,
         canActivate: [authGuard],
