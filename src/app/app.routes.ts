@@ -13,6 +13,7 @@ import {authGuard} from './guard/auth.guard';
 import {OutletDetailsComponent} from './components/outlet-details/outlet-details.component';
 import {OutletCreationComponent} from './components/outlet-creation/outlet-creation.component';
 import {AddProductComponent} from './components/add-product/add-product.component';
+import {ProductsComponent} from './components/products/products.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,12 @@ export const routes: Routes = [
       {
         path: 'add-product',
         component: AddProductComponent,
+        canActivate: [authGuard],
+        data: {roles: ['HQ', 'BA', 'AD']},
+      },
+      {
+        path: 'products',
+        component: ProductsComponent,
         canActivate: [authGuard],
         data: {roles: ['HQ', 'BA', 'AD']},
       },
