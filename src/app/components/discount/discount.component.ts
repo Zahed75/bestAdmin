@@ -6,7 +6,6 @@ import {RouterLink} from '@angular/router';
   selector: 'app-discount',
   imports: [
     FormsModule,
-    RouterLink
   ],
   templateUrl: './discount.component.html',
   styleUrl: './discount.component.css'
