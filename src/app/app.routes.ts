@@ -15,6 +15,7 @@ import {OutletCreationComponent} from './components/outlet-creation/outlet-creat
 import {AddProductComponent} from './components/add-product/add-product.component';
 import {ProductsComponent} from './components/products/products.component';
 import {CategoriesListComponent} from './components/categories-list/categories-list.component';
+import {AddDiscountComponent} from './components/add-discount/add-discount.component';
 
 export const routes: Routes = [
   {
@@ -51,6 +52,12 @@ export const routes: Routes = [
       {
         path: 'discount',
         component: DiscountComponent,
+        canActivate: [authGuard],
+        data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
+      },
+      {
+        path: 'add-discount',
+        component: AddDiscountComponent,
         canActivate: [authGuard],
         data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
       },

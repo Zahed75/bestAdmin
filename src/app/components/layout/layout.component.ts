@@ -1,10 +1,9 @@
-
-import { Component, inject, OnInit, OnDestroy, Renderer2, ElementRef } from '@angular/core';
-import { RouterLink, RouterOutlet, Router, NavigationEnd } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { DashboardService } from '../dashboard/dashboard.service';
-import { filter } from 'rxjs/operators';
-import { NgIf } from '@angular/common';
+import {Component, inject, OnInit, OnDestroy, Renderer2, ElementRef} from '@angular/core';
+import {RouterLink, RouterOutlet, Router, NavigationEnd} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {DashboardService} from '../dashboard/dashboard.service';
+import {filter} from 'rxjs/operators';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-layout',
