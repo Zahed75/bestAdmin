@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {NgFor, NgIf} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-add-discount',
   imports: [
     NgIf,
-    NgFor
+    NgFor,
+    RouterLink,
   ],
   templateUrl: './add-discount.component.html',
   styleUrl: './add-discount.component.css'

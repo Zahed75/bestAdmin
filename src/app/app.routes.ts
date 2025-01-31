@@ -16,6 +16,7 @@ import {AddProductComponent} from './components/add-product/add-product.componen
 import {ProductsComponent} from './components/products/products.component';
 import {CategoriesListComponent} from './components/categories-list/categories-list.component';
 import {AddDiscountComponent} from './components/add-discount/add-discount.component';
+import {AddUserComponent} from './components/add-user/add-user.component';
 
 export const routes: Routes = [
   {
@@ -113,6 +114,12 @@ export const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent,
+        canActivate: [authGuard],
+        data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
+      },
+      {
+        path: 'add-user',
+        component: AddUserComponent,
         canActivate: [authGuard],
         data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
       },

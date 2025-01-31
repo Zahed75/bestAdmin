@@ -1,10 +1,31 @@
 <div class="flex flex-row mx-6">
   <div class="p-4 sm:ml-64 w-full">
-    <div>
-      <h1 class="text-3xl text-black mb-6">Discount</h1>
-      <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>
+    <!-- Back Icon and Headings -->
+    <div class="flex flex-col  gap-2 mb-6">
+      <!-- Back Icon and Discount Heading -->
+      <div class="flex items-center gap-2">
+        <!-- Back SVG Icon -->
+        <svg routerLink="/layout/discount"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5 cursor-pointer"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+
+        <!-- Discount Heading -->
+        <h1  routerLink="/layout/discount" class="text-[30px] font-semibold">Discount</h1>
+      </div>
+
+      <!-- Overview Heading -->
+      <h3 class=" text-xl font-semibold text-gray-700">Overview</h3>
     </div>
 
+    <!-- Add New Discount Form -->
     <div class="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto">
       <h1 class="text-2xl font-semibold mb-6">Add New Discount</h1>
 
