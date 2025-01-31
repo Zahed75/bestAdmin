@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {Router} from '@angular/router';
+import {Router,NavigationEnd} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {DashboardService} from '../dashboard/dashboard.service';
 import {environment} from '../../../enviornments/environment'; // Import environment
@@ -18,7 +18,7 @@ export class LayoutComponent {
   router = inject(Router);
   dashService = inject(DashboardService); // Use injected service
   http = inject(HttpClient);
-
+  sidebarOpen = false;  // Sidebar state
   constructor() {
     this.dashService.tokenExpired$.subscribe((Res: boolean) => {
       if (Res) {
@@ -43,6 +43,11 @@ export class LayoutComponent {
         }
       }
     });
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.sidebarOpen = false; // Close sidebar on route change
+      }
+    });
   }
 
   logOut() {
@@ -51,4 +56,10 @@ export class LayoutComponent {
     localStorage.removeItem('refreshToken');
     this.router.navigateByUrl('login');
   }
+
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
 }
+
