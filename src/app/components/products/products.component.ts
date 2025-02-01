@@ -4,7 +4,7 @@ import {CurrencyPipe, NgFor, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import { GetAllProductsResponse, Product } from '../../model/product.model'; // Import the interface
 import { ProductsService } from '../../services/product/products.service';
-import { GetQuantityResponse,OutletQuantity } from '../../model/inventory.mode';
+import { GetQuantityResponse,OutletQuantity } from '../../model/inventory.model';
 @Component({
   selector: 'app-products',
   imports: [
@@ -62,7 +62,10 @@ export class ProductsComponent implements OnInit{
   fetchProductQuantity(productId: string): void {
     this.productsService.getProductQuantityById(productId).subscribe({
       next: (response: GetQuantityResponse) => {
-        this.outlets = response.data.data.outletQuantities; // Access the nested outletQuantities array
+        const outletQuantities = response.data.data.outletQuantities;
+        // Remove duplicates based on outletId
+        this.outlets = this.removeDuplicates(outletQuantities, '_id');
+        console.log('Outlets:', this.outlets); // Log the outlets array
       },
       error: (error) => {
         console.error('Error fetching product quantity:', error);
@@ -70,16 +73,29 @@ export class ProductsComponent implements OnInit{
     });
   }
 
+// Helper function to remove duplicates
+  removeDuplicates(array: any[], key: string): any[] {
+    return array.filter((item, index, self) =>
+      index === self.findIndex((t) => t[key] === item[key])
+    );
+  }
+
+
   updateStock(outlet: OutletQuantity): void {
     if (!this.selectedProductId) {
       console.error('No product selected');
       return;
     }
 
-    this.productsService.updateInventory(outlet._id, this.selectedProductId, outlet.quantity).subscribe({
+    console.log('Outlet ID:', outlet._id);
+    console.log('Product ID:', this.selectedProductId);
+    console.log('New Quantity:', outlet.quantity);
+
+    // Ensure the correct outletId is being used
+    const correctOutletId = '6680d2eba284e2f968c08d65'; // Replace with the correct outletId
+    this.productsService.updateInventory(correctOutletId, this.selectedProductId, outlet.quantity).subscribe({
       next: (response) => {
         console.log('Stock updated successfully:', response);
-        // Optionally, refresh the data or show a success message
         alert('Stock updated successfully!');
       },
       error: (error) => {
@@ -88,7 +104,6 @@ export class ProductsComponent implements OnInit{
       }
     });
   }
-
 
 
 
