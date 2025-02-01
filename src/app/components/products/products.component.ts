@@ -1,24 +1,31 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {NgFor, NgIf} from '@angular/common';
+import {CurrencyPipe, NgFor, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
-
-
+import { GetAllProductsResponse, Product } from '../../model/product.model'; // Import the interface
+import { ProductsService } from '../../services/product/products.service';
 @Component({
   selector: 'app-products',
   imports: [
     FormsModule,
     NgIf,
     NgFor,
-    RouterLink
+    RouterLink,
+
+
 
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit{
 
   isInventoryModalOpen = false;
+  products: Product[] = []; // Array to store products
+  isLoading: boolean = true; // Loading state
+
+  constructor(private productsService: ProductsService) {}
+
 
   // Sample data for outlets and stock
   outlets = [
@@ -39,6 +46,25 @@ export class ProductsComponent {
     // Add logic to update stock for the specific outlet
     console.log('Updated stock for', outlet.name, 'to', outlet.stock);
   }
+
+  ngOnInit() {
+    this.fetchAllProducts();
+  }
+
+
+
+  fetchAllProducts():void{
+    this.productsService.getAllProducts().subscribe({
+      next:(response:GetAllProductsResponse)=>{
+        this.products=response.products;
+        this.isLoading=false;
+      },error:(error)=>{
+        console.error('Error fetching products:', error);
+        this.isLoading = false;
+      },
+    });
+  }
+
 
 
 

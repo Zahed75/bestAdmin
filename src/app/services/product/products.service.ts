@@ -10,6 +10,8 @@ import { GetAllProductsResponse } from '../../model/product.model';
 export class ProductsService {
 
   private getAllProductsURL = `${environment.apiBaseUrl}/product/getAllProducts`;
+  private getQuantityByIdProductId=`${environment.apiBaseUrl}/product/quantity`;
+
   private http = inject(HttpClient);
 
 
@@ -20,5 +22,7 @@ export class ProductsService {
       })
     )
   }
+
+
 
 }
