@@ -24,6 +24,16 @@ export class ProductsComponent implements OnInit{
   selectedProductId: string | null = null;
   outlets: OutletQuantity[] = [];
 
+
+  // Pagination properties
+  currentPage: number = 1;
+  itemsPerPage: number = 5; // Default number of products per page
+  totalItems: number = 0;
+
+
+
+
+
   constructor(private productsService: ProductsService) {}
 
 
@@ -87,10 +97,6 @@ export class ProductsComponent implements OnInit{
       return;
     }
 
-    console.log('Outlet ID:', outlet._id);
-    console.log('Product ID:', this.selectedProductId);
-    console.log('New Quantity:', outlet.quantity);
-
     // Ensure the correct outletId is being used
     const correctOutletId = '6680d2eba284e2f968c08d65'; // Replace with the correct outletId
     this.productsService.updateInventory(correctOutletId, this.selectedProductId, outlet.quantity).subscribe({
@@ -106,5 +112,33 @@ export class ProductsComponent implements OnInit{
   }
 
 
+// Get products for the current page
+  get paginatedProducts(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.products.slice(startIndex, endIndex);
+  }
+
+  // Change page
+  changePage(page: number): void {
+    this.currentPage = page;
+  }
+
+  // Get total number of pages
+  get totalPages(): number {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
+
+  // Generate an array of page numbers
+  get totalPagesArray(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  // Get the displayed range of products
+  getDisplayedRange(): string {
+    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const end = Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
+    return `${start}-${end}`;
+  }
 
 }
