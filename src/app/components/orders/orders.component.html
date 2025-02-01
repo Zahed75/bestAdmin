@@ -508,12 +508,16 @@
               {{ order.outletName }}
             </div>
           </td>
-          <td class="px-4 py-2 flex flex-wrap gap-2">
-            <a [routerLink]="['/layout/order-details', order._id]"
-               class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
 
-            <a (click)="onDelete(order._id)"
-               class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+          <td class="flex items-center px-4 py-2 space-x-2">
+            <!-- Edit Button -->
+            <button  [routerLink]="['/layout/order-details', order._id]" class="px-4 py-2 text-sm font-medium text-white bg-gray-950 rounded-md hover:bg-gray-800">
+              Edit
+            </button>
+            <!-- Remove Button -->
+            <button (click)="onDelete(order._id)" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
+              Remove
+            </button>
           </td>
         </tr>
         </tbody>

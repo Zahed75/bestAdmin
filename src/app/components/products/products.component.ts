@@ -40,4 +40,6 @@ export class ProductsComponent {
     console.log('Updated stock for', outlet.name, 'to', outlet.stock);
   }
 
+
+
 }
