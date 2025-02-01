@@ -4,6 +4,7 @@ import {CurrencyPipe, NgFor, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import { GetAllProductsResponse, Product } from '../../model/product.model'; // Import the interface
 import { ProductsService } from '../../services/product/products.service';
+import { GetQuantityResponse,OutletQuantity } from '../../model/inventory.mode';
 @Component({
   selector: 'app-products',
   imports: [
@@ -11,41 +12,21 @@ import { ProductsService } from '../../services/product/products.service';
     NgIf,
     NgFor,
     RouterLink,
-
-
-
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit{
 
+  products: any[] = []; // Replace with your product data type
+  isLoading = false;
   isInventoryModalOpen = false;
-  products: Product[] = []; // Array to store products
-  isLoading: boolean = true; // Loading state
+  selectedProductId: string | null = null;
+  outlets: OutletQuantity[] = [];
 
   constructor(private productsService: ProductsService) {}
 
 
-  // Sample data for outlets and stock
-  outlets = [
-    { name: 'BGR', address: 'Vandari Monjil, Borogola, Sadar, Bogura', stock: 25 },
-    { name: 'BGR', address: 'Vandari Monjil, Borogola, Sadar, Bogura', stock: 500 },
-    { name: 'BHL', address: 'Zaman Center, Ukil Para, Sadar Road, Bhola', stock: 500 }
-  ];
-
-  openInventoryModal() {
-    this.isInventoryModalOpen = true;
-  }
-
-  closeInventoryModal() {
-    this.isInventoryModalOpen = false;
-  }
-
-  updateStock(outlet: any) {
-    // Add logic to update stock for the specific outlet
-    console.log('Updated stock for', outlet.name, 'to', outlet.stock);
-  }
 
   ngOnInit() {
     this.fetchAllProducts();
@@ -62,6 +43,49 @@ export class ProductsComponent implements OnInit{
         console.error('Error fetching products:', error);
         this.isLoading = false;
       },
+    });
+  }
+
+
+
+  openInventoryModal(productId: string): void {
+    this.selectedProductId = productId;
+    this.isInventoryModalOpen = true;
+    this.fetchProductQuantity(productId);
+  }
+
+  closeInventoryModal() {
+    this.isInventoryModalOpen = false;
+  }
+
+
+  fetchProductQuantity(productId: string): void {
+    this.productsService.getProductQuantityById(productId).subscribe({
+      next: (response: GetQuantityResponse) => {
+        this.outlets = response.data.data.outletQuantities; // Access the nested outletQuantities array
+      },
+      error: (error) => {
+        console.error('Error fetching product quantity:', error);
+      }
+    });
+  }
+
+  updateStock(outlet: OutletQuantity): void {
+    if (!this.selectedProductId) {
+      console.error('No product selected');
+      return;
+    }
+
+    this.productsService.updateInventory(outlet._id, this.selectedProductId, outlet.quantity).subscribe({
+      next: (response) => {
+        console.log('Stock updated successfully:', response);
+        // Optionally, refresh the data or show a success message
+        alert('Stock updated successfully!');
+      },
+      error: (error) => {
+        console.error('Error updating stock:', error);
+        alert('Failed to update stock. Please try again.');
+      }
     });
   }
 
