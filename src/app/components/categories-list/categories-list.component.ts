@@ -22,8 +22,10 @@ export interface CategoryUI extends Category {
 })
 export class CategoriesListComponent implements OnInit {
   isAddCategoryModalOpen = false;
+  isEditCategoryModalOpen = false;
   isEditSubCategoryModalOpen = false;
   categories: CategoryUI[] = [];
+  selectedCategory: Category | null = null;
   selectedSubCategory: Category | null = null;
 
   constructor(private categoryService: CategoryService) {}
@@ -62,6 +64,16 @@ export class CategoriesListComponent implements OnInit {
 
   closeAddCategoryModal(): void {
     this.isAddCategoryModalOpen = false;
+  }
+
+  openEditCategoryModal(category: Category): void {
+    this.selectedCategory = category;
+    this.isEditCategoryModalOpen = true;
+  }
+
+  closeEditCategoryModal(): void {
+    this.isEditCategoryModalOpen = false;
+    this.selectedCategory = null;
   }
 
   /**
@@ -105,6 +117,31 @@ export class CategoriesListComponent implements OnInit {
     });
   }
 
+  /**
+   * Handle category editing.
+   */
+  onEditCategorySubmit(form: any): void {
+    if (this.selectedCategory) {
+      const updatedCategory: Category = {
+        ...this.selectedCategory,
+        categoryName: form.value.categoryName,
+        categoryDescription: form.value.categoryDescription
+      };
+
+      this.categoryService.updateCategory(updatedCategory._id!, updatedCategory).subscribe({
+        next: (category) => {
+          const categoryIndex = this.categories.findIndex(cat => cat._id === category._id);
+          if (categoryIndex !== -1) {
+            this.categories[categoryIndex] = { ...category, isExpanded: this.categories[categoryIndex].isExpanded, subCategories: this.categories[categoryIndex].subCategories };
+          }
+          this.closeEditCategoryModal();
+        },
+        error: (error) => {
+          console.error('Error updating category:', error);
+        }
+      });
+    }
+  }
 
   /**
    * Toggle the visibility of a category's subcategories.
