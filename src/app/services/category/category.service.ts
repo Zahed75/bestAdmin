@@ -46,23 +46,5 @@ export class CategoryService {
   }
 
 
-  updateCategory(categoryId: string, category: Category): Observable<Category> {
-    return this.http.put<Category>(`${this.updateCategoryURL}${categoryId}`, category);
-  }
 
-  deleteCategory(categoryId: string): Observable<void> {
-    return this.http.delete<void>(`${this.deleteCategoryURL}${categoryId}`);
-  }
-
-  getCategoryById(categoryId: string): Observable<Category> {
-    return this.http.get<Category>(`${this.getCategoryByIdURL}${categoryId}`);
-  }
-
-  updateSubCategory(subCategoryId: string, subCategory: Category): Observable<Category> {
-    return this.http.put<Category>(`${this.updateSubCategoryURL}${subCategoryId}`, subCategory);
-  }
-
-  deleteSubCategory(subCategoryId: string): Observable<void> {
-    return this.http.delete<void>(`${this.deleteSubCategoryURL}${subCategoryId}`);
-  }
 }

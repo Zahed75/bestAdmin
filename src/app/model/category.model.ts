@@ -64,7 +64,7 @@ export interface Product {
 
 export interface Category {
   _id?: string;
-  slug?: string; // Make `slug` optional
+  slug: string;
   subCategories: Category[];
 
   // Optional fields for nested category details
@@ -72,6 +72,7 @@ export interface Category {
   categoryName?: string;
   parentCategory?: string;
   categoryDescription?: string;
+  // Note: The API returns "fetaureImage", but you might want to correct it to "featureImage"
   featureImage?: string[];
   title?: string;
   metaDescription?: string;
@@ -79,7 +80,6 @@ export interface Category {
   productCount?: number;
   products?: Product[];
 }
-
 
 // The API response interface for GetAllCategories.
 export interface GetAllCategoriesResponse {
