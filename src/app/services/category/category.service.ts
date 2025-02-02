@@ -17,4 +17,5 @@ export class CategoryService {
     return this.http.get<GetAllCategoriesResponse>(this.getAllCategoriesURL)
   }
 
+
 }

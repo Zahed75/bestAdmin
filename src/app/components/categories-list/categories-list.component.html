@@ -23,7 +23,7 @@
         <!-- Category Header -->
         <div class="flex items-center justify-between p-4 hover:bg-gray-50 cursor-pointer" (click)="toggleCategory(category)">
           <div class="flex items-center space-x-4">
-            <span class="text-lg font-semibold text-gray-800">{{ category.name }}</span>
+            <span class="text-lg font-semibold text-gray-800">{{ category.categoryName }}</span>
             <span class="text-sm text-gray-500">({{ category.subCategories.length }} Sub-Categories)</span>
           </div>
           <svg class="w-5 h-5 text-gray-500 transition-transform duration-200" [ngClass]="{'transform rotate-180': category.isExpanded}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +34,7 @@
         <!-- Sub-Categories List -->
         <div *ngIf="category.isExpanded" class="pl-8 pr-4 pb-4 bg-gray-50">
           <div *ngFor="let subCategory of category.subCategories" class="flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg">
-            <span class="text-gray-700">{{ subCategory }}</span>
+            <span class="text-gray-700">{{ subCategory.categoryName }}</span>
             <div class="flex items-center space-x-4">
               <button class="text-blue-600 hover:text-blue-800" (click)="openEditSubCategoryModal(subCategory)">Edit</button>
               <button class="text-red-600 hover:text-red-800" (click)="deleteSubCategory(subCategory)">Delete</button>
@@ -43,6 +43,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -60,7 +61,7 @@
     </div>
 
     <!-- Modal Form -->
-    <form (ngSubmit)="onAddCategorySubmit($event)">
+    <form (ngSubmit)="onAddCategorySubmit($event.target)">
       <div class="mb-4">
         <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>
         <input type="text" id="categoryName" name="categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required>
@@ -69,7 +70,7 @@
         <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>
         <select id="parentCategory" name="parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
           <option value="">Select Parent Category</option>
-          <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+          <option *ngFor="let category of categories" [value]="category.categoryName">{{ category.categoryName }}</option>
         </select>
       </div>
       <div class="mb-4">
