@@ -12,6 +12,7 @@ import { GetQuantityResponse, OutletQuantity } from '../../model/inventory.model
     FormsModule,
     NgIf,
     NgFor,
+    RouterLink,
   ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
