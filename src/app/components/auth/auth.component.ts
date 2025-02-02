@@ -29,15 +29,10 @@ export class AuthComponent {
     this.authService.signInAdmin(this.loginData).subscribe(
       (res: any) => {
         if (res.user?.accessToken) {
-          // Store token and user info
-          localStorage.setItem('accessToken', res.user.accessToken);
-          localStorage.setItem('users', JSON.stringify(res.user));
+          localStorage.setItem('accessToken', res.user.accessToken);  // Store accessToken
+          localStorage.setItem('users', JSON.stringify(res.user));    // Store user info
 
-          // Extract role from user object
           this.userRole = res.user.role;
-          localStorage.setItem('userRole', this.userRole || '');
-
-          // Redirect based on role
           this.redirectUserBasedOnRole();
         } else {
           alert(res.message || 'Login failed.');
@@ -48,6 +43,7 @@ export class AuthComponent {
       }
     );
   }
+
 
 
 

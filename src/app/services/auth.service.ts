@@ -23,6 +23,12 @@ export class AuthService {
     return user ? JSON.parse(user).role : null;
   }
 
+  // Get token from localStorage
+  getToken(): string | null {
+    return localStorage.getItem('accessToken');
+  }
+
+
   // Check if the user has permission for a specific action
   hasPermission(action: string): boolean {
     const role = this.getRole();

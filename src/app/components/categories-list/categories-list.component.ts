@@ -1,31 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CategoryService } from '../../services/category/category.service';
 import { Category, GetAllCategoriesResponse } from '../../model/category.model';
 
-// Extend Category to include an optional "isExpanded" UI property.
 export interface CategoryUI extends Category {
   isExpanded?: boolean;
 }
 
 @Component({
   selector: 'app-categories-list',
+  standalone: true,
   imports: [
     FormsModule,
     NgClass,
     NgIf,
-    NgFor
+    NgFor,
   ],
   templateUrl: './categories-list.component.html',
   styleUrls: ['./categories-list.component.css']
 })
 export class CategoriesListComponent implements OnInit {
-  isAddCategoryModalOpen = false; // Controls the "Add Category" modal
-  isEditSubCategoryModalOpen = false; // Controls the "Edit Sub-Category" modal
-
-  // Initialize categories as an array of CategoryUI
+  isAddCategoryModalOpen = false;
+  isEditSubCategoryModalOpen = false;
   categories: CategoryUI[] = [];
+  selectedSubCategory: Category | null = null;
 
   constructor(private categoryService: CategoryService) {}
 
@@ -33,12 +32,23 @@ export class CategoriesListComponent implements OnInit {
     this.getCategories();
   }
 
-  // Call the API to get all categories.
+  /**
+   * Fetch categories from the API and ensure `categories` and `subCategories` are always defined.
+   */
   getCategories(): void {
     this.categoryService.getAllCategories().subscribe({
       next: (response: GetAllCategoriesResponse) => {
-        // Optionally, add the isExpanded property to each category
-        this.categories = response.categories.map((cat) => ({ ...cat, isExpanded: false }));
+        if (!response || !response.categories || !Array.isArray(response.categories)) {
+          console.error("Invalid API response:", response);
+          this.categories = [];
+          return;
+        }
+
+        this.categories = response.categories.map((cat) => ({
+          ...cat,
+          isExpanded: false,
+          subCategories: cat.subCategories ?? [] // Ensure subCategories is always an array
+        }));
       },
       error: (error) => {
         console.error('Error fetching categories:', error);
@@ -46,50 +56,118 @@ export class CategoriesListComponent implements OnInit {
     });
   }
 
-  // Open Add Category Modal
   openAddCategoryModal(): void {
     this.isAddCategoryModalOpen = true;
   }
 
-  // Close Add Category Modal
   closeAddCategoryModal(): void {
     this.isAddCategoryModalOpen = false;
   }
 
-  // Handle Add Category Form Submission
-  onAddCategorySubmit(form: any): void {
+  /**
+   * Handle category addition and ensure form validation.
+   */
+  onAddCategorySubmit(form: NgForm): void {
+    if (!form.valid) {
+      console.error('Form is invalid. Please check the required fields.');
+      return;
+    }
 
-    const newCategory: CategoryUI = {
-      slug: '', // You might generate or require a slug from your backend
-      subCategories: [],
-      categoryName: form.value.categoryName,
-      isExpanded: false
+    const user = JSON.parse(localStorage.getItem('users') || '{}');
+    const userId = user?.userId;
+
+    if (!userId) {
+      console.error('User ID is missing. Ensure the user is logged in.');
+      alert('User authentication issue. Please log in again.');
+      return;
+    }
+
+    const newCategory: Category = {
+      userId,
+      categoryName: form.value.categoryName?.trim(),
+      categoryDescription: form.value.categoryDescription?.trim() || '',
+      parentCategory: form.value.parentCategory || null,
+      subCategories: []
     };
-    this.categories.push(newCategory); // Add the new category to the list
-    this.closeAddCategoryModal(); // Close the modal
-    form.reset(); // Reset the form
+
+    console.log('Submitting new category:', newCategory);
+
+    this.categoryService.addCategory(newCategory).subscribe({
+      next: (category) => {
+        this.categories.push({ ...category, isExpanded: false, subCategories: category.subCategories ?? [] });
+        this.closeAddCategoryModal();
+        form.resetForm();
+      },
+      error: (error) => {
+        console.error('Error adding category:', error);
+        alert(error.message || 'Failed to create category.');
+      }
+    });
   }
 
-  // Toggle category expansion
+
+  /**
+   * Toggle the visibility of a category's subcategories.
+   */
   toggleCategory(category: CategoryUI): void {
+    if (!category.subCategories) {
+      category.subCategories = []; // Ensure it's always an array
+    }
     category.isExpanded = !category.isExpanded;
   }
 
-  // Open Edit Sub-Category Modal
-  openEditSubCategoryModal(subCategory: any): void {
+  openEditSubCategoryModal(subCategory: Category): void {
+    this.selectedSubCategory = subCategory;
     this.isEditSubCategoryModalOpen = true;
-    // You can pass the subCategory data to the modal for editing
   }
 
-  // Close Edit Sub-Category Modal
   closeEditSubCategoryModal(): void {
     this.isEditSubCategoryModalOpen = false;
+    this.selectedSubCategory = null;
   }
 
-  // Delete Sub-Category
-  deleteSubCategory(subCategory: any): void {
-    // Add logic to delete the sub-category
-    console.log('Delete sub-category:', subCategory);
+  /**
+   * Handle sub-category editing.
+   */
+  onEditSubCategorySubmit(form: any): void {
+    if (this.selectedSubCategory) {
+      const updatedSubCategory: Category = {
+        ...this.selectedSubCategory,
+        categoryName: form.value.subCategoryName
+      };
+
+      this.categoryService.updateSubCategory(updatedSubCategory._id!, updatedSubCategory).subscribe({
+        next: (subCategory) => {
+          const category = this.categories.find(cat => cat.subCategories?.some(sub => sub._id === subCategory._id));
+          if (category) {
+            const subCategoryIndex = category.subCategories.findIndex(sub => sub._id === subCategory._id);
+            category.subCategories[subCategoryIndex] = subCategory;
+          }
+          this.closeEditSubCategoryModal();
+        },
+        error: (error) => {
+          console.error('Error updating sub-category:', error);
+        }
+      });
+    }
   }
 
+  /**
+   * Handle sub-category deletion.
+   */
+  deleteSubCategory(subCategory: Category): void {
+    this.categoryService.deleteSubCategory(subCategory._id!).subscribe({
+      next: () => {
+        const category = this.categories.find(cat =>
+          cat.subCategories?.some(sub => sub._id === subCategory._id)
+        );
+        if (category) {
+          category.subCategories = category.subCategories?.filter(sub => sub._id !== subCategory._id) || [];
+        }
+      },
+      error: (error) => {
+        console.error('Error deleting sub-category:', error);
+      }
+    });
+  }
 }
