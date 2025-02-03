@@ -27,7 +27,7 @@ export class CategoriesListComponent implements OnInit {
   isEditCategoryModalOpen = false;
   isEditSubCategoryModalOpen = false;
   categories: CategoryUI[] = [];
-
+  isLoading=false
 
   selectedCategory: any = {
     slug: '',
@@ -98,15 +98,13 @@ export class CategoriesListComponent implements OnInit {
 
   ngOnInit(): void {
     const userData = localStorage.getItem('users');
-    console.log("User Data from LocalStorage:", userData); // Debugging
 
     if (userData) {
       try {
         const parsedUser = JSON.parse(userData);
-        console.log("Parsed User Object:", parsedUser); // Debugging
         if (parsedUser?.userId) {
           this.userId = parsedUser.userId;
-          console.log("User ID Set Successfully:", this.userId); // Debugging
+
         } else {
           console.error(" User ID is missing in parsed object!");
         }
@@ -224,6 +222,42 @@ export class CategoriesListComponent implements OnInit {
   }
 
 
+  onDeleteCategory(categoryId: string): void {
+    if (!categoryId) {
+      console.error('Invalid category ID');
+      return;
+    }
+
+    const userData = localStorage.getItem('users');
+    if (!userData) {
+      console.error('User data is not available in localStorage!');
+      return;
+    }
+
+    const parsedUser = JSON.parse(userData);
+    const userId = parsedUser?.userId;
+
+    if (!userId) {
+      console.error('User ID is missing!');
+      return;
+    }
+
+    if (confirm("Are you sure you want to delete?")) {
+      this.isLoading = true;
+      this.categoryService.deleteCategoryById(categoryId, userId).subscribe(
+        () => {
+          alert("Category Deleted Successfully!");
+          this.getCategories();
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error("Couldn't delete category", error);
+          alert("Couldn't Delete Category");
+          this.isLoading = false;
+        }
+      );
+    }
+  }
 
 
 

@@ -13,7 +13,7 @@ export class CategoryService {
   private getAllCategoriesURL = `${environment.apiBaseUrl}/category/getAllCat`;
   private updateCategoryURL = `${environment.apiBaseUrl}/category/updateCategory/`;
   private addCategoryURL = `${environment.apiBaseUrl}/category/addCategory`;
-  private deleteCategoryURL = `${environment.apiBaseUrl}/category/deleteCategory/`;
+  private deleteCategoryByIdURL = `${environment.apiBaseUrl}/category/deleteCategory/`;
   private getCategoryByIdURL = `${environment.apiBaseUrl}/category/getCategoryById/`;
   private updateSubCategoryURL = `${environment.apiBaseUrl}/category/updateSubCategory/`;
   private deleteSubCategoryURL = `${environment.apiBaseUrl}/category/deleteSubCategory/`;
@@ -51,6 +51,13 @@ export class CategoryService {
       headers: this.getHeaders()
     });
   }
+
+
+  deleteCategoryById(categoryId: string, userId: string): Observable<any> {
+    const headers = this.getHeaders().set('UserId', userId); // Set userId in the headers
+    return this.http.delete(`${this.deleteCategoryByIdURL}${categoryId}`, { headers });
+  }
+
 
 
 }
