@@ -125,31 +125,31 @@
         </svg>
       </button>
     </div>
-    <form>
+    <form (submit)="onEditCategorySubmit()" >
       <div class="mb-4">
         <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>
-        <input type="text" id="categoryName" name="categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" [value]="selectedCategory?.categoryName">
+        <input [(ngModel)]="selectedCategory.categoryName" type="text" id="categoryName" name="categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
       </div>
       <div class="mb-4">
         <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>
         <select id="parentCategory" name="parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
           <option value="">No Parent Category</option>
-          <option *ngFor="let category of categories" [value]="category._id" [selected]="category._id === selectedCategory?.parentCategory">
+          <option *ngFor="let category of categories" [value]="category._id">
             {{ category.categoryName }}
           </option>
         </select>
       </div>
       <div class="mb-4">
         <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Description</label>
-        <textarea id="categoryDescription" name="categoryDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3">{{ selectedCategory?.categoryDescription }}</textarea>
+        <textarea [(ngModel)]="selectedCategory.categoryDescription" id="categoryDescription" name="categoryDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3" ></textarea>
       </div>
       <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-        <input type="text" id="title" name="title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" [value]="selectedCategory?.title">
+        <input [(ngModel)]="selectedCategory.title" type="text" id="title" name="title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
       </div>
       <div class="mb-4">
         <label for="metaDescription" class="block text-sm font-medium text-gray-700">Meta Description</label>
-        <textarea id="metaDescription" name="metaDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3">{{ selectedCategory?.metaDescription }}</textarea>
+        <textarea [(ngModel)]="selectedCategory.metaDescription" id="metaDescription" name="metaDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3" ></textarea>
       </div>
 
       <div class="flex justify-end space-x-4">
@@ -174,7 +174,7 @@
     <form >
       <div class="mb-4">
         <label for="subCategoryName" class="block text-sm font-medium text-gray-700">Sub-Category Name</label>
-        <input type="text" id="subCategoryName" name="subCategoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" [value]="selectedSubCategory?.categoryName">
+        <input type="text" id="subCategoryName" name="subCategoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
       </div>
       <div class="flex justify-end space-x-4">
         <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200">Cancel</button>

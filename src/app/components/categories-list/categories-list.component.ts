@@ -27,8 +27,13 @@ export class CategoriesListComponent implements OnInit {
   isEditCategoryModalOpen = false;
   isEditSubCategoryModalOpen = false;
   categories: CategoryUI[] = [];
-  selectedCategory: Category | null = null;
-  selectedSubCategory: Category | null = null;
+  selectedCategory: any = {
+    categoryName: '',
+    parentCategory: '',
+    categoryDescription: '',
+    title: '',
+    metaDescription: '',
+  };
   newCategory: any = {}; // Your category object
   userId: string = ''; // User ID will be fetched from localStorage
   router = inject(Router);
@@ -154,6 +159,46 @@ export class CategoriesListComponent implements OnInit {
       }
     });
   }
+
+
+  onEditCategorySubmit(): void {
+    if (this.selectedCategory) {
+      // Fetch userId from localStorage
+      const userData = localStorage.getItem('users');
+      if (!userData) {
+        console.error('User data is not available in localStorage!');
+        return;
+      }
+
+      try {
+        const parsedUser = JSON.parse(userData);
+        if (parsedUser?.userId) {
+          this.selectedCategory.userId = parsedUser.userId; // Attach userId
+        } else {
+          console.error('User ID is missing in the stored user data!');
+          return;
+        }
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+        return;
+      }
+
+      // Make API call with updated category data
+      this.categoryService.updateCategory(this.selectedCategory).subscribe({
+        next: (response) => {
+          console.log('Category updated successfully:', response);
+          this.closeEditCategoryModal();
+          this.getCategories(); // Refresh the categories list
+        },
+        error: (error) => {
+          console.error('Error updating category:', error);
+        }
+      });
+    }
+  }
+
+
+
 
 
 }

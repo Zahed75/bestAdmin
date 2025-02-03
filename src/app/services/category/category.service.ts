@@ -46,5 +46,11 @@ export class CategoryService {
   }
 
 
+  updateCategory(category: Category): Observable<any> {
+    return this.http.put(`${this.updateCategoryURL}${category._id}`, category, {
+      headers: this.getHeaders()
+    });
+  }
+
 
 }
