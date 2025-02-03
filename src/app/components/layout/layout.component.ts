@@ -3,11 +3,11 @@ import {RouterLink, RouterOutlet, Router, NavigationEnd} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {DashboardService} from '../dashboard/dashboard.service';
 import {filter} from 'rxjs/operators';
-import {NgIf} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, RouterLink, NgIf],
+  imports: [RouterOutlet, RouterLink, NgIf, NgClass],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
 })
@@ -23,7 +23,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private overlay: HTMLElement | null = null;
   private unlistenClickOutside: (() => void) | null = null;
   isSidebarOpen = false;
-
+  isDropdownOpen = false;
   constructor() {
     // Listen for route changes to close the sidebar
     this.router.events
@@ -101,4 +101,13 @@ export class LayoutComponent implements OnInit, OnDestroy {
     localStorage.removeItem('sidebarState'); // Clear sidebar state on logout
     this.router.navigateByUrl('login');
   }
+
+
+
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+
 }
