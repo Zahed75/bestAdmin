@@ -81,6 +81,7 @@ export interface Category {
   products?: Product[];
 }
 
+
 // The API response interface for GetAllCategories.
 export interface GetAllCategoriesResponse {
   message: string;

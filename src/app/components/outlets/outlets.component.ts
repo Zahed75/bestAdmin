@@ -110,6 +110,8 @@ export class OutletsComponent implements OnInit, AfterViewInit {
     }
     return pages;
   }
+
+
   onDeleteOutlet(id: number): void {
     const result = confirm('Are you sure you want to delete this outlet?');
     if (result) {

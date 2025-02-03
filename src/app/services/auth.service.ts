@@ -29,6 +29,14 @@ export class AuthService {
   }
 
 
+  getCurrentUser(): any {
+    const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    console.log("Retrieved User from LocalStorage:", user);
+    return user;
+  }
+
+
+
   // Check if the user has permission for a specific action
   hasPermission(action: string): boolean {
     const role = this.getRole();
