@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { CategoryService } from '../../services/category/category.service';
 import { Category, GetAllCategoriesResponse } from '../../model/category.model';
 import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 export interface CategoryUI extends Category {
   isExpanded?: boolean;
@@ -30,7 +31,7 @@ export class CategoriesListComponent implements OnInit {
   selectedSubCategory: Category | null = null;
   newCategory: any = {}; // Your category object
   userId: string = ''; // User ID will be fetched from localStorage
-
+  router = inject(Router);
 
   openAddCategoryModal(): void {
     this.isAddCategoryModalOpen = true;
@@ -145,6 +146,8 @@ export class CategoriesListComponent implements OnInit {
       next: (response) => {
         console.log('Category added successfully:', response);
         this.newCategory = {}; // Reset the category form
+        this.closeAddCategoryModal();  // Close the modal
+        window.location.reload();      // Reload the page
       },
       error: (error) => {
         console.error('Error adding category:', error);
