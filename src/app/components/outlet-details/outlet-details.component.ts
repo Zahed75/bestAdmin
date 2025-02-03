@@ -1,8 +1,11 @@
-import {ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {OutletService} from '../../services/outlet.service';
-import {NgFor, NgIf} from '@angular/common';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { OutletService } from '../../services/outlet.service';
+import { NgFor, NgIf } from '@angular/common';
+import { AddInventoryRequest, AddInventoryResponse } from '../../model/addInventory.model';
+import { InventoryService } from '../../services/inventory/inventory.service';
+import { GetAllProductsResponse } from '../../model/product.model';
 
 @Component({
   selector: 'app-outlet-details',
@@ -21,9 +24,8 @@ export class OutletDetailsComponent implements OnInit {
   errorMessage: string = '';
   managers: any[] = [];
   selectedManager: any = null; // To store the selected manager's details
-  managerList:any={}
+  managerList: any = {}
   outletObj: any = {
-
     outletName: '',
     outletLocation: '',
     outletImage: '',
@@ -32,34 +34,29 @@ export class OutletDetailsComponent implements OnInit {
     outletManagerEmail: '',
     outletManagerPhone: '',
     areaName: ''
-
   }
-  isModalOpen = false;
-
-  openModal() {
-    this.isModalOpen = true;
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
-  }
+  products: any[] = []
+  isModalOpen = false
+  selectedProduct: string = '';
+  quantity: number = 0;
+  outletId: string = ''; // Initialize outletId
 
   router = inject(Router);
 
   constructor(
     private outletService: OutletService,
-    private route: ActivatedRoute
-  ) {
-  }
+    private route: ActivatedRoute,
+    private inventoryService: InventoryService
+  ) { }
 
   ngOnInit() {
-    const outletId = this.route.snapshot.paramMap.get('outletId');
-    if (outletId) {
-      this.fetchOutletDetails(outletId);
+    this.outletId = this.route.snapshot.paramMap.get('outletId') || ''; // Set outletId dynamically
+    if (this.outletId) {
+      this.fetchOutletDetails(this.outletId);
       this.getAllManagers();
-      this.fetchOutletDetailsAndManagers(outletId);
+      this.fetchOutletDetailsAndManagers(this.outletId);
+      this.fetchAllProducts();
     }
-
   }
 
   fetchOutletDetails(outletId: string): void {
@@ -115,7 +112,6 @@ export class OutletDetailsComponent implements OnInit {
     }
   }
 
-
   fetchOutletDetailsAndManagers(outletId: string): void {
     this.isLoading = true;
 
@@ -151,14 +147,13 @@ export class OutletDetailsComponent implements OnInit {
       });
   }
 
-
   UpdateOutletById(outletId: string): void {
     this.outletService.updateOutletById(outletId, this.outlet).subscribe({
       next: (res: any) => {
-        if(res.message==="Outlet Updated successfully"){
+        if (res.message === "Outlet Updated successfully") {
           alert('Outlet Updated Successfully');
           this.router.navigateByUrl('/layout/outlets')
-        }else{
+        } else {
           alert("Failed to Update")
         }
       },
@@ -168,9 +163,54 @@ export class OutletDetailsComponent implements OnInit {
     });
   }
 
+  // Inventory
 
+  openModal() {
+    this.isModalOpen = true;
+  }
 
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedProduct = '';
+    this.quantity = 0;
+  }
 
+  onSubmit() {
+    if (this.selectedProduct && this.quantity > 0) {
+      const requestBody: AddInventoryRequest = {
+        outletId: this.outletId, // Use the dynamically set outletId
+        productId: this.selectedProduct,
+        quantity: this.quantity,
+      };
+
+      // Call the service to add inventory
+      this.inventoryService.addInventory(requestBody).subscribe({
+        next: (response: AddInventoryResponse) => {
+          console.log('Inventory added successfully:', response);
+          this.closeModal();
+          // Optionally, refresh the inventory list or show a success message
+        },
+        error: (error) => {
+          console.error('Error adding inventory:', error);
+          // Optionally, show an error message to the user
+        },
+      });
+    } else {
+      console.log('Please select a product and enter a valid quantity.');
+    }
+  }
+
+  fetchAllProducts(): void {
+    this.isLoading = true;
+    this.inventoryService.getAllProducts().subscribe({
+      next: (response: GetAllProductsResponse) => {
+        this.products = response.products;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.log("Error getting Products");
+        this.isLoading = false;
+      }
+    });
+  }
 }
-
-

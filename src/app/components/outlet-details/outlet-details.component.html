@@ -115,6 +115,7 @@
             </button>
 
             <!--------------------- Modal Start------------ -->
+            <!-- Add Inventory Modal -->
             <div *ngIf="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
               <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/3 p-6">
                 <div class="flex justify-between items-center mb-4">
@@ -125,19 +126,20 @@
                     </svg>
                   </button>
                 </div>
-                <form>
+                <form (ngSubmit)="onSubmit()">
                   <div class="mb-4">
                     <label for="product" class="block text-sm font-medium text-gray-700">Select Product</label>
-                    <select id="product" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500">
+                    <select id="product" [(ngModel)]="selectedProduct" name="product"
+                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500">
                       <option value="">Select a product</option>
-                      <option value="1">Product 1</option>
-                      <option value="2">Product 2</option>
-                      <option value="3">Product 3</option>
+                      <option *ngFor="let product of products" [value]="product._id">{{ product.productName }}</option>
                     </select>
                   </div>
                   <div class="mb-4">
                     <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
-                    <input type="number" id="quantity" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500" placeholder="Enter quantity">
+                    <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity"
+                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
+                           placeholder="Enter quantity" required>
                   </div>
                   <div class="flex justify-end">
                     <button type="button" (click)="closeModal()" class="mr-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">
