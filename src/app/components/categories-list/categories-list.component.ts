@@ -222,6 +222,43 @@ export class CategoriesListComponent implements OnInit {
   }
 
 
+  // onDeleteCategory(categoryId: string): void {
+  //   if (!categoryId) {
+  //     console.error('Invalid category ID');
+  //     return;
+  //   }
+  //
+  //   const userData = localStorage.getItem('users');
+  //   if (!userData) {
+  //     console.error('User data is not available in localStorage!');
+  //     return;
+  //   }
+  //
+  //   const parsedUser = JSON.parse(userData);
+  //   const userId = parsedUser?.userId;
+  //
+  //   if (!userId) {
+  //     console.error('User ID is missing!');
+  //     return;
+  //   }
+  //
+  //   if (confirm("Are you sure you want to delete?")) {
+  //     this.isLoading = true;
+  //     this.categoryService.deleteCategoryById(categoryId, userId).subscribe(
+  //       () => {
+  //         alert("Category Deleted Successfully!");
+  //         this.getCategories();
+  //         this.isLoading = false;
+  //       },
+  //       (error) => {
+  //         console.error("Couldn't delete category", error);
+  //         alert("Couldn't Delete Category");
+  //         this.isLoading = false;
+  //       }
+  //     );
+  //   }
+  // }
+
   onDeleteCategory(categoryId: string): void {
     if (!categoryId) {
       console.error('Invalid category ID');
@@ -242,24 +279,50 @@ export class CategoriesListComponent implements OnInit {
       return;
     }
 
-    if (confirm("Are you sure you want to delete?")) {
+    // Find the category to determine if it's a parent or subcategory
+    const categoryToDelete = this.findCategoryById(categoryId);
+
+    if (!categoryToDelete) {
+      console.error('Category not found!');
+      return;
+    }
+
+    // Check if it's a subcategory (has a parentCategory field)
+    const isSubCategory = !!categoryToDelete.parentCategory;
+
+    if (confirm(`Are you sure you want to delete this ${isSubCategory ? 'subcategory' : 'category'}?`)) {
       this.isLoading = true;
       this.categoryService.deleteCategoryById(categoryId, userId).subscribe(
         () => {
-          alert("Category Deleted Successfully!");
-          this.getCategories();
+          alert(`${isSubCategory ? 'Subcategory' : 'Category'} Deleted Successfully!`);
+          this.getCategories(); // Refresh the categories list
           this.isLoading = false;
         },
         (error) => {
-          console.error("Couldn't delete category", error);
-          alert("Couldn't Delete Category");
+          console.error(`Couldn't delete ${isSubCategory ? 'subcategory' : 'category'}`, error);
+          alert(`Couldn't Delete ${isSubCategory ? 'Subcategory' : 'Category'}`);
           this.isLoading = false;
         }
       );
     }
   }
 
-
+// Helper method to find a category or subcategory by ID
+  findCategoryById(categoryId: string): Category | null {
+    for (const category of this.categories) {
+      if (category._id === categoryId) {
+        return category;
+      }
+      // Check subcategories
+      if (category.subCategories && category.subCategories.length > 0) {
+        const subCategory = category.subCategories.find(sub => sub._id === categoryId);
+        if (subCategory) {
+          return subCategory;
+        }
+      }
+    }
+    return null;
+  }
 
 
 
