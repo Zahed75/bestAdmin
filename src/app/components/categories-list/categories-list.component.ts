@@ -27,13 +27,19 @@ export class CategoriesListComponent implements OnInit {
   isEditCategoryModalOpen = false;
   isEditSubCategoryModalOpen = false;
   categories: CategoryUI[] = [];
+
+
   selectedCategory: any = {
+    slug: '',
     categoryName: '',
     parentCategory: '',
     categoryDescription: '',
     title: '',
     metaDescription: '',
+    subCategories: [],
   };
+
+
   newCategory: any = {}; // Your category object
   userId: string = ''; // User ID will be fetched from localStorage
   router = inject(Router);
@@ -69,6 +75,7 @@ export class CategoriesListComponent implements OnInit {
 
   closeEditSubCategoryModal(): void {
     this.isEditSubCategoryModalOpen = false;
+    // Reset selectedCategory to the default object
     this.selectedCategory = {
       slug: '',
       subCategories: [],
