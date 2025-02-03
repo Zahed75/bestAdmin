@@ -1,37 +1,241 @@
+<!--<div class="flex flex-row mx-6">-->
+<!--  <div class="p-4 sm:ml-64 w-full">-->
+<!--    &lt;!&ndash; Page Heading &ndash;&gt;-->
+<!--    <div>-->
+<!--      <h1 class="text-3xl font-bold text-black mb-6">Categories</h1>-->
+<!--      <h3 class="text-xl font-semibold text-black mb-4">Manage Categories and Sub-Categories</h3>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Add Category Button &ndash;&gt;-->
+<!--    <div class="flex justify-end mb-6">-->
+<!--      <button class="flex items-center justify-center text-white bg-black hover:bg-black focus:ring-2 focus:ring-black font-medium rounded-lg text-sm px-4 py-2" (click)="openAddCategoryModal()">-->
+<!--        <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">-->
+<!--          <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>-->
+<!--        </svg>-->
+<!--        Add Category-->
+<!--      </button>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Categories and Sub-Categories List &ndash;&gt;-->
+<!--    <div class="bg-white shadow-lg rounded-lg overflow-hidden">-->
+<!--      &lt;!&ndash; Loop through categories &ndash;&gt;-->
+<!--      <div *ngFor="let category of categories" class="border-b border-gray-200">-->
+<!--        &lt;!&ndash; Category Header &ndash;&gt;-->
+<!--        <div class="flex items-center justify-between p-4 hover:bg-gray-50 cursor-pointer" (click)="toggleCategory(category)">-->
+<!--          <div class="flex items-center space-x-4">-->
+<!--            <span class="text-lg font-semibold text-gray-800">{{ category.categoryName }}</span>-->
+<!--            <span class="text-sm text-gray-500">({{ category.subCategories.length }} Sub-Categories)</span>-->
+<!--          </div>-->
+<!--          <div class="flex items-center space-x-4">-->
+<!--            <button class="text-blue-600 hover:text-blue-800" (click)="openEditCategoryModal(category); $event.stopPropagation()">Edit</button>-->
+<!--            <button   *ngIf="category._id"  (click)="onDeleteCategory(category._id)" class="text-red-600 hover:text-red-800">Delete</button>-->
+<!--            <svg class="w-5 h-5 text-gray-500 transition-transform duration-200"-->
+<!--                 [ngClass]="{'rotate-180': category.isExpanded}"-->
+<!--                 fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+<!--              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Sub-Categories List &ndash;&gt;-->
+<!--        <div *ngIf="category.isExpanded" class="pl-8 pr-4 pb-4 bg-gray-50">-->
+<!--          <div *ngFor="let subCategory of category.subCategories" class="flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg">-->
+<!--            <span class="text-gray-700">{{ subCategory.categoryName }}</span>-->
+<!--            <div class="flex items-center space-x-4">-->
+<!--              <button (click)="openEditSubCategoryModal(subCategory); $event.stopPropagation()" class="text-blue-600 hover:text-blue-800">Edit</button>-->
+<!--              <button  *ngIf="category._id"  (click)="onDeleteCategory(category._id)" class="text-red-600 hover:text-red-800">Delete</button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Add Category Modal &ndash;&gt;-->
+<!--<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isAddCategoryModalOpen">-->
+<!--  <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">-->
+<!--    <div class="flex justify-between items-center mb-4">-->
+<!--      <h3 class="text-lg font-semibold text-gray-800">Add Category</h3>-->
+<!--      <button class="text-gray-500 hover:text-gray-700" (click)="closeAddCategoryModal()">-->
+<!--        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+<!--          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>-->
+<!--        </svg>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <form #addCategoryForm="ngForm">-->
+<!--      &lt;!&ndash; Hidden input for userId &ndash;&gt;-->
+<!--      <input type="hidden" name="userId" [(ngModel)]="newCategory.userId">-->
+
+<!--      &lt;!&ndash; Category Name &ndash;&gt;-->
+<!--      <div class="mb-4">-->
+<!--        <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>-->
+<!--        <input type="text" id="categoryName" name="categoryName" [(ngModel)]="newCategory.categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Parent Category &ndash;&gt;-->
+<!--      <div class="mb-4">-->
+<!--        <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>-->
+<!--        <select id="parentCategory" name="parentCategory" [(ngModel)]="newCategory.parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--          <option value="">Select Parent Category</option>-->
+<!--          <option *ngFor="let category of categories" [value]="category._id">{{ category.categoryName }}</option>-->
+<!--        </select>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Description &ndash;&gt;-->
+<!--      <div class="mb-4">-->
+<!--        <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Description</label>-->
+<!--        <textarea id="categoryDescription" name="categoryDescription" [(ngModel)]="newCategory.categoryDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Title &ndash;&gt;-->
+<!--      <div class="mb-4">-->
+<!--        <label for="title" class="block text-sm font-medium text-gray-700">Title</label>-->
+<!--        <input type="text" id="title" name="title" [(ngModel)]="newCategory.title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Meta Description &ndash;&gt;-->
+<!--      <div class="mb-4">-->
+<!--        <label for="metaDescription" class="block text-sm font-medium text-gray-700">Meta Description</label>-->
+<!--        <textarea id="metaDescription" name="metaDescription" [(ngModel)]="newCategory.metaDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Buttons &ndash;&gt;-->
+<!--      <div class="flex justify-end space-x-4">-->
+<!--        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200" (click)="closeAddCategoryModal()">Cancel</button>-->
+<!--        <button type="submit" (click)="addNewCategory(newCategory)" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Add Category</button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Edit Category Modal &ndash;&gt;-->
+<!--<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isEditCategoryModalOpen">-->
+<!--  <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">-->
+<!--    <div class="flex justify-between items-center mb-4">-->
+<!--      <h3 class="text-lg font-semibold text-gray-800">Edit Category</h3>-->
+<!--      <button class="text-gray-500 hover:text-gray-700" (click)="closeEditCategoryModal()">-->
+<!--        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+<!--          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>-->
+<!--        </svg>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <form (ngSubmit)="onEditCategorySubmit()">-->
+<!--      <div class="mb-4">-->
+<!--        <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>-->
+<!--        <input [(ngModel)]="selectedCategory.categoryName" type="text" id="categoryName" name="categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--      </div>-->
+<!--      <div class="mb-4">-->
+<!--        <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>-->
+<!--        <select id="parentCategory" name="parentCategory" [(ngModel)]="selectedCategory.parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--          <option value="">No Parent Category</option>-->
+<!--          <option *ngFor="let category of categories" [value]="category._id">-->
+<!--            {{ category.categoryName }}-->
+<!--          </option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <div class="mb-4">-->
+<!--        <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Description</label>-->
+<!--        <textarea [(ngModel)]="selectedCategory.categoryDescription" id="categoryDescription" name="categoryDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>-->
+<!--      </div>-->
+<!--      <div class="mb-4">-->
+<!--        <label for="title" class="block text-sm font-medium text-gray-700">Title</label>-->
+<!--        <input [(ngModel)]="selectedCategory.title" type="text" id="title" name="title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--      </div>-->
+<!--      <div class="mb-4">-->
+<!--        <label for="metaDescription" class="block text-sm font-medium text-gray-700">Meta Description</label>-->
+<!--        <textarea [(ngModel)]="selectedCategory.metaDescription" id="metaDescription" name="metaDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>-->
+<!--      </div>-->
+
+<!--      <div class="flex justify-end space-x-4">-->
+<!--        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200" (click)="closeEditCategoryModal()">Cancel</button>-->
+<!--        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Save Changes</button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash; Edit Sub-Category Modal &ndash;&gt;-->
+<!--<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isEditSubCategoryModalOpen && selectedCategory">-->
+<!--  <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">-->
+<!--    <div class="flex justify-between items-center mb-4">-->
+<!--      <h3 class="text-lg font-semibold text-gray-800">Edit Sub-Category</h3>-->
+<!--      <button class="text-gray-500 hover:text-gray-700" (click)="closeEditSubCategoryModal()">-->
+<!--        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+<!--          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>-->
+<!--        </svg>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <form (ngSubmit)="onEditCategorySubmit()">-->
+<!--      <div class="mb-4">-->
+<!--        <label for="categoryName" class="block text-sm font-medium text-gray-700">Sub-Category Name</label>-->
+<!--        <input [(ngModel)]="selectedCategory.categoryName" type="text" id="categoryName" name="categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--      </div>-->
+<!--      <div class="mb-4">-->
+<!--        <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>-->
+<!--        <select id="parentCategory" name="parentCategory" [(ngModel)]="selectedCategory.parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--          <option value="">No Parent Category</option>-->
+<!--          <option *ngFor="let category of categories" [value]="category._id">-->
+<!--            {{ category.categoryName }}-->
+<!--          </option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <div class="mb-4">-->
+<!--        <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Description</label>-->
+<!--        <textarea [(ngModel)]="selectedCategory.categoryDescription" id="categoryDescription" name="categoryDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>-->
+<!--      </div>-->
+<!--      <div class="mb-4">-->
+<!--        <label for="title" class="block text-sm font-medium text-gray-700">Title</label>-->
+<!--        <input [(ngModel)]="selectedCategory.title" type="text" id="title" name="title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--      </div>-->
+<!--      <div class="mb-4">-->
+<!--        <label for="metaDescription" class="block text-sm font-medium text-gray-700">Meta Description</label>-->
+<!--        <textarea [(ngModel)]="selectedCategory.metaDescription" id="metaDescription" name="metaDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>-->
+<!--      </div>-->
+
+<!--      <div class="flex justify-end space-x-4">-->
+<!--        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200" (click)="closeEditSubCategoryModal()">Cancel</button>-->
+<!--        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Save Changes</button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
 <div class="flex flex-row mx-6">
   <div class="p-4 sm:ml-64 w-full">
     <!-- Page Heading -->
-    <div>
-      <h1 class="text-3xl font-bold text-black mb-6">Categories</h1>
-      <h3 class="text-xl font-semibold text-black mb-4">Manage Categories and Sub-Categories</h3>
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Categories</h1>
+      <p class="text-gray-600 mt-2">Manage your categories and sub-categories with ease.</p>
     </div>
 
     <!-- Add Category Button -->
     <div class="flex justify-end mb-6">
-      <button class="flex items-center justify-center text-white bg-black hover:bg-black focus:ring-2 focus:ring-black font-medium rounded-lg text-sm px-4 py-2" (click)="openAddCategoryModal()">
-        <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+      <button class="flex items-center justify-center text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2.5 transition duration-200" (click)="openAddCategoryModal()">
+        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
         Add Category
       </button>
     </div>
 
     <!-- Categories and Sub-Categories List -->
-    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
       <!-- Loop through categories -->
-      <div *ngFor="let category of categories" class="border-b border-gray-200">
+      <div *ngFor="let category of categories" class="border-b border-gray-100">
         <!-- Category Header -->
-        <div class="flex items-center justify-between p-4 hover:bg-gray-50 cursor-pointer" (click)="toggleCategory(category)">
-          <div class="flex items-center space-x-4">
+        <div class="flex items-center justify-between p-4 hover:bg-gray-50 cursor-pointer transition duration-200" (click)="toggleCategory(category)">
+          <div class="flex items-center space-x-3">
             <span class="text-lg font-semibold text-gray-800">{{ category.categoryName }}</span>
-            <span class="text-sm text-gray-500">({{ category.subCategories.length }} Sub-Categories)</span>
+            <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">{{ category.subCategories.length }} Sub-Categories</span>
           </div>
           <div class="flex items-center space-x-4">
-            <button class="text-blue-600 hover:text-blue-800" (click)="openEditCategoryModal(category); $event.stopPropagation()">Edit</button>
-            <button   *ngIf="category._id"  (click)="onDeleteCategory(category._id)" class="text-red-600 hover:text-red-800">Delete</button>
-            <svg class="w-5 h-5 text-gray-500 transition-transform duration-200"
-                 [ngClass]="{'rotate-180': category.isExpanded}"
-                 fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button class="text-blue-600 hover:text-blue-800 transition duration-200" (click)="openEditCategoryModal(category); $event.stopPropagation()">Edit</button>
+            <button *ngIf="category._id" (click)="onDeleteCategory(category._id)" class="text-red-600 hover:text-red-800 transition duration-200">Delete</button>
+            <svg class="w-5 h-5 text-gray-500 transition-transform duration-200" [ngClass]="{'rotate-180': category.isExpanded}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </div>
@@ -39,165 +243,132 @@
 
         <!-- Sub-Categories List -->
         <div *ngIf="category.isExpanded" class="pl-8 pr-4 pb-4 bg-gray-50">
-          <div *ngFor="let subCategory of category.subCategories" class="flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg">
+          <div *ngFor="let subCategory of category.subCategories" class="flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition duration-200">
             <span class="text-gray-700">{{ subCategory.categoryName }}</span>
             <div class="flex items-center space-x-4">
-              <button (click)="openEditSubCategoryModal(subCategory); $event.stopPropagation()" class="text-blue-600 hover:text-blue-800">Edit</button>
-              <button  *ngIf="category._id"  (click)="onDeleteCategory(category._id)" class="text-red-600 hover:text-red-800">Delete</button>
+              <button (click)="openEditSubCategoryModal(subCategory); $event.stopPropagation()" class="text-blue-600 hover:text-blue-800 transition duration-200">Edit</button>
+              <button *ngIf="subCategory._id" (click)="onDeleteCategory(subCategory._id)" class="text-red-600 hover:text-red-800 transition duration-200">Delete</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Add Category Modal -->
-<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isAddCategoryModalOpen">
-  <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-lg font-semibold text-gray-800">Add Category</h3>
-      <button class="text-gray-500 hover:text-gray-700" (click)="closeAddCategoryModal()">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+    <!-- Add Category Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isAddCategoryModalOpen">
+      <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-800">Add Category</h3>
+          <button class="text-gray-500 hover:text-gray-700 transition duration-200" (click)="closeAddCategoryModal()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <form #addCategoryForm="ngForm">
+          <!-- Hidden input for userId -->
+          <input type="hidden" name="userId" [(ngModel)]="newCategory.userId">
+
+          <!-- Category Name -->
+          <div class="mb-4">
+            <label for="categoryName" class="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
+            <input type="text" id="categoryName" name="categoryName" [(ngModel)]="newCategory.categoryName" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
+          </div>
+
+          <!-- Parent Category -->
+          <div class="mb-4">
+            <label for="parentCategory" class="block text-sm font-medium text-gray-700 mb-1">Parent Category</label>
+            <select id="parentCategory" name="parentCategory" [(ngModel)]="newCategory.parentCategory" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+              <option value="">Select Parent Category</option>
+              <option *ngFor="let category of categories" [value]="category._id">{{ category.categoryName }}</option>
+            </select>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-4">
+            <label for="categoryDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea id="categoryDescription" name="categoryDescription" [(ngModel)]="newCategory.categoryDescription" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" rows="3"></textarea>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-end space-x-4">
+            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition duration-200" (click)="closeAddCategoryModal()">Cancel</button>
+            <button type="submit" (click)="addNewCategory(newCategory)" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-200">Add Category</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <form #addCategoryForm="ngForm">
-      <!-- Hidden input for userId -->
-      <input type="hidden" name="userId" [(ngModel)]="newCategory.userId">
 
-      <!-- Category Name -->
-      <div class="mb-4">
-        <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>
-        <input type="text" id="categoryName" name="categoryName" [(ngModel)]="newCategory.categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+    <!-- Edit Category Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isEditCategoryModalOpen">
+      <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-800">Edit Category</h3>
+          <button class="text-gray-500 hover:text-gray-700 transition duration-200" (click)="closeEditCategoryModal()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <form (ngSubmit)="onEditCategorySubmit()">
+          <div class="mb-4">
+            <label for="categoryName" class="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
+            <input [(ngModel)]="selectedCategory.categoryName" type="text" id="categoryName" name="categoryName" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+          </div>
+          <div class="mb-4">
+            <label for="parentCategory" class="block text-sm font-medium text-gray-700 mb-1">Parent Category</label>
+            <select id="parentCategory" name="parentCategory" [(ngModel)]="selectedCategory.parentCategory" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+              <option value="">No Parent Category</option>
+              <option *ngFor="let category of categories" [value]="category._id">{{ category.categoryName }}</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="categoryDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea [(ngModel)]="selectedCategory.categoryDescription" id="categoryDescription" name="categoryDescription" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" rows="3"></textarea>
+          </div>
+
+          <div class="flex justify-end space-x-4">
+            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition duration-200" (click)="closeEditCategoryModal()">Cancel</button>
+            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-200">Save Changes</button>
+          </div>
+        </form>
       </div>
-
-      <!-- Parent Category -->
-      <div class="mb-4">
-        <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>
-        <select id="parentCategory" name="parentCategory" [(ngModel)]="newCategory.parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-          <option value="">Select Parent Category</option>
-          <option *ngFor="let category of categories" [value]="category._id">{{ category.categoryName }}</option>
-        </select>
-      </div>
-
-      <!-- Description -->
-      <div class="mb-4">
-        <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Description</label>
-        <textarea id="categoryDescription" name="categoryDescription" [(ngModel)]="newCategory.categoryDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>
-      </div>
-
-      <!-- Title -->
-      <div class="mb-4">
-        <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-        <input type="text" id="title" name="title" [(ngModel)]="newCategory.title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-      </div>
-
-      <!-- Meta Description -->
-      <div class="mb-4">
-        <label for="metaDescription" class="block text-sm font-medium text-gray-700">Meta Description</label>
-        <textarea id="metaDescription" name="metaDescription" [(ngModel)]="newCategory.metaDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>
-      </div>
-
-      <!-- Buttons -->
-      <div class="flex justify-end space-x-4">
-        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200" (click)="closeAddCategoryModal()">Cancel</button>
-        <button type="submit" (click)="addNewCategory(newCategory)" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Add Category</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Edit Category Modal -->
-<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isEditCategoryModalOpen">
-  <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-lg font-semibold text-gray-800">Edit Category</h3>
-      <button class="text-gray-500 hover:text-gray-700" (click)="closeEditCategoryModal()">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
     </div>
-    <form (ngSubmit)="onEditCategorySubmit()">
-      <div class="mb-4">
-        <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>
-        <input [(ngModel)]="selectedCategory.categoryName" type="text" id="categoryName" name="categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-      </div>
-      <div class="mb-4">
-        <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>
-        <select id="parentCategory" name="parentCategory" [(ngModel)]="selectedCategory.parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-          <option value="">No Parent Category</option>
-          <option *ngFor="let category of categories" [value]="category._id">
-            {{ category.categoryName }}
-          </option>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Description</label>
-        <textarea [(ngModel)]="selectedCategory.categoryDescription" id="categoryDescription" name="categoryDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>
-      </div>
-      <div class="mb-4">
-        <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-        <input [(ngModel)]="selectedCategory.title" type="text" id="title" name="title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-      </div>
-      <div class="mb-4">
-        <label for="metaDescription" class="block text-sm font-medium text-gray-700">Meta Description</label>
-        <textarea [(ngModel)]="selectedCategory.metaDescription" id="metaDescription" name="metaDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>
-      </div>
 
-      <div class="flex justify-end space-x-4">
-        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200" (click)="closeEditCategoryModal()">Cancel</button>
-        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Save Changes</button>
+    <!-- Edit Sub-Category Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isEditSubCategoryModalOpen && selectedCategory">
+      <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-800">Edit Sub-Category</h3>
+          <button class="text-gray-500 hover:text-gray-700 transition duration-200" (click)="closeEditSubCategoryModal()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <form (ngSubmit)="onEditCategorySubmit()">
+          <div class="mb-4">
+            <label for="categoryName" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category Name</label>
+            <input [(ngModel)]="selectedCategory.categoryName" type="text" id="categoryName" name="categoryName" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+          </div>
+          <div class="mb-4">
+            <label for="parentCategory" class="block text-sm font-medium text-gray-700 mb-1">Parent Category</label>
+            <select id="parentCategory" name="parentCategory" [(ngModel)]="selectedCategory.parentCategory" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+              <option value="">No Parent Category</option>
+              <option *ngFor="let category of categories" [value]="category._id">{{ category.categoryName }}</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="categoryDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea [(ngModel)]="selectedCategory.categoryDescription" id="categoryDescription" name="categoryDescription" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" rows="3"></textarea>
+          </div>
+
+          <div class="flex justify-end space-x-4">
+            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition duration-200" (click)="closeEditSubCategoryModal()">Cancel</button>
+            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-200">Save Changes</button>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</div>
-
-
-<!-- Edit Sub-Category Modal -->
-<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" *ngIf="isEditSubCategoryModalOpen && selectedCategory">
-  <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-lg font-semibold text-gray-800">Edit Sub-Category</h3>
-      <button class="text-gray-500 hover:text-gray-700" (click)="closeEditSubCategoryModal()">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
     </div>
-    <form (ngSubmit)="onEditCategorySubmit()">
-      <div class="mb-4">
-        <label for="categoryName" class="block text-sm font-medium text-gray-700">Sub-Category Name</label>
-        <input [(ngModel)]="selectedCategory.categoryName" type="text" id="categoryName" name="categoryName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-      </div>
-      <div class="mb-4">
-        <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category</label>
-        <select id="parentCategory" name="parentCategory" [(ngModel)]="selectedCategory.parentCategory" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-          <option value="">No Parent Category</option>
-          <option *ngFor="let category of categories" [value]="category._id">
-            {{ category.categoryName }}
-          </option>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Description</label>
-        <textarea [(ngModel)]="selectedCategory.categoryDescription" id="categoryDescription" name="categoryDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>
-      </div>
-      <div class="mb-4">
-        <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-        <input [(ngModel)]="selectedCategory.title" type="text" id="title" name="title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-      </div>
-      <div class="mb-4">
-        <label for="metaDescription" class="block text-sm font-medium text-gray-700">Meta Description</label>
-        <textarea [(ngModel)]="selectedCategory.metaDescription" id="metaDescription" name="metaDescription" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="3"></textarea>
-      </div>
-
-      <div class="flex justify-end space-x-4">
-        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200" (click)="closeEditSubCategoryModal()">Cancel</button>
-        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Save Changes</button>
-      </div>
-    </form>
   </div>
 </div>
