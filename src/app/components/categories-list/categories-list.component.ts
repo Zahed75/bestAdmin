@@ -62,6 +62,25 @@ export class CategoriesListComponent implements OnInit {
   }
 
 
+  openEditSubCategoryModal(subCategory: Category): void {
+    this.selectedCategory = { ...subCategory }; // Copy the sub-category data
+    this.isEditSubCategoryModalOpen = true;
+  }
+
+  closeEditSubCategoryModal(): void {
+    this.isEditSubCategoryModalOpen = false;
+    this.selectedCategory = {
+      slug: '',
+      subCategories: [],
+      categoryName: '',
+      parentCategory: '',
+      categoryDescription: '',
+      title: '',
+      metaDescription: '',
+    };
+  }
+
+
   constructor(
     private categoryService: CategoryService,
     private authService: AuthService
