@@ -38,7 +38,7 @@ export class CategoriesListComponent implements OnInit {
     metaDescription: '',
     subCategories: [],
   };
-
+  subCategories: Category[] = []; // Array to store subcategories
 
   newCategory: any = {}; // Your category object
   userId: string = ''; // User ID will be fetched from localStorage
@@ -222,42 +222,6 @@ export class CategoriesListComponent implements OnInit {
   }
 
 
-  // onDeleteCategory(categoryId: string): void {
-  //   if (!categoryId) {
-  //     console.error('Invalid category ID');
-  //     return;
-  //   }
-  //
-  //   const userData = localStorage.getItem('users');
-  //   if (!userData) {
-  //     console.error('User data is not available in localStorage!');
-  //     return;
-  //   }
-  //
-  //   const parsedUser = JSON.parse(userData);
-  //   const userId = parsedUser?.userId;
-  //
-  //   if (!userId) {
-  //     console.error('User ID is missing!');
-  //     return;
-  //   }
-  //
-  //   if (confirm("Are you sure you want to delete?")) {
-  //     this.isLoading = true;
-  //     this.categoryService.deleteCategoryById(categoryId, userId).subscribe(
-  //       () => {
-  //         alert("Category Deleted Successfully!");
-  //         this.getCategories();
-  //         this.isLoading = false;
-  //       },
-  //       (error) => {
-  //         console.error("Couldn't delete category", error);
-  //         alert("Couldn't Delete Category");
-  //         this.isLoading = false;
-  //       }
-  //     );
-  //   }
-  // }
 
   onDeleteCategory(categoryId: string): void {
     if (!categoryId) {
@@ -324,6 +288,25 @@ export class CategoriesListComponent implements OnInit {
     return null;
   }
 
+
+  onParentCategoryChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement; // Cast to HTMLSelectElement
+    const parentCategoryId = selectElement.value; // Get the selected value
+
+    if (parentCategoryId) {
+      this.categoryService.getSubCategoriesByCategoryId(parentCategoryId).subscribe({
+        next: (response) => {
+          this.subCategories = response.subcategories; // Store subcategories
+          this.newCategory.subCategory = ''; // Reset subcategory selection
+        },
+        error: (error) => {
+          console.error('Error fetching subcategories:', error);
+        }
+      });
+    } else {
+      this.subCategories = []; // Clear subcategories if no parent category is selected
+    }
+  }
 
 
 }
