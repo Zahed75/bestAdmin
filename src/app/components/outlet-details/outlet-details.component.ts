@@ -2,11 +2,16 @@ import {ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {OutletService} from '../../services/outlet.service';
-import {NgFor} from '@angular/common';
+import {NgFor, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-outlet-details',
-  imports: [FormsModule, NgFor, RouterLink],
+  imports: [
+    FormsModule,
+    NgFor,
+    RouterLink,
+    NgIf
+  ],
   templateUrl: './outlet-details.component.html',
   styleUrl: './outlet-details.component.css',
 })
@@ -29,6 +34,16 @@ export class OutletDetailsComponent implements OnInit {
     areaName: ''
 
   }
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
   router = inject(Router);
 
   constructor(
