@@ -83,24 +83,37 @@ export class ProductsComponent implements OnInit {
     );
   }
 
+
   updateStock(outlet: OutletQuantity): void {
-    if (!this.selectedProductId) {
-      console.error('No product selected');
+    if (!this.selectedProductId || !outlet._id) { // Add outlet ID check
+      console.error('Missing product or outlet ID');
       return;
     }
-    // Ensure the correct outletId is being used
-    const correctOutletId = '6680d2eba284e2f968c08d65'; // Replace with the correct outletId
-    this.productsService.updateInventory(correctOutletId, this.selectedProductId, outlet.quantity).subscribe({
-      next: (response) => {
-        console.log('Stock updated successfully:', response);
-        alert('Stock updated successfully!');
-      },
-      error: (error) => {
-        console.error('Error updating stock:', error);
-        alert('Failed to update stock. Please try again.');
-      }
-    });
+
+    // Use the outlet's actual ID from the outlet object
+    this.productsService.updateInventory(outlet._id, this.selectedProductId, outlet.quantity)
+      .subscribe({
+        next: (response) => {
+          console.log('Stock updated successfully:', response);
+          alert('Stock updated successfully!');
+          // Optional: Update local data
+          const updatedOutlet = this.outlets.find(o => o._id === outlet._id);
+          if (updatedOutlet) {
+            updatedOutlet.quantity = outlet.quantity;
+          }
+        },
+        error: (error) => {
+          console.error('Error updating stock:', error);
+          alert('Failed to update stock. Please try again.');
+        }
+      });
   }
+
+
+
+
+
+
 
   // Get products for the current page
   get paginatedProducts(): any[] {
