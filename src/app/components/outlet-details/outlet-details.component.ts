@@ -42,6 +42,7 @@ export class OutletDetailsComponent implements OnInit {
   outletId: string = ''; // Initialize outletId
 
   router = inject(Router);
+  inventoryProducts: any[] = [];
 
   constructor(
     private outletService: OutletService,
@@ -56,6 +57,7 @@ export class OutletDetailsComponent implements OnInit {
       this.getAllManagers();
       this.fetchOutletDetailsAndManagers(this.outletId);
       this.fetchAllProducts();
+      this.fetchInventoryProducts();
     }
   }
 
@@ -213,4 +215,26 @@ export class OutletDetailsComponent implements OnInit {
       }
     });
   }
+
+
+
+  fetchInventoryProducts(): void {
+    this.isLoading = true;
+    this.inventoryService.InventoryProductsByOutletId(this.outletId).subscribe({
+      next: (response: any) => {
+        if (response?.inventory?.products) {
+          this.inventoryProducts = response.inventory.products;
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error Getting Products', error);
+        this.isLoading = false;
+      },
+    });
+  }
+
+
+
+
 }

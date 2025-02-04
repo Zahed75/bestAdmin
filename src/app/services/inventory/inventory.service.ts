@@ -13,6 +13,7 @@ export class InventoryService {
 
   private addInventoryURL=`${environment.apiBaseUrl}/inventory/add-Inventory`;
   private getAllProductsURL = `${environment.apiBaseUrl}/product/getAllProducts`
+  private getInventoryProductsByOutletId= `${environment.apiBaseUrl}/inventory/all-products-inventory`
   private http = inject(HttpClient);
 
 
@@ -27,6 +28,12 @@ export class InventoryService {
       map((response)=>response)
     );
   }
+
+
+  InventoryProductsByOutletId(outletId:string):Observable<any>{
+    return this.http.get(`${this.getInventoryProductsByOutletId}/${outletId}`);
+  }
+
 
 
 }
