@@ -6,6 +6,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { AddInventoryRequest, AddInventoryResponse } from '../../model/addInventory.model';
 import { InventoryService } from '../../services/inventory/inventory.service';
 import { GetAllProductsResponse } from '../../model/product.model';
+import {OutletQuantity} from '../../model/inventory.model';
 
 @Component({
   selector: 'app-outlet-details',
@@ -40,9 +41,30 @@ export class OutletDetailsComponent implements OnInit {
   selectedProduct: string = '';
   quantity: number = 0;
   outletId: string = ''; // Initialize outletId
-
+  selectedProductId: string | null = null;
   router = inject(Router);
   inventoryProducts: any[] = [];
+  userRole: string | null = null; // To store the user's role after login.
+  isEditModalOpen = false;
+  selectedProducts: any = null;
+
+  // Modal Controls
+
+  openEditModal(product: any): void {
+    this.selectedProduct = product;
+    this.selectedProductId = product._id;
+    this.quantity = product.quantity; // Ensure your product data has 'quantity'
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal(): void {
+    this.isEditModalOpen = false;
+    this.selectedProducts = null;
+    this.selectedProductId = null;
+    this.quantity = 0;
+  }
+
+
 
   constructor(
     private outletService: OutletService,
@@ -253,7 +275,29 @@ export class OutletDetailsComponent implements OnInit {
   }
 
 
+  updateStock(): void {
+    if (!this.selectedProductId || this.quantity <= 0) {
+      alert('Please enter a valid quantity.');
+      return;
+    }
 
+    this.inventoryService.updateInventory(this.outletId, this.selectedProductId, this.quantity)
+      .subscribe({
+        next: (response) => {
+          console.log('Stock updated successfully:', response);
+          // Update the local inventory array
+          const index = this.inventoryProducts.findIndex(p => p._id === this.selectedProductId);
+          if (index !== -1) {
+            this.inventoryProducts[index].quantity = this.quantity;
+          }
+          this.closeEditModal();
+        },
+        error: (error) => {
+          console.error('Error updating stock:', error);
+          alert('Failed to update stock. Please try again.');
+        }
+      });
+  }
 
 
 

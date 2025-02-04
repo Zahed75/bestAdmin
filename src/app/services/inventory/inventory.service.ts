@@ -16,6 +16,9 @@ export class InventoryService {
   private getAllProductsURL = `${environment.apiBaseUrl}/product/getAllProducts`
   private getInventoryProductsByOutletId= `${environment.apiBaseUrl}/inventory/all-products-inventory`
   private deleteInventoryById = `${environment.apiBaseUrl}/inventory/delete-inventory`
+  private updateInventoryByQuantity = `${environment.apiBaseUrl}/inventory/update-inventory`;
+
+
 
   private http = inject(HttpClient);
   private authService = inject(AuthService); // Inject AuthService
@@ -47,6 +50,17 @@ export class InventoryService {
   // inventory.service.ts
   deleteInventoryProduct(outletId: string, productId: string): Observable<any> {
     return this.http.delete(`${this.deleteInventoryById}/${outletId}/${productId}`);
+  }
+
+
+  // updateTheInventory
+  updateInventory(outletId: string, productId: string, newQuantity: number): Observable<any> {
+    const payload = {
+      outletId: outletId,
+      productId: productId,
+      newQuantity: newQuantity
+    };
+    return this.http.put(this.updateInventoryByQuantity, payload);
   }
 
 

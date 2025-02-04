@@ -187,6 +187,70 @@
 
       <!--inventory Filter End-->
 
+      <!-- Role-based content display -->
+      <div *ngIf="userRole" class="mt-8 text-center">
+        <p *ngIf="userRole === 'HQ'" class="text-sm/6 font-medium text-gray-900">
+          Welcome, HQ user! You have full access.
+        </p>
+        <p *ngIf="userRole === 'BA'" class="text-sm/6 font-medium text-gray-900">
+          Welcome, BA user! Limited features available.
+        </p>
+        <p *ngIf="userRole === 'MGR'" class="text-sm/6 font-medium text-gray-900">
+          Welcome, Manager! Access granted to manager-specific features.
+        </p>
+        <p *ngIf="userRole === 'CUS'" class="text-sm/6 font-medium  text-gray-900">
+          Welcome, Customer! Permission Forbidden! You have access to customer-specific pages.
+        </p>
+      </div>
+
+      <!--    Permission End-->
+
+
+
+      <!----------------Edit Modal Start------------      -->
+      <!-- Edit Inventory Modal -->
+      <div *ngIf="isEditModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/3 p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Edit Inventory Quantity</h3>
+            <button (click)="closeEditModal()" class="text-gray-500 hover:text-gray-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <form (ngSubmit)="updateStock()">
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700">Selected Product</label>
+              <select  [(ngModel)]="selectedProductId" name="product"
+                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500">
+                <option disabled *ngFor="let product of products" [value]="product._id">{{ product.productName }}</option>
+
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="editQuantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+              <input type="number" id="editQuantity" [(ngModel)]="quantity" name="quantity"
+                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
+                     required>
+            </div>
+            <div class="flex justify-end">
+              <button type="button" (click)="closeEditModal()"
+                      class="mr-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">
+                Cancel
+              </button>
+              <button type="submit"
+                      class="px-4 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-black">
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!---------Edit Modal End-----------  -->
+
+
       <!--      Inventory Table Start-->
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -209,8 +273,11 @@
           <tbody>
           <!-- Loading State -->
           <tr *ngIf="isLoading">
-            <td colspan="6" class="px-6 py-4 text-center">Loading...</td>
+            <div class="animate-spin rounded-full h-12 w-10 border-t-4 border-blue-500"></div>
           </tr>
+
+
+          <!--Outlet Table Start-->
 
           <!-- Display Products -->
           <tr *ngFor="let product of inventoryProducts"
@@ -233,9 +300,15 @@
             <td class="px-6 py-4">
               {{ product.quantity || 'N/A' }}
             </td>
-            <td class="px-6 py-4">
-              <a href="#" class="text-blue-600 hover:underline">Edit</a>
-              <a  (click)="deleteProduct(outletId, product._id)" class="text-red-600 hover:underline ms-3">Remove</a>
+            <td class="flex items-center px-4 py-2 space-x-2">
+              <!-- Edit Button -->
+              <button (click)="openEditModal(product)"   class="px-4 py-2 text-sm font-medium text-white bg-gray-950 rounded-md hover:bg-gray-800">
+                Edit
+              </button>
+              <!-- Remove Button -->
+              <button (click)="deleteProduct(outletId,product._id)"  class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
+                Remove
+              </button>
             </td>
           </tr>
           <tr *ngIf="inventoryProducts.length === 0">
