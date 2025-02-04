@@ -1,10 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {environment} from '../../../enviornments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AddInventoryRequest, AddInventoryResponse} from '../../model/addInventory.model';
 import {GetAllProductsResponse} from '../../model/product.model';
 import {map} from 'rxjs/operators';
+import {AuthService} from '../auth.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +15,17 @@ export class InventoryService {
   private addInventoryURL=`${environment.apiBaseUrl}/inventory/add-Inventory`;
   private getAllProductsURL = `${environment.apiBaseUrl}/product/getAllProducts`
   private getInventoryProductsByOutletId= `${environment.apiBaseUrl}/inventory/all-products-inventory`
+  private deleteInventoryById = `${environment.apiBaseUrl}/inventory/delete-inventory`
+
   private http = inject(HttpClient);
+  private authService = inject(AuthService); // Inject AuthService
 
-
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('accessToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
 
   addInventory(requestBody: AddInventoryRequest): Observable<AddInventoryResponse> {
@@ -33,6 +42,15 @@ export class InventoryService {
   InventoryProductsByOutletId(outletId:string):Observable<any>{
     return this.http.get(`${this.getInventoryProductsByOutletId}/${outletId}`);
   }
+
+
+  // inventory.service.ts
+  deleteInventoryProduct(outletId: string, productId: string): Observable<any> {
+    return this.http.delete(`${this.deleteInventoryById}/${outletId}/${productId}`);
+  }
+
+
+
 
 
 

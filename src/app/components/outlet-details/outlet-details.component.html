@@ -235,7 +235,7 @@
             </td>
             <td class="px-6 py-4">
               <a href="#" class="text-blue-600 hover:underline">Edit</a>
-              <a href="#" class="text-red-600 hover:underline ms-3">Remove</a>
+              <a  (click)="deleteProduct(outletId, product._id)" class="text-red-600 hover:underline ms-3">Remove</a>
             </td>
           </tr>
           <tr *ngIf="inventoryProducts.length === 0">

@@ -190,7 +190,7 @@ export class OutletDetailsComponent implements OnInit {
         next: (response: AddInventoryResponse) => {
           console.log('Inventory added successfully:', response);
           this.closeModal();
-          // Optionally, refresh the inventory list or show a success message
+          window.location.reload();
         },
         error: (error) => {
           console.error('Error adding inventory:', error);
@@ -201,6 +201,7 @@ export class OutletDetailsComponent implements OnInit {
       console.log('Please select a product and enter a valid quantity.');
     }
   }
+
 
   fetchAllProducts(): void {
     this.isLoading = true;
@@ -233,6 +234,26 @@ export class OutletDetailsComponent implements OnInit {
       },
     });
   }
+
+
+
+  deleteProduct(outletId: string, productId: string) {
+    if (confirm('Are you sure you want to delete this product?')) {
+      this.inventoryService.deleteInventoryProduct(outletId, productId).subscribe({
+        next: (response) => {
+          console.log('Product deleted successfully:', response);
+          this.inventoryProducts = this.inventoryProducts.filter(product => product._id !== productId);
+        },
+        error: (error) => {
+          console.error('Error deleting product:', error);
+          alert('Failed to delete the product. Please try again.');
+        }
+      });
+    }
+  }
+
+
+
 
 
 
