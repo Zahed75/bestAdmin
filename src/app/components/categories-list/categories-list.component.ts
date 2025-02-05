@@ -38,7 +38,7 @@ export class CategoriesListComponent implements OnInit {
     metaDescription: '',
     subCategories: [],
   };
-  subCategories: Category[] = []; // Array to store subcategories
+
 
   newCategory: any = {}; // Your category object
   userId: string = ''; // User ID will be fetched from localStorage
@@ -114,6 +114,7 @@ export class CategoriesListComponent implements OnInit {
     } else {
       console.error("User ID is not available in localStorage!");
     }
+
     this.getCategories();
   }
 
@@ -222,7 +223,6 @@ export class CategoriesListComponent implements OnInit {
   }
 
 
-
   onDeleteCategory(categoryId: string): void {
     if (!categoryId) {
       console.error('Invalid category ID');
@@ -288,25 +288,6 @@ export class CategoriesListComponent implements OnInit {
     return null;
   }
 
-
-  onParentCategoryChange(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement; // Cast to HTMLSelectElement
-    const parentCategoryId = selectElement.value; // Get the selected value
-
-    if (parentCategoryId) {
-      this.categoryService.getSubCategoriesByCategoryId(parentCategoryId).subscribe({
-        next: (response) => {
-          this.subCategories = response.subcategories; // Store subcategories
-          this.newCategory.subCategory = ''; // Reset subcategory selection
-        },
-        error: (error) => {
-          console.error('Error fetching subcategories:', error);
-        }
-      });
-    } else {
-      this.subCategories = []; // Clear subcategories if no parent category is selected
-    }
-  }
 
 
 }
