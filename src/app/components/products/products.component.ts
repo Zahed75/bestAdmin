@@ -30,6 +30,8 @@ export class ProductsComponent implements OnInit {
   itemsPerPage: number = 8; // Default number of products per page
   totalItems: number = 0;
 
+  selectedProductQuantity: any = null;
+
   constructor(private productsService: ProductsService) {}
 
   ngOnInit() {
@@ -52,15 +54,9 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  openInventoryModal(productId: string): void {
-    this.selectedProductId = productId;
-    this.isInventoryModalOpen = true;
-    this.fetchProductQuantity(productId);
-  }
 
-  closeInventoryModal() {
-    this.isInventoryModalOpen = false;
-  }
+
+
 
   fetchProductQuantity(productId: string): void {
     this.productsService.getProductQuantityById(productId).subscribe({
@@ -84,30 +80,7 @@ export class ProductsComponent implements OnInit {
   }
 
 
-  updateStock(outlet: OutletQuantity): void {
-    if (!this.selectedProductId || !outlet._id) { // Add outlet ID check
-      console.error('Missing product or outlet ID');
-      return;
-    }
 
-    // Use the outlet's actual ID from the outlet object
-    this.productsService.updateInventory(outlet._id, this.selectedProductId, outlet.quantity)
-      .subscribe({
-        next: (response) => {
-          console.log('Stock updated successfully:', response);
-          alert('Stock updated successfully!');
-          // Optional: Update local data
-          const updatedOutlet = this.outlets.find(o => o._id === outlet._id);
-          if (updatedOutlet) {
-            updatedOutlet.quantity = outlet.quantity;
-          }
-        },
-        error: (error) => {
-          console.error('Error updating stock:', error);
-          alert('Failed to update stock. Please try again.');
-        }
-      });
-  }
 
 
 
@@ -181,4 +154,73 @@ export class ProductsComponent implements OnInit {
     const end = Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
     return `${start}-${end}`;
   }
+
+
+
+  // openInventoryModal(productId: string): void {
+  //   this.isInventoryModalOpen = true;
+  //   this.selectedProductQuantity = null; // Reset previous data before fetching new one
+  //
+  //   this.productsService.getProductQuantity(productId).subscribe(
+  //     (response) => {
+  //       this.selectedProductQuantity = response.data; // Ensure API response structure matches
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching product quantity:', error);
+  //     }
+  //   );
+  // }
+
+  openInventoryModal(productId: string): void {
+    this.isInventoryModalOpen = true;
+    this.selectedProductQuantity = null; // Reset previous data before fetching new one
+
+    this.productsService.getProductQuantity(productId).subscribe(
+      (response) => {
+        if (response.data && response.data.outletQuantities.length > 0) {
+          this.selectedProductQuantity = response.data;
+        } else {
+          this.selectedProductQuantity = { error: "No inventory found for this product" };
+        }
+      },
+      (error) => {
+        console.error('Error fetching product quantity:', error);
+        this.selectedProductQuantity = { error: "No inventory found for this product" };
+      }
+    );
+  }
+
+
+  closeInventoryModal() {
+    this.isInventoryModalOpen = false;
+  }
+
+
+
+  updateStock(outlet: OutletQuantity): void {
+    if (!this.selectedProductId || !outlet._id) { // Add outlet ID check
+      console.error('Missing product or outlet ID');
+      return;
+    }
+
+    // Use the outlet's actual ID from the outlet object
+    this.productsService.updateInventory(outlet._id, this.selectedProductId, outlet.quantity)
+      .subscribe({
+        next: (response) => {
+          console.log('Stock updated successfully:', response);
+          alert('Stock updated successfully!');
+          // Optional: Update local data
+          const updatedOutlet = this.outlets.find(o => o._id === outlet._id);
+          if (updatedOutlet) {
+            updatedOutlet.quantity = outlet.quantity;
+          }
+        },
+        error: (error) => {
+          console.error('Error updating stock:', error);
+          alert('Failed to update stock. Please try again.');
+        }
+      });
+  }
+
 }
+

@@ -14,7 +14,7 @@ export class ProductsService {
   private getAllProductsURL = `${environment.apiBaseUrl}/product/getAllProducts`;
   private getQuantityByIdProductId = `${environment.apiBaseUrl}/product/quantity`;
   private updateInventoryByQuantity = `${environment.apiBaseUrl}/inventory/update-inventory`;
-
+  private getQuantityByProductId= `${environment.apiBaseUrl}/product/check-quantity/`
   private http = inject(HttpClient);
 
   getAllProducts(): Observable<GetAllProductsResponse> {
@@ -41,5 +41,9 @@ export class ProductsService {
     return this.http.put(this.updateInventoryByQuantity, payload);
   }
 
+
+  getProductQuantity(productId: string): Observable<any> {
+    return this.http.get<any>(`${this.getQuantityByProductId}${productId}`);
+  }
 
 }
