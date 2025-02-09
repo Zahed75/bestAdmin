@@ -169,17 +169,24 @@
           <td class="px-6 py-4">{{ outlet.outletManagerPhone }}</td>
           <td class="px-6 py-4">{{ outlet.outletManagerEmail || 'N/A' }}</td>
           <td class="px-6 py-4">{{ outlet.managerName }}</td>
-          <td class="flex items-center px-6 py-4">
-            <a href="#" [routerLink]="['/layout/outlet-details', outlet._id]"
-               class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            <a (click)="onDeleteOutlet(outlet._id)"
-               class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
+
+          <td class="flex items-center px-4 py-2 space-x-2">
+
+            <button href="#"  [routerLink]="['/layout/outlet-details', outlet._id]" class="px-4 py-2 text-sm font-medium text-white bg-gray-950 rounded-md hover:bg-gray-800">
+              Edit
+            </button>
+
+            <button (click)="onDeleteOutlet(outlet._id)" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
+              Remove
+            </button>
           </td>
+
         </tr>
         </tbody>
       </table>
     </div>
-    <!-- Outlet Table End -->
+
+<!--    Outlet Table End-->
 
 
     <!-- Pagination Start -->

@@ -157,38 +157,35 @@ export class ProductsComponent implements OnInit {
 
 
 
-  // openInventoryModal(productId: string): void {
-  //   this.isInventoryModalOpen = true;
-  //   this.selectedProductQuantity = null; // Reset previous data before fetching new one
-  //
-  //   this.productsService.getProductQuantity(productId).subscribe(
-  //     (response) => {
-  //       this.selectedProductQuantity = response.data; // Ensure API response structure matches
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching product quantity:', error);
-  //     }
-  //   );
-  // }
+
 
   openInventoryModal(productId: string): void {
+    if (!productId) {
+      console.error('Error: Product ID is missing.');
+      alert('Error: Product ID is required.');
+      return;
+    }
+
+    this.selectedProductId = productId; // Ensure the selected product ID is stored
     this.isInventoryModalOpen = true;
-    this.selectedProductQuantity = null; // Reset previous data before fetching new one
+    this.selectedProductQuantity = null; // Reset previous data
 
     this.productsService.getProductQuantity(productId).subscribe(
       (response) => {
-        if (response.data && response.data.outletQuantities.length > 0) {
+        if (response?.data) {
           this.selectedProductQuantity = response.data;
         } else {
-          this.selectedProductQuantity = { error: "No inventory found for this product" };
+          console.error('No inventory data found for this product');
+          alert('No inventory found for this product.');
         }
       },
       (error) => {
         console.error('Error fetching product quantity:', error);
-        this.selectedProductQuantity = { error: "No inventory found for this product" };
+        alert('Error fetching product quantity.');
       }
     );
   }
+
 
 
   closeInventoryModal() {
@@ -196,31 +193,43 @@ export class ProductsComponent implements OnInit {
   }
 
 
-
   updateStock(outlet: OutletQuantity): void {
-    if (!this.selectedProductId || !outlet._id) { // Add outlet ID check
-      console.error('Missing product or outlet ID');
+    if (!this.selectedProductId) {
+      console.error('Missing product ID');
+      alert('Error: Product ID is missing. Please select a product again.');
       return;
     }
 
-    // Use the outlet's actual ID from the outlet object
+    if (!outlet || !outlet._id) {
+      console.error('Missing outlet ID');
+      alert('Error: Outlet ID is missing.');
+      return;
+    }
+
+    if (outlet.quantity === null || outlet.quantity === undefined) {
+      console.error('Quantity is missing');
+      alert('Error: Please enter a quantity.');
+      return;
+    }
+
     this.productsService.updateInventory(outlet._id, this.selectedProductId, outlet.quantity)
       .subscribe({
         next: (response) => {
           console.log('Stock updated successfully:', response);
           alert('Stock updated successfully!');
-          // Optional: Update local data
-          const updatedOutlet = this.outlets.find(o => o._id === outlet._id);
+          // Update local data
+          const updatedOutlet = this.selectedProductQuantity?.outletQuantities?.find((o: OutletQuantity) => o._id === outlet._id);
           if (updatedOutlet) {
             updatedOutlet.quantity = outlet.quantity;
           }
         },
         error: (error) => {
           console.error('Error updating stock:', error);
-          alert('Failed to update stock. Please try again.');
+          alert(error?.error?.message || 'Failed to update stock. Please try again.');
         }
       });
   }
+
 
 }
 
