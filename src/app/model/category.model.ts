@@ -61,18 +61,22 @@ export interface Product {
   productSpecification: ProductSpecification[];
 }
 
+export interface SubCategory {
+  _id: string;
+  categoryName: string;
+  slug: string; // Add the slug property
+  selected?: boolean;
+}
 
 export interface Category {
   _id?: string;
   slug: string;
-  subCategories: Category[];
-
-  // Optional fields for nested category details
+  subCategories?: SubCategory[];
+  selected?: boolean;
   userId?: string;
   categoryName?: string;
   parentCategory?: string;
   categoryDescription?: string;
-  // Note: The API returns "fetaureImage", but you might want to correct it to "featureImage"
   featureImage?: string[];
   title?: string;
   metaDescription?: string;
@@ -80,7 +84,6 @@ export interface Category {
   productCount?: number;
   products?: Product[];
 }
-
 
 // The API response interface for GetAllCategories.
 export interface GetAllCategoriesResponse {

@@ -2,12 +2,13 @@ import {Component, inject, OnInit} from '@angular/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { CategoryService } from '../../services/category/category.service';
-import { Category, GetAllCategoriesResponse } from '../../model/category.model';
+import { Category,SubCategory, GetAllCategoriesResponse } from '../../model/category.model';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 
 export interface CategoryUI extends Category {
   isExpanded?: boolean;
+  subCategories?: SubCategory[]; // Add explicit SubCategory type
 }
 
 @Component({
@@ -68,7 +69,7 @@ export class CategoriesListComponent implements OnInit {
   }
 
 
-  openEditSubCategoryModal(subCategory: Category): void {
+  openEditSubCategoryModal(subCategory: SubCategory): void {
     this.selectedCategory = { ...subCategory }; // Copy the sub-category data
     this.isEditSubCategoryModalOpen = true;
   }
@@ -251,8 +252,8 @@ export class CategoriesListComponent implements OnInit {
       return;
     }
 
-    // Check if it's a subcategory (has a parentCategory field)
-    const isSubCategory = !!categoryToDelete.parentCategory;
+    // Check if it's a subcategory using the type guard
+    const isSubCategory = !this.isCategory(categoryToDelete);
 
     if (confirm(`Are you sure you want to delete this ${isSubCategory ? 'subcategory' : 'category'}?`)) {
       this.isLoading = true;
@@ -270,9 +271,8 @@ export class CategoriesListComponent implements OnInit {
       );
     }
   }
-
 // Helper method to find a category or subcategory by ID
-  findCategoryById(categoryId: string): Category | null {
+  findCategoryById(categoryId: string): Category | SubCategory | null {
     for (const category of this.categories) {
       if (category._id === categoryId) {
         return category;
@@ -289,5 +289,7 @@ export class CategoriesListComponent implements OnInit {
   }
 
 
-
+  private isCategory(categoryToDelete: Category | SubCategory) {
+    return false;
+  }
 }

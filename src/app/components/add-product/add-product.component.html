@@ -1,35 +1,32 @@
+
+
 <div class="flex flex-row mx-6">
   <div class="p-4 sm:ml-64 w-full">
-
     <div class="flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="15 18 9 12 15 6"></polyline>
       </svg>
       <a routerLink="/layout/products">
         <h1 class="text-[40px] font-semibold">Philips GC-1423 Iron</h1>
-
       </a>
     </div>
 
     <!-- Main Container -->
     <div class="container mx-auto p-6">
       <div class="flex justify-end">
-        <button class="px-4 mb-9 py-2 bg-black text-white rounded-lg shadow-md hover:bg-gray-500">
+        <button (click)="createProduct()" class="px-4 mb-9 py-2 bg-black text-white rounded-lg shadow-md hover:bg-gray-500">
           + Add Product
         </button>
       </div>
 
-
       <div class="flex flex-col md:flex-row gap-4 mt-2">
-
         <!-- Left Side -->
         <div class="w-full md:w-3/4 space-y-4">
+          <!-- General Section -->
           <div class="bg-white p-4 shadow-md rounded-lg">
             <h2 class="text-lg font-semibold">General</h2>
-            <input type="text" placeholder="Product Name" class="w-full mt-2 p-2 border rounded-lg focus:ring focus:ring-gray-300" />
+            <input type="text" [(ngModel)]="productName" placeholder="Product Name" class="w-full mt-2 p-2 border rounded-lg focus:ring focus:ring-gray-300" />
           </div>
-
 
           <!-- Image Uploads -->
           <div class="flex flex-wrap gap-4">
@@ -42,7 +39,6 @@
                 <span *ngIf="!featuredImage" class="text-gray-500">Click to upload</span>
               </label>
             </div>
-
 
             <!-- Image Gallery -->
             <div class="w-full md:w-1/2 bg-white p-4 shadow-md rounded-lg">
@@ -57,7 +53,6 @@
           <div *ngIf="isGalleryModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] max-h-[80vh] overflow-y-auto">
               <h2 class="text-xl font-semibold mb-4">Upload Gallery Images</h2>
-
               <label class="block w-full p-2 border rounded-lg bg-gray-100 text-center cursor-pointer">
                 <input type="file" multiple (change)="onGalleryImagesChange($event)" class="hidden" />
                 <span class="text-blue-600 font-semibold">Choose Files</span>
@@ -76,40 +71,39 @@
               <div class="flex justify-end mt-4">
                 <button (click)="closeGalleryModal()" class="px-4 py-2 bg-black text-white rounded-lg">Close</button>
               </div>
-
             </div>
-
           </div>
 
+          <!-- Product Description -->
           <div class="flex flex-wrap gap-4">
             <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
               <h3 class="font-bold mb-2">Product Description</h3>
-
-              <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
+              <ckeditor
+                [editor]="Editor"
+                [config]="config"
+                *ngIf="Editor && config"
+                [(ngModel)]="productDescription">
+              </ckeditor>
             </div>
           </div>
 
-
-
-          <!-- Product SEO section Start -->
-
+          <!-- Product SEO Section -->
           <div class="max-w-[890px] mx-auto p-4 sm:p-6 bg-white shadow-md rounded-lg">
             <h2 class="text-xl sm:text-2xl font-semibold mb-4">Product SEO</h2>
-
             <div class="space-y-4">
               <!-- SEO Title Input -->
               <div>
                 <label for="seoTitle" class="block text-sm font-medium text-gray-700">SEO Title</label>
                 <input type="text" id="seoTitle" [(ngModel)]="seoTitle" (ngModelChange)="onSeoTitleChange()" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter SEO Title" />
                 <div class="mt-1 text-sm">
-                                    <span [ngClass]="{
-                      'text-green-500': seoTitleFeedback === 'green',
-                      'text-yellow-500': seoTitleFeedback === 'yellow',
-                      'text-red-500': seoTitleFeedback === 'red',
-                      'text-gray-500': seoTitleFeedback === 'gray'
-                    }">
-                      {{ seoTitle.length }}/60 characters
-                    </span>
+                  <span [ngClass]="{
+                    'text-green-500': seoTitleFeedback === 'green',
+                    'text-yellow-500': seoTitleFeedback === 'yellow',
+                    'text-red-500': seoTitleFeedback === 'red',
+                    'text-gray-500': seoTitleFeedback === 'gray'
+                  }">
+                    {{ seoTitle.length }}/60 characters
+                  </span>
                 </div>
               </div>
 
@@ -118,14 +112,14 @@
                 <label for="seoDescription" class="block text-sm font-medium text-gray-700">SEO Description</label>
                 <textarea id="seoDescription" [(ngModel)]="seoDescription" (ngModelChange)="onSeoDescriptionChange()" rows="3" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter SEO Description"></textarea>
                 <div class="mt-1 text-sm">
-                                    <span [ngClass]="{
-                      'text-green-500': seoDescriptionFeedback === 'green',
-                      'text-yellow-500': seoDescriptionFeedback === 'yellow',
-                      'text-red-500': seoDescriptionFeedback === 'red',
-                      'text-gray-500': seoDescriptionFeedback === 'gray'
-                    }">
-                      {{ seoDescription.length }}/160 characters
-                    </span>
+                  <span [ngClass]="{
+                    'text-green-500': seoDescriptionFeedback === 'green',
+                    'text-yellow-500': seoDescriptionFeedback === 'yellow',
+                    'text-red-500': seoDescriptionFeedback === 'red',
+                    'text-gray-500': seoDescriptionFeedback === 'gray'
+                  }">
+                    {{ seoDescription.length }}/160 characters
+                  </span>
                 </div>
               </div>
 
@@ -159,11 +153,11 @@
                     <div class="flex-1 w-full sm:w-auto">
                       <div class="h-2 bg-gray-200 rounded-full">
                         <div [ngClass]="{
-                              'bg-green-500': seoTitleFeedback === 'green',
-                              'bg-yellow-500': seoTitleFeedback === 'yellow',
-                              'bg-red-500': seoTitleFeedback === 'red',
-                              'bg-gray-500': seoTitleFeedback === 'gray'
-                            }" class="h-2 rounded-full" [style.width]="(seoTitle.length / 60) * 100 + '%'"></div>
+                          'bg-green-500': seoTitleFeedback === 'green',
+                          'bg-yellow-500': seoTitleFeedback === 'yellow',
+                          'bg-red-500': seoTitleFeedback === 'red',
+                          'bg-gray-500': seoTitleFeedback === 'gray'
+                        }" class="h-2 rounded-full" [style.width]="(seoTitle.length / 60) * 100 + '%'"></div>
                       </div>
                       <p class="text-xs text-gray-600 mt-1">SEO Title: {{ seoTitle.length }}/60</p>
                     </div>
@@ -172,11 +166,11 @@
                     <div class="flex-1 w-full sm:w-auto">
                       <div class="h-2 bg-gray-200 rounded-full">
                         <div [ngClass]="{
-                              'bg-green-500': seoDescriptionFeedback === 'green',
-                              'bg-yellow-500': seoDescriptionFeedback === 'yellow',
-                              'bg-red-500': seoDescriptionFeedback === 'red',
-                              'bg-gray-500': seoDescriptionFeedback === 'gray'
-                            }" class="h-2 rounded-full" [style.width]="(seoDescription.length / 160) * 100 + '%'"></div>
+                          'bg-green-500': seoDescriptionFeedback === 'green',
+                          'bg-yellow-500': seoDescriptionFeedback === 'yellow',
+                          'bg-red-500': seoDescriptionFeedback === 'red',
+                          'bg-gray-500': seoDescriptionFeedback === 'gray'
+                        }" class="h-2 rounded-full" [style.width]="(seoDescription.length / 160) * 100 + '%'"></div>
                       </div>
                       <p class="text-xs text-gray-600 mt-1">SEO Description: {{ seoDescription.length }}/160</p>
                     </div>
@@ -186,12 +180,7 @@
             </div>
           </div>
 
-          <!-- Product SEO section End -->
-
-
-
-
-          <!-- Product Price Section Start -->
+          <!-- Product Price Section -->
           <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
             <h2 class="text-2xl font-semibold text-gray-800 mb-6">Product Data</h2>
 
@@ -215,25 +204,31 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-medium text-gray-700">Regular Price</label>
-                    <input type="text" value="4290" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                    <input
+                      type="text"
+                      [(ngModel)]="regularPrice"
+                      class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
                   </div>
                   <div>
                     <label class="block text-sm font-medium text-gray-700">Sale Price</label>
-                    <input type="text" value="4183" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                    <input
+                      type="text"
+                      [(ngModel)]="salePrice"
+                      class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
                   </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-medium text-gray-700">Sale Start (Optional)</label>
-                    <input type="date" value="2025-01-29" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                    <input type="date" [(ngModel)]="saleStartDate" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
                   </div>
                   <div>
                     <label class="block text-sm font-medium text-gray-700">Sale End (Optional)</label>
-                    <input type="date" value="2025-01-29" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                    <input type="date" [(ngModel)]="saleEndDate" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
                   </div>
                   <div>
                     <label class="block text-sm font-medium text-gray-700">Inventory Status</label>
-                    <select class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <select [(ngModel)]="inventoryStatus" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
                       <option>Online & Offline</option>
                       <option>Online Only</option>
                       <option>Offline Only</option>
@@ -242,27 +237,24 @@
                 </div>
               </div>
 
-
               <!-- Inventory Tab Content -->
               <div *ngIf="activeTab === 'inventory'" class="space-y-6">
-
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Inventory</h2>
-
-                <!-- Stock Management Section -->
                 <div class="space-y-4">
-
-
                   <!-- SKU -->
                   <div>
                     <label class="block text-sm font-medium text-gray-700">SKU</label>
-                    <input type="text" value="IRN-PHL-2401" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" />
+                    <input
+                      type="text"
+                      [(ngModel)]="sku"
+                      class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm">
                   </div>
 
                   <!-- Track Stock Quantity -->
                   <div>
                     <label class="block text-sm font-medium text-gray-700">Track Stock Quantity</label>
                     <div class="mt-1 flex items-center">
-                      <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                      <input type="checkbox" [(ngModel)]="stockManagement" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
                       <span class="ml-2 text-sm text-gray-600">Enable stock management</span>
                     </div>
                   </div>
@@ -270,7 +262,7 @@
                   <!-- Stock Status -->
                   <div>
                     <label class="block text-sm font-medium text-gray-700">Stock Status</label>
-                    <select class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm">
+                    <select [(ngModel)]="stockStatus" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm">
                       <option>In Stock</option>
                       <option>Out of Stock</option>
                       <option>On Backorder</option>
@@ -281,37 +273,31 @@
                   <div>
                     <label class="block text-sm font-medium text-gray-700">Sold Individually</label>
                     <div class="mt-1 flex items-center">
-                      <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                      <input type="checkbox" [(ngModel)]="soldIndividually" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
                       <span class="ml-2 text-sm text-gray-600">Limit purchase to 1 item per order</span>
                     </div>
                   </div>
-
-
                 </div>
-
               </div>
-
 
               <!-- Shipping Tab Content -->
               <div *ngIf="activeTab === 'shipping'" class="space-y-6">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-
                   <!-- Weight Section -->
                   <div class="space-y-4">
                     <!-- Weight (KG) -->
                     <div>
                       <label class="block text-sm font-medium text-gray-700">Weight (KG)</label>
-                      <input type="number" value="0" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" />
+                      <input type="number" [(ngModel)]="weight" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" />
                     </div>
 
                     <!-- Dimensions -->
                     <div>
                       <label class="block text-sm font-medium text-gray-700">Dimensions (L x W x H)</label>
                       <div class="mt-1 grid grid-cols-3 gap-3">
-                        <input type="number" value="0" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Length" />
-                        <input type="number" value="0" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Width" />
-                        <input type="number" value="0" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Height" />
+                        <input type="number" [(ngModel)]="length" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Length" />
+                        <input type="number" [(ngModel)]="width" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Width" />
+                        <input type="number" [(ngModel)]="height" class="p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Height" />
                       </div>
                     </div>
                   </div>
@@ -319,24 +305,23 @@
               </div>
             </div>
           </div>
-          <!-- Product Price Section End -->
 
-
-          <!-- Product Short Description Start -->
+          <!-- Product Short Description -->
           <div class="flex flex-wrap gap-4">
             <div class="w-full md:w-[890px] bg-white p-4 shadow-md rounded-lg">
               <h3 class="font-bold mb-2">Product Short Description</h3>
-
-              <ckeditor [editor]="Editor" [config]="config" *ngIf="Editor && config" />
+              <ckeditor
+                [editor]="Editor"
+                [config]="config"
+                *ngIf="Editor && config"
+                [(ngModel)]="productShortDescription">
+              </ckeditor>
             </div>
           </div>
-          <!-- Product Short Description End -->
 
-          <!-- Product Specification Start -->
+          <!-- Product Specification -->
           <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Product Specification</h2>
-
-            <!-- Dynamic Table for Product Specifications -->
             <div class="space-y-4">
               <!-- Table Header -->
               <div class="grid grid-cols-3 gap-4">
@@ -356,8 +341,7 @@
                 <!-- Delete Button -->
                 <button (click)="deleteSpecification(i)" class="text-red-600 hover:text-red-700">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"
-                    />
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                   </svg>
                 </button>
               </div>
@@ -372,24 +356,17 @@
           </div>
         </div>
 
-
-        <!-- Product Specification End -->
-
-
         <!-- Right Side -->
-
         <div class="w-full space-y-4 lg:w-1/4">
-          <!-- Product Categories Card -->
-          <div class=" bg-gray-100 p-4 shadow-md rounded-lg">
+          <!-- add-product.component.html -->
+          <div class="bg-gray-100 p-4 shadow-md rounded-lg">
             <h2 class="text-lg font-semibold">Product Categories</h2>
-
-            <!-- Scrollable Categories Section -->
             <div class="mt-4 max-h-48 overflow-y-auto">
               <div class="space-y-2">
                 <!-- Loop through categories -->
                 <div *ngFor="let category of categories">
                   <div class="flex items-center">
-                    <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                    <input type="checkbox" [(ngModel)]="category.selected" class="form-checkbox h-4 w-4 text-gray-600" />
                     <span class="ml-2 font-semibold text-gray-700">{{ category.categoryName }}</span>
                   </div>
 
@@ -397,7 +374,7 @@
                   <div class="ml-6 space-y-2" *ngIf="category.subCategories?.length">
                     <div *ngFor="let subCategory of category.subCategories">
                       <div class="flex items-center">
-                        <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600">
+                        <input type="checkbox" [(ngModel)]="subCategory.selected" class="form-checkbox h-4 w-4 text-gray-600" />
                         <span class="ml-2 text-gray-700">{{ subCategory.categoryName }}</span>
                       </div>
                     </div>
@@ -407,58 +384,39 @@
             </div>
           </div>
 
-        <!--        ---  Categories & SubCategories End-->
-
-
           <!-- Product Tags Card -->
           <div class="bg-white p-4 shadow-md rounded-lg">
             <h4 class="text-lg font-semibold">Product Tags</h4>
-
             <div class="mt-4">
               <div class="flex flex-col gap-2 sm:flex-row">
-                <input type="text"
-                       [(ngModel)]="newTag"
-                       (keyup.enter)="addTag()"
-                       class="w-full p-2 border rounded-lg"
-                       placeholder="Enter tag">
-                <button (click)="addTag()"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shrink-0">
+                <input type="text" [(ngModel)]="newTag" (keyup.enter)="addTag()" class="w-full p-2 border rounded-lg" placeholder="Enter tag" />
+                <button (click)="addTag()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shrink-0">
                   Add
                 </button>
               </div>
             </div>
 
             <div class="mt-4 space-y-2">
-              <div *ngFor="let tag of tags; let i = index"
-                   class="flex items-center justify-between bg-gray-100 px-3 py-2 rounded-lg">
+              <div *ngFor="let tag of tags; let i = index" class="flex items-center justify-between bg-gray-100 px-3 py-2 rounded-lg">
                 <span class="text-sm text-gray-700">{{ tag }}</span>
                 <button (click)="removeTag(i)" class="text-gray-500 hover:text-gray-700">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                   </svg>
                 </button>
               </div>
             </div>
           </div>
 
-
-
           <!-- Product Brand Card -->
           <div class="bg-white p-4 shadow-md rounded-lg">
             <h4 class="text-lg font-semibold">Product Brand</h4>
-
             <div class="mt-4">
               <div class="flex flex-col gap-0 sm:flex-row sm:border-b">
-                <button
-                  class="p-2 text-sm font-medium  text-gray-500 hover:text-blue-600 sm:border-b-0"
-                  [class.text-blue-600]="activeTab === 'brandList'"
-                  (click)="activeTab = 'brandList'">
+                <button class="p-2 text-sm font-medium text-gray-500 hover:text-blue-600 sm:border-b-0" [class.text-blue-600]="activeTab === 'brandList'" (click)="activeTab = 'brandList'">
                   Brand List
                 </button>
-                <button
-                  class="p-2 text-sm font-medium text-gray-500 hover:text-blue-600 sm:border-b-0"
-                  [class.text-blue-600]="activeTab === 'addBrand'"
-                  (click)="activeTab = 'addBrand'">
+                <button class="p-2 text-sm font-medium text-gray-500 hover:text-blue-600 sm:border-b-0" [class.text-blue-600]="activeTab === 'addBrand'" (click)="activeTab = 'addBrand'">
                   Add New Brand
                 </button>
               </div>
@@ -466,8 +424,9 @@
               <div class="mt-4">
                 <!-- Brand List Content -->
                 <div *ngIf="activeTab === 'brandList' && brands.length > 0; else noBrands" class="space-y-4">
-                  <select class="w-full p-2 border rounded-lg">
-                    <option *ngFor="let brand of brands">{{ brand.name }} - {{ brand.title }}</option>
+                  <select [(ngModel)]="selectedBrand" class="w-full p-2 border rounded-lg">
+                    <option value="">Select Brand</option>
+                    <option *ngFor="let brand of brands" [value]="brand._id">{{ brand.name }} - {{ brand.title }}</option>
                   </select>
                 </div>
 
@@ -477,39 +436,20 @@
 
                 <!-- Add Brand Content -->
                 <div *ngIf="activeTab === 'addBrand'" class="space-y-4">
-                  <input type="text"
-                         [(ngModel)]="newBrand.name"
-                         class="w-full p-2 border rounded-lg"
-                         placeholder="Brand Name">
-
-                  <input type="text"
-                         [(ngModel)]="newBrand.title"
-                         class="w-full p-2 border rounded-lg"
-                         placeholder="Brand Title">
-
-                  <textarea [(ngModel)]="newBrand.description"
-                            class="w-full p-2 border rounded-lg"
-                            placeholder="Brand Description"></textarea>
-
-                  <button
-                    (click)="addBrand()"
-                    class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                  <input type="text" [(ngModel)]="newBrand.name" class="w-full p-2 border rounded-lg" placeholder="Brand Name" />
+                  <input type="text" [(ngModel)]="newBrand.title" class="w-full p-2 border rounded-lg" placeholder="Brand Title" />
+                  <textarea [(ngModel)]="newBrand.description" class="w-full p-2 border rounded-lg" placeholder="Brand Description"></textarea>
+                  <button (click)="addBrand()" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     ADD BRAND
                   </button>
                 </div>
               </div>
             </div>
           </div>
-
-
-          <!--        Right side end -->
-
-
-
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 
 

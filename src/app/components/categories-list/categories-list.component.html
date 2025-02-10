@@ -26,7 +26,7 @@
         <div class="flex items-center justify-between p-4 hover:bg-gray-50 cursor-pointer transition duration-200" (click)="toggleCategory(category)">
           <div class="flex items-center space-x-3">
             <span class="text-lg font-semibold text-gray-800">{{ category.categoryName }}</span>
-            <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">{{ category.subCategories.length }} Sub-Categories</span>
+            <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">{{ category.subCategories}} Sub-Categories</span>
           </div>
           <div class="flex items-center space-x-4">
             <button class="text-blue-600 hover:text-blue-800 transition duration-200" (click)="openEditCategoryModal(category); $event.stopPropagation()">Edit</button>
