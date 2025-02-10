@@ -327,22 +327,24 @@ getAllBrands(){
 
 
 
-addBrand(){
-    if(!this.newBrand.name.trim() || this.newBrand.title.trim() || this.newBrand.description.trim()){
-      console.log("All Fields are Required!")
+// Create a new brand
+  addBrand() {
+    if (!this.newBrand.name.trim() || !this.newBrand.title.trim() || !this.newBrand.description.trim()) {
+      console.log('All fields are required');
       return;
     }
 
     this.addProductService.createBrand(this.newBrand).subscribe({
-      next:(response)=>{
-        console.log("Brand Added",response);
-        this.newBrand={_id:'',name:'',title:'',description:'',createdAt: '', updatedAt: ''};
-        this.getAllBrands();
-      },error:(error)=>{
-        console.log("Failed to create Brand",error)
+      next: (response) => {
+        console.log('Brand added:', response);
+        this.newBrand = { _id: '', name: '', title: '', description: '', createdAt: '', updatedAt: '' }; // Reset form
+        this.getAllBrands(); // Refresh brand list
+      },
+      error: (error) => {
+        console.log('Failed to add brand', error);
       }
-    })
-}
+    });
+  }
 
 
 
