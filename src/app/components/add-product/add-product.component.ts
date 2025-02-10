@@ -63,20 +63,27 @@ export class AddProductComponent implements OnInit {
   seoThumbnail: string | ArrayBuffer | null = '';
   seoTitleFeedback: string = 'gray'; // gray, green, yellow, red
   seoDescriptionFeedback: string = 'gray'; // gray, green, yellow, red
-  activeTab: string = 'general';
+  activeTab: string = 'brandList';
   weight: number = 0;
   length: number = 0;
   width: number = 0;
   height: number = 0;
   newTag: string = ""; // Holds the value of the new tag input
   tags: string[] = ["Philips"]; // Initial tags
-  newBrand: string = ""; // Holds the value of the new brand input
+
   activeBrand:string =''
   public Editor: typeof ClassicEditor | null = null;
 	public config: EditorConfig | null = null;
   categories: Category[] = []; // Store categories
   brands: Brand[] = [];
-
+  newBrand: Brand = {
+    _id: '',
+    name: '',
+    title: '',
+    description: '',
+    createdAt: '',
+    updatedAt: ''
+  };
 
 	private _setupEditor(cloud: CKEditorCloudResult<typeof cloudConfig>) {
 		const {
@@ -319,6 +326,23 @@ getAllBrands(){
 }
 
 
+
+addBrand(){
+    if(!this.newBrand.name.trim() || this.newBrand.title.trim() || this.newBrand.description.trim()){
+      console.log("All Fields are Required!")
+      return;
+    }
+
+    this.addProductService.createBrand(this.newBrand).subscribe({
+      next:(response)=>{
+        console.log("Brand Added",response);
+        this.newBrand={_id:'',name:'',title:'',description:'',createdAt: '', updatedAt: ''};
+        this.getAllBrands();
+      },error:(error)=>{
+        console.log("Failed to create Brand",error)
+      }
+    })
+}
 
 
 
