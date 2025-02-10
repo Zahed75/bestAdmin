@@ -306,6 +306,14 @@ export class AddProductComponent implements OnInit {
 
 
 
+
+
+
+
+
+
+
+
   // Handle Featured Image Upload
   onFeaturedImageChange(event: Event): void {
     const input = event.target as HTMLInputElement;
