@@ -12,3 +12,9 @@ export interface CreateBrandResponse {
   message: string;
   brand: Brand;
 }
+
+
+export interface GetAllBrandsResponse {
+  success: boolean;
+  data: Brand[];
+}

@@ -14,12 +14,10 @@ import type {
 } from 'https://cdn.ckeditor.com/typings/ckeditor5.d.ts';
 import {RouterLink} from '@angular/router';
 
-import {AddProductService} from '../../services/addProduct/add-product.service';
-import {CategoriesListComponent} from '../categories-list/categories-list.component';
-import {CategoryUI} from '../categories-list/categories-list.component';
 import {CategoryService} from '../../services/category/category.service';
+import {AddProductService} from '../../services/addProduct/add-product.service'
 import {Category, GetAllCategoriesResponse} from '../../model/category.model';
-
+import { Brand } from '../../model/brand.model';
 
 const LICENSE_KEY =
   'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3Njk2NDQ3OTksImp0aSI6IjliY2M4ODM1LTc3ZjMtNDMwOC1hZjIxLTgzYzQxNGNmOTc5OCIsImxpY2Vuc2VkSG9zdHMiOlsiMTI3LjAuMC4xIiwibG9jYWxob3N0IiwiMTkyLjE2OC4qLioiLCIxMC4qLiouKiIsIjE3Mi4qLiouKiIsIioudGVzdCIsIioubG9jYWxob3N0IiwiKi5sb2NhbCJdLCJ1c2FnZUVuZHBvaW50IjoiaHR0cHM6Ly9wcm94eS1ldmVudC5ja2VkaXRvci5jb20iLCJkaXN0cmlidXRpb25DaGFubmVsIjpbImNsb3VkIiwiZHJ1cGFsIl0sImxpY2Vuc2VUeXBlIjoiZGV2ZWxvcG1lbnQiLCJmZWF0dXJlcyI6WyJEUlVQIl0sInZjIjoiMmM0MmQ2ZDIifQ.TkcaS4YFgY77J7GHhjKgr5PsHSsWbPMPRAdrIj8zrhoa1bdoUEW9aSdfIS6AM4Dq0x9DUz_aBw5Uyk8txwfrlw';
@@ -73,12 +71,11 @@ export class AddProductComponent implements OnInit {
   newTag: string = ""; // Holds the value of the new tag input
   tags: string[] = ["Philips"]; // Initial tags
   newBrand: string = ""; // Holds the value of the new brand input
-  brands: string[] = ["Philips", "Samsung", "LG"]; // Initial brands
   activeBrand:string =''
   public Editor: typeof ClassicEditor | null = null;
 	public config: EditorConfig | null = null;
   categories: Category[] = []; // Store categories
-
+  brands: Brand[] = [];
 
 
 	private _setupEditor(cloud: CKEditorCloudResult<typeof cloudConfig>) {
@@ -281,6 +278,7 @@ export class AddProductComponent implements OnInit {
       .then(cloud => this._setupEditor(cloud))
       .catch(error => console.error('Error loading CKEditor:', error));
       this.getCategories();
+      this.getAllBrands();
   }
 
 
@@ -308,6 +306,17 @@ export class AddProductComponent implements OnInit {
 
 
 
+
+getAllBrands(){
+    this.addProductService.getAllBrands().subscribe({
+      next:(response)=>{
+        this.brands=response.data;
+        console.log('Brands loaded:', this.brands);
+      },error:(error)=>{
+        console.log("Failed to load brands",error)
+      }
+    })
+}
 
 
 
@@ -431,13 +440,7 @@ export class AddProductComponent implements OnInit {
   }
 
 
-  addBrand() {
-    if (this.newBrand.trim() && !this.brands.includes(this.newBrand.trim())) {
-      this.brands.push(this.newBrand.trim());
-      this.newBrand = ""; // Clear the input field
-      this.activeBrand = "brandList"; // Switch back to the Brand List tab
-    }
-  }
+
 
 
 

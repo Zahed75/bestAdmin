@@ -441,7 +441,9 @@
             </div>
           </div>
 
+
           <!-- Product Brand Card -->
+
           <div class="bg-white p-4 shadow-md rounded-lg">
             <h4 class="text-lg font-semibold">Product Brand</h4>
 
@@ -463,11 +465,15 @@
 
               <div class="mt-4">
                 <!-- Brand List Content -->
-                <div *ngIf="activeTab === 'brandList'" class="space-y-4">
+                <div *ngIf="activeTab === 'brandList' && brands.length > 0; else noBrands" class="space-y-4">
                   <select class="w-full p-2 border rounded-lg">
-                    <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+                    <option *ngFor="let brand of brands">{{ brand.name }}</option>
                   </select>
                 </div>
+
+                <ng-template #noBrands>
+                  <p>No brands available.</p>
+                </ng-template>
 
                 <!-- Add Brand Content -->
                 <div *ngIf="activeTab === 'addBrand'" class="space-y-4">
@@ -475,16 +481,17 @@
                          [(ngModel)]="newBrand"
                          class="w-full p-2 border rounded-lg"
                          placeholder="Enter brand name">
-                  <button (click)="addBrand()"
-                          class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+
+                  <button
+                    class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     ADD BRAND
                   </button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-<!--        Right side end -->
+
+          <!--        Right side end -->
 
 
 
