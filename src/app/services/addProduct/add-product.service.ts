@@ -15,9 +15,5 @@ export class AddProductService {
 
 
 
-  getAllCategories(): Observable<GetAllCategoriesResponse> {
-    return this.http.get<GetAllCategoriesResponse>(this.getAllCategoriesURL, {
-    });
-  }
 
 }
