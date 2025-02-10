@@ -5,13 +5,16 @@ import {environment} from '../../../enviornments/environment';
 import {map} from 'rxjs/operators';
 import {GetAllCategoriesResponse} from '../../model/category.model';
 import {Brand,CreateBrandResponse, GetAllBrandsResponse} from '../../model/brand.model';
+import {env} from 'ckeditor5';
+import {Product} from '../../model/product.model';
 @Injectable({
   providedIn: 'root'
 })
 
 export class AddProductService {
-  private getAllBrandsURL =`${environment.apiBaseUrl}/brand/getAll`
-  private createBrandURL = `${environment.apiBaseUrl}/brand/create`
+  private getAllBrandsURL =`${environment.apiBaseUrl}/brand/getAll`;
+  private createBrandURL = `${environment.apiBaseUrl}/brand/create`;
+  private crateProductURL=`${environment.apiBaseUrl}/product/addProduct`;
   private http = inject(HttpClient);
 
 
@@ -24,6 +27,11 @@ export class AddProductService {
 
   createBrand(brandData: { name: string; title: string; description: string }): Observable<CreateBrandResponse> {
     return this.http.post<CreateBrandResponse>(this.createBrandURL, brandData);
+  }
+
+
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.crateProductURL, product);
   }
 
 }
