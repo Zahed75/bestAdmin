@@ -1,14 +1,14 @@
-import {Component, inject, OnInit} from '@angular/core';
-import { NgClass, NgFor, NgIf } from '@angular/common';
-import { FormsModule} from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import {NgClass, NgFor, NgIf, NgTemplateOutlet} from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../../services/category/category.service';
-import { Category,SubCategory, GetAllCategoriesResponse } from '../../model/category.model';
-import {AuthService} from '../../services/auth.service';
-import {Router} from '@angular/router';
+import { Category, SubCategory, GetAllCategoriesResponse } from '../../model/category.model';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 export interface CategoryUI extends Category {
   isExpanded?: boolean;
-  subCategories?: SubCategory[]; // Add explicit SubCategory type
+  subCategories?: SubCategory[]; // Use SubCategory[] instead of CategoryUI[]
 }
 
 @Component({
@@ -19,16 +19,17 @@ export interface CategoryUI extends Category {
     NgClass,
     NgIf,
     NgFor,
+    NgTemplateOutlet,
   ],
   templateUrl: './categories-list.component.html',
-  styleUrls: ['./categories-list.component.css']
+  styleUrls: ['./categories-list.component.css'],
 })
 export class CategoriesListComponent implements OnInit {
   isAddCategoryModalOpen = false;
   isEditCategoryModalOpen = false;
   isEditSubCategoryModalOpen = false;
   categories: CategoryUI[] = [];
-  isLoading=false
+  isLoading = false;
 
   selectedCategory: any = {
     slug: '',
@@ -40,25 +41,83 @@ export class CategoriesListComponent implements OnInit {
     subCategories: [],
   };
 
-
   newCategory: any = {}; // Your category object
   userId: string = ''; // User ID will be fetched from localStorage
   router = inject(Router);
 
-  openAddCategoryModal(): void {
-    this.isAddCategoryModalOpen = true;
+  constructor(
+    private categoryService: CategoryService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    const userData = localStorage.getItem('users');
+
+    if (userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        if (parsedUser?.userId) {
+          this.userId = parsedUser.userId;
+        } else {
+          console.error('User ID is missing in parsed object!');
+        }
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+      }
+    } else {
+      console.error('User ID is not available in localStorage!');
+    }
+
+    this.getCategories();
+  }
+
+  getCategories(): void {
+    this.categoryService.getAllCategories().subscribe({
+      next: (response: GetAllCategoriesResponse) => {
+        if (!response || !response.categories || !Array.isArray(response.categories)) {
+          console.error('Invalid API response:', response);
+          this.categories = [];
+          return;
+        }
+
+        // Recursively map categories and subcategories
+        this.categories = this.mapCategories(response.categories);
+      },
+      error: (error) => {
+        console.error('Error fetching categories:', error);
+      },
+    });
+  }
+
+  // Helper method to recursively map categories and subcategories
+  private mapCategories(categories: Category[]): CategoryUI[] {
+    return categories.map((cat) => ({
+      ...cat,
+      isExpanded: false,
+      subCategories: cat.subCategories ? this.mapSubCategories(cat.subCategories) : [], // Map subcategories
+    }));
+  }
+
+  // Helper method to map subcategories
+  private mapSubCategories(subCategories: SubCategory[]): SubCategory[] {
+    return subCategories.map((subCat) => ({
+      ...subCat,
+    }));
   }
 
   toggleCategory(category: CategoryUI): void {
     category.isExpanded = !category.isExpanded;
   }
 
+  openAddCategoryModal(): void {
+    this.isAddCategoryModalOpen = true;
+  }
 
   closeAddCategoryModal(): void {
     this.isAddCategoryModalOpen = false;
   }
 
-  openEditCategoryModal(category: Category): void {
+  openEditCategoryModal(category: CategoryUI): void {
     this.selectedCategory = category;
     this.isEditCategoryModalOpen = true;
   }
@@ -67,7 +126,6 @@ export class CategoriesListComponent implements OnInit {
     this.isEditCategoryModalOpen = false;
     this.selectedCategory = null;
   }
-
 
   openEditSubCategoryModal(subCategory: SubCategory): void {
     this.selectedCategory = { ...subCategory }; // Copy the sub-category data
@@ -88,66 +146,6 @@ export class CategoriesListComponent implements OnInit {
     };
   }
 
-
-  constructor(
-    private categoryService: CategoryService,
-    private authService: AuthService
-  ) {}
-
-
-
-
-  ngOnInit(): void {
-    const userData = localStorage.getItem('users');
-
-    if (userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        if (parsedUser?.userId) {
-          this.userId = parsedUser.userId;
-
-        } else {
-          console.error(" User ID is missing in parsed object!");
-        }
-      } catch (error) {
-        console.error("Error parsing user data from localStorage:", error);
-      }
-    } else {
-      console.error("User ID is not available in localStorage!");
-    }
-
-    this.getCategories();
-  }
-
-
-
-
-
-  getCategories(): void {
-    this.categoryService.getAllCategories().subscribe({
-      next: (response: GetAllCategoriesResponse) => {
-        if (!response || !response.categories || !Array.isArray(response.categories)) {
-          console.error("Invalid API response:", response);
-          this.categories = [];
-          return;
-        }
-
-        this.categories = response.categories.map((cat) => ({
-          ...cat,
-          isExpanded: false,
-          subCategories: cat.subCategories ?? [] // Ensure subCategories is always an array
-        }));
-      },
-      error: (error) => {
-        console.error('Error fetching categories:', error);
-      }
-    });
-  }
-
-
-
-
-// Method to add a new category
   addNewCategory(category: any): void {
     const userData = localStorage.getItem('users');
 
@@ -177,15 +175,14 @@ export class CategoriesListComponent implements OnInit {
       next: (response) => {
         console.log('Category added successfully:', response);
         this.newCategory = {}; // Reset the category form
-        this.closeAddCategoryModal();  // Close the modal
-        window.location.reload();      // Reload the page
+        this.closeAddCategoryModal(); // Close the modal
+        this.getCategories(); // Refresh the categories list
       },
       error: (error) => {
         console.error('Error adding category:', error);
-      }
+      },
     });
   }
-
 
   onEditCategorySubmit(): void {
     if (this.selectedCategory) {
@@ -218,11 +215,10 @@ export class CategoriesListComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error updating category:', error);
-        }
+        },
       });
     }
   }
-
 
   onDeleteCategory(categoryId: string): void {
     if (!categoryId) {
@@ -271,25 +267,35 @@ export class CategoriesListComponent implements OnInit {
       );
     }
   }
-// Helper method to find a category or subcategory by ID
+
+  // Helper method to find a category or subcategory by ID
   findCategoryById(categoryId: string): Category | SubCategory | null {
     for (const category of this.categories) {
       if (category._id === categoryId) {
-        return category;
+        return category; // Return as Category
       }
       // Check subcategories
       if (category.subCategories && category.subCategories.length > 0) {
-        const subCategory = category.subCategories.find(sub => sub._id === categoryId);
+        const subCategory = this.findSubCategoryById(category.subCategories, categoryId);
         if (subCategory) {
-          return subCategory;
+          return subCategory; // Return as SubCategory
         }
       }
     }
     return null;
   }
 
+  // Helper method to recursively find a subcategory by ID
+  private findSubCategoryById(subCategories: SubCategory[], categoryId: string): SubCategory | null {
+    for (const subCategory of subCategories) {
+      if (subCategory._id === categoryId) {
+        return subCategory; // Return as SubCategory
+      }
+    }
+    return null;
+  }
 
-  private isCategory(categoryToDelete: Category | SubCategory) {
-    return false;
+  private isCategory(categoryToDelete: Category | SubCategory): boolean {
+    return (categoryToDelete as Category).subCategories !== undefined;
   }
 }
