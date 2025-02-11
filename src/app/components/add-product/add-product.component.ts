@@ -1,5 +1,5 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   loadCKEditorCloud,
@@ -12,7 +12,7 @@ import type {
   ClassicEditor,
   EditorConfig,
 } from 'https://cdn.ckeditor.com/typings/ckeditor5.d.ts';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 import { CategoryService } from '../../services/category/category.service';
 import { AddProductService } from '../../services/addProduct/add-product.service';
@@ -116,6 +116,9 @@ export class AddProductComponent implements OnInit {
     private addProductService: AddProductService,
     private categoryService: CategoryService,
   ) { }
+
+
+  router = inject(Router);
 
   ngOnInit() {
     loadCKEditorCloud(cloudConfig)
@@ -558,6 +561,7 @@ export class AddProductComponent implements OnInit {
     this.addProductService.createProduct(productData).subscribe({
       next: (response) => {
         console.log('Product created successfully:', response);
+        this.router.navigateByUrl('/layout/products')
       },
       error: (error) => {
         console.error('Error creating product:', error);
