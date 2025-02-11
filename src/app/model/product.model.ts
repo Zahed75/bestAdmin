@@ -1,11 +1,10 @@
-// product.model.ts
 export interface Product {
-  seo: {
-    productTitle: string;
-    prodDescription: string;
-    productTags: string[];
-    productNotes: string;
-  };
+  productName: string;
+  productDescription: string;
+  productShortDescription: string;
+  productSlug: string;
+  productCode: string;
+  productBrand: string;
   general: {
     regularPrice: number;
     salePrice: number;
@@ -27,27 +26,29 @@ export interface Product {
     };
     weight: number;
   };
-  _id: string;
-  categoryId: string[];
-  productName: string;
-  productSlug: string;
-  productBrand: string;
-  productCode: string;
+  seo: {
+    productTitle: string;
+    prodDescription: string;
+    productTags: string[];
+    productNotes: string;
+  };
   productImage: string;
   productGallery: string[];
   productVideos: string[];
+  categoryId: string[];
   productStatus: string;
   date: string;
-  productDescription: string;
-  productShortDescription: string;
-  __v: number;
   updatedAt: string;
   productSpecification: {
     key: string;
     value: string;
-    _id: string;
+    _id?: string; // Make _id optional
   }[];
+  _id?: string; // Make _id optional for new products
+  __v: number;
 }
+
+
 
 export interface GetAllProductsResponse {
   message: string;

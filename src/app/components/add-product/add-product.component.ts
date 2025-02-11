@@ -55,13 +55,13 @@ export class AddProductComponent implements OnInit {
   seoTitle: string = '';
   seoDescription: string = '';
   seoThumbnail: string | ArrayBuffer | null = '';
-  seoTitleFeedback: string = 'gray'; // gray, green, yellow, red
-  seoDescriptionFeedback: string = 'gray'; // gray, green, yellow, red
+  seoTitleFeedback: string = 'gray';
+  seoDescriptionFeedback: string = 'gray';
   activeTab: string = 'brandList';
-  newTag: string = ""; // Holds the value of the new tag input
-  tags: string[] = ["Philips"]; // Initial tags
-  inventoryStatus: string = 'In Stock';
-
+  newTag: string = "";
+  tags: string[] = [''];
+  inventoryStatus: string = '';
+  productStatus:string=''
 
 
   // Product Basics
@@ -469,46 +469,59 @@ export class AddProductComponent implements OnInit {
 
   createProduct() {
     const selectedCategoryIds: string[] = [];
+
+    // Ensure only valid ObjectIds are pushed to selectedCategoryIds
     this.categories.forEach((category) => {
-      if (category.selected) {
-        selectedCategoryIds.push(category._id!);
+      if (category.selected && category._id && category._id !== "") {
+        selectedCategoryIds.push(category._id.toString());
       }
       if (category.subCategories) {
         category.subCategories.forEach((subCategory) => {
-          if (subCategory.selected) {
-            selectedCategoryIds.push(subCategory._id);
+          if (subCategory.selected && subCategory._id && subCategory._id !== "") {
+            selectedCategoryIds.push(subCategory._id.toString());
           }
         });
       }
     });
 
+    // Add validation before sending request
+    if (!this.productName || this.productName.trim() === '') {
+      alert('Product Name is required.');
+      return;
+    }
+    if (!this.productStatus) {
+      alert('Product Status is required.');
+      return;
+    }
+    if (!this.inventoryStatus) {
+      alert('Inventory Status is required.');
+      return;
+    }
+
     const productData: Product = {
-      // Product basics
       productName: this.productName,
       productDescription: this.productDescription,
       productShortDescription: this.productShortDescription,
-      productSlug: '', // Add actual slug logic
-      productCode: '', // Add product code logic
+      productSlug: '',
+      productCode: '',
       productBrand: this.selectedBrand,
 
-      // Pricing
+      // Fixed inventory and product status
       general: {
         regularPrice: this.regularPrice,
         salePrice: this.salePrice,
-        taxStatus: '', // Add tax status binding
-        taxClass: '' // Add tax class binding
+        taxStatus: '',
+        taxClass: ''
       },
 
-      // Inventory
       inventory: {
         sku: this.sku,
         stockManagement: this.stockManagement,
         stockStatus: this.stockStatus,
         soldIndividually: this.soldIndividually,
-        inventoryStatus: 'active'
+        inventoryStatus: this.inventoryStatus
       },
 
-      // Shipping
       shipping: {
         productDimensions: {
           length: this.length,
@@ -518,7 +531,6 @@ export class AddProductComponent implements OnInit {
         weight: this.weight
       },
 
-      // SEO
       seo: {
         productTitle: this.seoTitle,
         prodDescription: this.seoDescription,
@@ -526,27 +538,21 @@ export class AddProductComponent implements OnInit {
         productNotes: ''
       },
 
-      // Media
       productImage: this.featuredImage as string,
       productGallery: this.galleryImages,
       productVideos: [],
 
-      // Metadata
-      categoryId: selectedCategoryIds,
-      productStatus: 'active',
+      categoryId: selectedCategoryIds, // Ensure no empty or invalid ObjectIds
+      productStatus: this.productStatus,
       date: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
 
-      // Specifications
       productSpecification: this.productSpecifications.map(spec => ({
         key: spec.key,
-        value: spec.value,
-        _id: ''
+        value: spec.value
       })),
 
-      // System fields
-      _id: '',
-      __v: 0
+      __v: 0 // Let MongoDB generate _id automatically
     };
 
     this.addProductService.createProduct(productData).subscribe({

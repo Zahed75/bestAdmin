@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {environment} from '../../../enviornments/environment';
 import {map} from 'rxjs/operators';
 import {GetAllCategoriesResponse} from '../../model/category.model';
@@ -14,7 +14,8 @@ import {Product} from '../../model/product.model';
 export class AddProductService {
   private getAllBrandsURL =`${environment.apiBaseUrl}/brand/getAll`;
   private createBrandURL = `${environment.apiBaseUrl}/brand/create`;
-  private crateProductURL=`${environment.apiBaseUrl}/product/addProduct`;
+  private createProductURL = `${environment.apiBaseUrl}/product/addProduct`;
+
   private http = inject(HttpClient);
 
 
@@ -31,7 +32,13 @@ export class AddProductService {
 
 
   createProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.crateProductURL, product);
+    return this.http.post<Product>(this.createProductURL, product).pipe(
+      catchError(error => {
+        console.error('Error creating product:', error);
+        return throwError(() => new Error('Failed to create product'));
+      })
+    );
   }
+
 
 }

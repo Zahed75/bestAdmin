@@ -234,6 +234,15 @@
                       <option>Offline Only</option>
                     </select>
                   </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Product Status</label>
+                    <select [(ngModel)]="productStatus" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                      <option value="Published">Published</option>
+                      <option value="Draft">Draft</option>
+                    </select>
+
+                  </div>
                 </div>
               </div>
 
@@ -451,5 +460,4 @@
     </div>
   </div>
 </div>
-
 
