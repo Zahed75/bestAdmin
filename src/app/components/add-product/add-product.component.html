@@ -367,7 +367,7 @@
 
         <!-- Right Side -->
         <div class="w-full space-y-4 lg:w-1/4">
-          <!-- add-product.component.html -->
+          <!-- Product Categories Section -->
           <div class="bg-gray-100 p-4 shadow-md rounded-lg">
             <h2 class="text-lg font-semibold">Product Categories</h2>
             <div class="mt-4 max-h-48 overflow-y-auto">
@@ -375,23 +375,39 @@
                 <!-- Loop through categories -->
                 <div *ngFor="let category of categories">
                   <div class="flex items-center">
-                    <input type="checkbox" [(ngModel)]="category.selected" class="form-checkbox h-4 w-4 text-gray-600" />
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="category.selected"
+                      class="form-checkbox h-4 w-4 text-gray-600"
+                    />
                     <span class="ml-2 font-semibold text-gray-700">{{ category.categoryName }}</span>
                   </div>
 
-                  <!-- Loop through subcategories -->
-                  <div class="ml-6 space-y-2" *ngIf="category.subCategories?.length">
-                    <div *ngFor="let subCategory of category.subCategories">
-                      <div class="flex items-center">
-                        <input type="checkbox" [(ngModel)]="subCategory.selected" class="form-checkbox h-4 w-4 text-gray-600" />
-                        <span class="ml-2 text-gray-700">{{ subCategory.categoryName }}</span>
-                      </div>
-                    </div>
-                  </div>
+                  <!-- Recursively render subcategories -->
+                  <ng-container *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: category.subCategories }"></ng-container>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Recursive Subcategory Template -->
+          <ng-template #subCategoryTemplate let-subCategories>
+            <div *ngFor="let subCategory of subCategories" class="ml-6 space-y-2">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="subCategory.selected"
+                  class="form-checkbox h-4 w-4 text-gray-600"
+                />
+                <span class="ml-2 text-gray-700">{{ subCategory.categoryName }}</span>
+              </div>
+
+              <!-- Recursively render nested subcategories -->
+              <ng-container *ngIf="subCategory.subCategories?.length">
+                <ng-container *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: subCategory.subCategories }"></ng-container>
+              </ng-container>
+            </div>
+          </ng-template>
 
           <!-- Product Tags Card -->
           <div class="bg-white p-4 shadow-md rounded-lg">
