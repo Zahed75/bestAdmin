@@ -1,9 +1,19 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../../enviornments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CustomersService {
 
-  constructor() { }
+  private getAllCustomersURL=`${environment.apiBaseUrl}/customer/getCustomer`;
+  private http = inject(HttpClient);
+
+
+  
+
 }
