@@ -17,6 +17,7 @@ import {ProductsComponent} from './components/products/products.component';
 import {CategoriesListComponent} from './components/categories-list/categories-list.component';
 import {AddDiscountComponent} from './components/add-discount/add-discount.component';
 import {AddUserComponent} from './components/add-user/add-user.component';
+import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 
 export const routes: Routes = [
   {
@@ -107,6 +108,13 @@ export const routes: Routes = [
       {
         path: 'order-details/:orderId',
         component: OrderDetailsComponent,
+        canActivate: [authGuard],
+        data: {roles: ['HQ', 'BA', 'AD', 'MGR']}, // HQ, BA, AD, MGR can access
+      },
+
+      {
+        path: 'customer-details/:customerId',
+        component: CustomerDetailsComponent,
         canActivate: [authGuard],
         data: {roles: ['HQ', 'BA', 'AD', 'MGR']}, // HQ, BA, AD, MGR can access
       },
