@@ -14,6 +14,9 @@ export class CustomersService {
   private http = inject(HttpClient);
 
 
-  
+  getAllCustomers():Observable<any>{
+    return this.http.get<any>(this.getAllCustomersURL)
+  }
+
 
 }
