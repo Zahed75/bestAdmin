@@ -7,7 +7,7 @@
     <div class="bg-white shadow-md rounded-lg p-6">
       <!-- Customer Since & Last Order -->
       <div class="mb-6">
-        <h2 class="text-xl font-semibold text-gray-800">Imran Khan</h2>
+        <h2 class="text-xl font-semibold text-gray-800">{{ customerInfo?.firstName }} {{ customerInfo?.lastName }}</h2>
         <p class="text-sm text-gray-500">Customer since: <span class="font-medium">2020</span></p>
         <p class="text-sm text-gray-500">Last Order: <span class="font-medium">12th Feb 2025</span></p>
       </div>
@@ -18,28 +18,28 @@
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Username</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" value="Imran" readonly>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.userName" readonly>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" value="Imran" readonly>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.firstName" readonly>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" value="Khan" readonly>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.lastName" readonly>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Email Address</span>
-            <input type="email" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" value="imranpdbestelectronics.com.bd" readonly>
+            <input type="email" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.email" readonly>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Phone Number</span>
-            <input type="tel" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" value="8801709666425" readonly>
+            <input type="tel" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.phoneNumber" readonly>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">City</span>
             <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500">
-              <option value="Dhaka">Dhaka</option>
+              <option [value]="customerInfo?.city" selected>{{ customerInfo?.city }}</option>
               <option value="Chittagong">Chittagong</option>
               <option value="Khulna">Khulna</option>
               <option value="Rajshahi">Rajshahi</option>
@@ -54,16 +54,16 @@
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" value="Imran">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.shippingInfo?.firstName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" value="Hasmi">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.shippingInfo?.lastName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">District</span>
             <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500">
-              <option value="Dhaka">Dhaka</option>
+              <option [value]="customerInfo?.shippingInfo?.district" selected>{{ customerInfo?.shippingInfo?.district }}</option>
               <option value="Chittagong">Chittagong</option>
               <option value="Khulna">Khulna</option>
               <option value="Rajshahi">Rajshahi</option>
@@ -71,7 +71,7 @@
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">PostalCode / Zip</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" value="1207">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.shippingInfo?.zipCode">
           </div>
         </div>
       </div>
@@ -82,24 +82,23 @@
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" value="Imran">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.billingInfo?.firstName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" value="Hasmi">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.billingInfo?.lastName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">District</span>
             <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500">
-              <option value="Dhaka">Dhaka</option>
-              <option value="Chittagong">Chittagong</option>
-              <option value="Khulna">Khulna</option>
-              <option value="Rajshahi">Rajshahi</option>
+              <option [value]="customerInfo?.billingInfo?.district" selected>{{ customerInfo?.billingInfo?.district }}</option>
+              <option *ngFor="let city of cities" value="city._id" >{{city.cityName}}</option>
+
             </select>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">PostalCode / Zip</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" value="1207">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.billingInfo?.zipCode">
           </div>
         </div>
       </div>
