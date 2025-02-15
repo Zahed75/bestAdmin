@@ -13,44 +13,42 @@
       </div>
 
       <!-- General Info -->
-
-        <!-- General Info -->
-        <div class="mb-6">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">General</h3>
-          <div class="space-y-2">
-            <div class="flex flex-col sm:flex-row sm:items-center">
-              <span class="text-sm text-gray-600 sm:w-1/4">Username</span>
-              <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.userName">
-            </div>
-            <div class="flex flex-col sm:flex-row sm:items-center">
-              <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
-              <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.firstName">
-            </div>
-            <div class="flex flex-col sm:flex-row sm:items-center">
-              <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
-              <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.lastName">
-            </div>
-            <div class="flex flex-col sm:flex-row sm:items-center">
-              <span class="text-sm text-gray-600 sm:w-1/4">Email Address</span>
-              <input type="email" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.email">
-            </div>
-            <div class="flex flex-col sm:flex-row sm:items-center">
-              <span class="text-sm text-gray-600 sm:w-1/4">Phone Number</span>
-              <input type="tel" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.phoneNumber">
-            </div>
-
-            <!-- City Dropdown -->
-            <div class="flex flex-col sm:flex-row sm:items-center">
-              <span class="text-sm text-gray-600 sm:w-1/4">City</span>
-              <select
-                [(ngModel)]="customerInfo.city"
-                class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500"
-              >
-                <option *ngFor="let city of cities" [value]="city.cityName">{{ city.cityName }}</option>
-              </select>
-            </div>
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">General</h3>
+        <div class="space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 sm:w-1/4">Username</span>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.userName">
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.firstName">
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.lastName">
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 sm:w-1/4">Email Address</span>
+            <input type="email" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.email">
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 sm:w-1/4">Phone Number</span>
+            <input type="tel" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.phoneNumber">
           </div>
 
+          <!-- City Dropdown -->
+          <div class="flex flex-col sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 sm:w-1/4">City</span>
+            <select
+              [(ngModel)]="customerInfo.city"
+              class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500"
+            >
+              <option *ngFor="let city of cities" [value]="city._id">{{city.cityName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
       <!-- Shipping Info -->
       <div class="mb-6">
@@ -58,23 +56,21 @@
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2"  [value]="customerInfo?.shippingInfo?.firstName">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.shippingInfo.firstName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.shippingInfo?.lastName">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.shippingInfo.lastName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">District</span>
-            <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500">
-              <option [value]="customerInfo?.billingInfo?.district" selected>{{ customerInfo?.billingInfo?.district }}</option>
-              <option *ngFor="let city of cities" value="city._id" >{{city.cityName}}</option>
-
+            <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500" [(ngModel)]="customerInfo.shippingInfo.district">
+              <option *ngFor="let city of cities" [value]="city.cityName">{{city.cityName}}</option>
             </select>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Shipping Address</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo?.shippingInfo.fullAddress">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.shippingInfo.fullAddress">
           </div>
         </div>
       </div>
@@ -85,32 +81,28 @@
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.billingInfo?.firstName">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.billingInfo.firstName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.billingInfo?.lastName">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.billingInfo.lastName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">District</span>
-            <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500">
-              <option [value]="customerInfo?.billingInfo?.district" selected>{{ customerInfo?.billingInfo?.district }}</option>
-              <option *ngFor="let city of cities" value="city._id" >{{city.cityName}}</option>
-
+            <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500" [(ngModel)]="customerInfo.billingInfo.district">
+              <option *ngFor="let city of cities" [value]="city.cityName">{{city.cityName}}</option>
             </select>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">PostalCode / Zip</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2"
-             [value]="customerInfo?.shippingInfo?.zipCode">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [(ngModel)]="customerInfo.shippingInfo.zipCode">
           </div>
         </div>
       </div>
 
       <!-- Save Button -->
       <div class="mt-6">
-        <button (click)="updateCustomerById()"
-         class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Save Changes</button>
+        <button (click)="updateCustomerById()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Save Changes</button>
       </div>
     </div>
   </div>

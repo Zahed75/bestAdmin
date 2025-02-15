@@ -68,7 +68,7 @@ export class CustomerDetailsComponent implements OnInit {
       next: (res: any) => {
         if (res.message === 'Customer Updated Successfully!') {
           alert('Customer Updated Successfully!');
-
+          
         } else {
           alert('Failed to update');
         }
