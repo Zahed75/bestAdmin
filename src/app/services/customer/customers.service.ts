@@ -16,6 +16,8 @@ export class CustomersService {
   private getAllCustomersURL=`${environment.apiBaseUrl}/customer/getCustomer`;
   private customerInfoByIdURL =`${environment.apiBaseUrl}/customer/info/`;
   private getAllCitiesURL = `${environment.apiBaseUrl}/city/getAllCities`;
+  private updateCustomerByIdURL = `${environment.apiBaseUrl}/customer/updateCustomer`;
+
 
   private http = inject(HttpClient);
 
@@ -38,8 +40,8 @@ export class CustomersService {
 
 
   getAllCities(): Observable<City[]> {
-    return this.http.get<{ data: City[] }>(`${this.getAllCitiesURL}`).pipe(
-      map((response) => response.data || []), // Adjust if your API wraps the data in a 'data' property
+    return this.http.get<City[]>(`${this.getAllCitiesURL}`).pipe(
+      map((response) => response || []), // No need to access .data since it's already an array
       catchError((error) => {
         console.error('Error fetching cities:', error);
         return throwError(() => new Error('Failed to load cities'));
@@ -48,6 +50,12 @@ export class CustomersService {
   }
 
 
+
+
+  updateCustomerById(customerId: string, customerData: any): Observable<any> {
+    return this.http.patch<any>(`${this.updateCustomerByIdURL}/${customerId}`, customerData);
+  }
+  
 
 
 

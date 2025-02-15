@@ -18,33 +18,41 @@
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Username</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.userName" readonly>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100"  [(ngModel)]="customerInfo.userName"  [value]="customerInfo?.userName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.firstName" readonly>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [(ngModel)]="customerInfo.firstName" [value]="customerInfo?.firstName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.lastName" readonly>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [(ngModel)]="customerInfo.lastName" [value]="customerInfo?.lastName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Email Address</span>
-            <input type="email" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.email" readonly>
+            <input type="email" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [(ngModel)]="customerInfo.email" [value]="customerInfo?.email">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Phone Number</span>
-            <input type="tel" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [value]="customerInfo?.phoneNumber" readonly>
+            <input type="tel" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 bg-gray-100" [(ngModel)]="customerInfo.phoneNumber" [value]="customerInfo?.phoneNumber">
           </div>
+
+
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">City</span>
-            <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500">
+            <select
+              [(ngModel)]="customerInfo.city"
+              name="city"
+              class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500"
+            >
               <option [value]="customerInfo?.city" selected>{{ customerInfo?.city }}</option>
-              <option value="Chittagong">Chittagong</option>
-              <option value="Khulna">Khulna</option>
-              <option value="Rajshahi">Rajshahi</option>
+
+              <option *ngFor="let city of cities" [value]="city._id">{{ city.cityName }}</option>
+
+
             </select>
           </div>
+
         </div>
       </div>
 
@@ -54,7 +62,7 @@
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">First Name</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.shippingInfo?.firstName">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2"  [value]="customerInfo?.shippingInfo?.firstName">
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">Last Name</span>
@@ -63,15 +71,14 @@
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">District</span>
             <select class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2 focus:border-blue-500">
-              <option [value]="customerInfo?.shippingInfo?.district" selected>{{ customerInfo?.shippingInfo?.district }}</option>
-              <option value="Chittagong">Chittagong</option>
-              <option value="Khulna">Khulna</option>
-              <option value="Rajshahi">Rajshahi</option>
+              <option [value]="customerInfo?.billingInfo?.district" selected>{{ customerInfo?.billingInfo?.district }}</option>
+              <option *ngFor="let city of cities" value="city._id" >{{city.cityName}}</option>
+
             </select>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
-            <span class="text-sm text-gray-600 sm:w-1/4">PostalCode / Zip</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.shippingInfo?.zipCode">
+            <span class="text-sm text-gray-600 sm:w-1/4">Shipping Address</span>
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.shippingInfo?.fullAddress">
           </div>
         </div>
       </div>
@@ -98,14 +105,16 @@
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center">
             <span class="text-sm text-gray-600 sm:w-1/4">PostalCode / Zip</span>
-            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2" [value]="customerInfo?.billingInfo?.zipCode">
+            <input type="text" class="text-sm text-gray-800 sm:w-3/4 border rounded-lg p-2"
+             [value]="customerInfo?.shippingInfo?.zipCode">
           </div>
         </div>
       </div>
 
       <!-- Save Button -->
       <div class="mt-6">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Save Changes</button>
+        <button (click)="updateCustomerById()"
+         class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Save Changes</button>
       </div>
     </div>
   </div>
