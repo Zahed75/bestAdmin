@@ -55,7 +55,7 @@ export class CustomersService {
   updateCustomerById(customerId: string, customerData: any): Observable<any> {
     return this.http.patch<any>(`${this.updateCustomerByIdURL}/${customerId}`, customerData);
   }
-  
+
 
 
 

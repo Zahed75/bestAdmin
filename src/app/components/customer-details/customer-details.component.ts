@@ -58,14 +58,17 @@ export class CustomerDetailsComponent implements OnInit {
     });
   }
 
+
   updateCustomerById(): void {
-    const updatedCustomerData = this.customerInfo; // Assuming this is the updated data
-  
+    // Create a shallow copy to avoid two-way binding issues
+    const updatedCustomerData = { ...this.customerInfo };
+
+    // Call the service to update customer
     this.customersService.updateCustomerById(this.customerId, updatedCustomerData).subscribe({
       next: (res: any) => {
         if (res.message === 'Customer Updated Successfully!') {
           alert('Customer Updated Successfully!');
-          window.location.reload();
+
         } else {
           alert('Failed to update');
         }
@@ -76,7 +79,8 @@ export class CustomerDetailsComponent implements OnInit {
       }
     });
   }
-  
+
+
 
 
 
