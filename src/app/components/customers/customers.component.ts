@@ -26,7 +26,7 @@ export class CustomersComponent implements OnInit {
   isLoading: boolean = false;
   paginatedCustomers: any[] = []; // Add this line to declare the property
   currentPage: number = 1;
-  itemsPerPage: number = 2;
+  itemsPerPage: number = 5;
   totalItems: number = this.customers.length;
   totalPages: number = Math.ceil(this.totalItems / this.itemsPerPage);
   searchTerm: string = ''; // Added for search functionality

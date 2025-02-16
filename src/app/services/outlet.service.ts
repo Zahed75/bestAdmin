@@ -30,6 +30,7 @@ export class OutletService {
   }
 
 
+
   getOutletById(outletId: string): Observable<any> {
     return this.http.get<any>(`${this.getOutletByIdURL}/${outletId}`);
   }

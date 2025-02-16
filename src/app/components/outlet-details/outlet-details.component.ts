@@ -187,6 +187,8 @@ export class OutletDetailsComponent implements OnInit {
     });
   }
 
+
+  
   // Inventory
 
   openModal() {

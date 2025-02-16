@@ -18,6 +18,7 @@ import {CategoriesListComponent} from './components/categories-list/categories-l
 import {AddDiscountComponent} from './components/add-discount/add-discount.component';
 import {AddUserComponent} from './components/add-user/add-user.component';
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
+import { DiscountDetailsComponent } from './components/discount-details/discount-details.component';
 
 export const routes: Routes = [
   {
@@ -105,6 +106,13 @@ export const routes: Routes = [
         canActivate: [authGuard],
         data: {roles: ['HQ', 'BA', 'AD']}, // Only HQ, BA, AD can access
       },
+      {
+        path: 'discount-details/:discountId', // Corrected typo
+        component: DiscountDetailsComponent,
+        canActivate: [authGuard],
+        data: {roles: ['HQ', 'BA', 'AD']},
+      },
+
       {
         path: 'order-details/:orderId',
         component: OrderDetailsComponent,
