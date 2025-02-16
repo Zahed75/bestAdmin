@@ -17,7 +17,7 @@ export class CustomersService {
   private customerInfoByIdURL =`${environment.apiBaseUrl}/customer/info/`;
   private getAllCitiesURL = `${environment.apiBaseUrl}/city/getAllCities`;
   private updateCustomerByIdURL = `${environment.apiBaseUrl}/customer/updateCustomer`;
-
+  private deleteCustomerByIdURL= `${environment.apiBaseUrl}/customer/deleteCustomer`;
 
   private http = inject(HttpClient);
 
@@ -56,6 +56,10 @@ export class CustomersService {
     return this.http.patch<any>(`${this.updateCustomerByIdURL}/${customerId}`, customerData);
   }
 
+
+  deleteCustomerById(customerId: string): Observable<any> {
+    return this.http.delete(`${this.deleteCustomerByIdURL}/${customerId}`)
+  }
 
 
 
