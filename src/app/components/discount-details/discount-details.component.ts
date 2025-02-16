@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CouponService } from '../../services/coupon/coupon.service';
-import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {CouponService} from '../../services/coupon/coupon.service';
+import {CommonModule, DatePipe} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import {ProductsService} from '../../services/product/products.service';
 import {GetAllProductsResponse, Product} from '../../model/product.model';
+import {CategoryService} from '../../services/category/category.service';
+import {GetAllCategoriesResponse, SubCategory} from '../../model/category.model';
+import {Category} from '../../model/category.model';
+import {CategoryUI} from '../categories-list/categories-list.component';
 
 @Component({
   selector: 'app-discount-details',
-    standalone: true,
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -40,30 +44,29 @@ export class DiscountDetailsComponent implements OnInit {
     }
   };
 
-    // Tabs
+  // Tabs
   tabs = [
-    { id: 'general', label: 'General' },
-    { id: 'usageRestrictions', label: 'Usage Restrictions' },
-    { id: 'usageLimits', label: 'Usage Limits' },
+    {id: 'general', label: 'General'},
+    {id: 'usageRestrictions', label: 'Usage Restrictions'},
+    {id: 'usageLimits', label: 'Usage Limits'},
   ];
   activeTab = 'general';
 
-  isLoading=false;
+  isLoading = false;
   products: any[] = [];
-  productsList: Product[] = []; // All products fetched from API
-  filteredProducts: Product[] = [];// Products filtered based on input
-  productSearch: string = ''; // Search input
 
-    // Set active tab
+  // Set active tab
   setActiveTab(tabId: string): void {
     this.activeTab = tabId;
   }
 
   constructor(
     private couponService: CouponService,
-    private productsService:ProductsService,
+    private productsService: ProductsService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -77,7 +80,6 @@ export class DiscountDetailsComponent implements OnInit {
 
   getDiscountById(): void {
     this.couponService.getDiscountById(this.discountId).subscribe(
-
       (response) => {
         this.discountInfo = {
           general: response.coupon.general,
@@ -93,12 +95,11 @@ export class DiscountDetailsComponent implements OnInit {
       }
     );
   }
+
   onDateChange(event: Event) {
     const target = event.target as HTMLInputElement;
     this.discountInfo.general.couponExpiry = target.value;
   }
-
-
 
 
   updateDiscount() {
@@ -121,8 +122,6 @@ export class DiscountDetailsComponent implements OnInit {
   }
 
 
-
-
   fetchAllProducts(): void {
     this.isLoading = true;
     this.productsService.getAllProducts().subscribe({
@@ -137,7 +136,6 @@ export class DiscountDetailsComponent implements OnInit {
       },
     });
   }
-
 
 
 }
