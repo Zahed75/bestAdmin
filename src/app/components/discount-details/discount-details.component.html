@@ -192,14 +192,25 @@
 
         <!-- Exclude Products -->
         <div>
-          <label for="excludeProducts" class="block text-sm font-medium text-gray-700">Exclude Products</label>
-          <input
-            id="excludeProducts"
-            [(ngModel)]="discountInfo.usageRestriction.excludeProducts"
-            type="text"
-            placeholder="Enter products to exclude"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
+          <label for="products" class="block text-sm font-medium text-gray-700">Products</label>
+          <div class="relative">
+            <select
+              id="products"
+              multiple
+              [(ngModel)]="discountInfo.usageRestriction.excludeProducts"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-40 overflow-auto"
+            >
+              <!-- Display selected products at the top and highlighted -->
+              <option
+                *ngFor="let product of products"
+                [value]="product._id"
+                [selected]="discountInfo.usageRestriction.products.includes(product._id)"
+                class="py-2 px-3 hover:bg-indigo-100"
+              >
+                {{ product.productName}}
+              </option>
+            </select>
+          </div>
         </div>
 
         <!-- Product Categories -->
