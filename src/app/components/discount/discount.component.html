@@ -68,6 +68,12 @@
     </div>
     <!-- Outlet Head End -->
 
+     <!--Outlet Table Start-->
+     <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+    </div>
+
+
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

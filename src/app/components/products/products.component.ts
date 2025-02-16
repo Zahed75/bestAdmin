@@ -19,7 +19,7 @@ import { GetQuantityResponse, OutletQuantity } from '../../model/inventory.model
 })
 export class ProductsComponent implements OnInit {
 
-  products: any[] = []; // Replace with your product data type
+  products: any[] = [];
   isLoading = false;
   isInventoryModalOpen = false;
   selectedProductId: string | null = null;
@@ -78,14 +78,6 @@ export class ProductsComponent implements OnInit {
       index === self.findIndex((t) => t[key] === item[key])
     );
   }
-
-
-
-
-
-
-
-
 
 
   // Get products for the current page

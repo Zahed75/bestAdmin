@@ -14,6 +14,7 @@ export class CouponService {
   private deleteCouponByIdURL=`${environment.apiBaseUrl}/discount/deleteCouponById`;
   private discountByIdURL=`${environment.apiBaseUrl}/discount/getCouponById`;
   private UpdateDiscountByIdURL=`${environment.apiBaseUrl}/discount/updateCoupon`;
+
   private http=inject(HttpClient)
 
 
@@ -26,7 +27,7 @@ export class CouponService {
   deleteDiscoutById(discountId:string):Observable<any>{
     return this.http.delete(`${this.deleteCouponByIdURL}/${discountId}`)
   }
-  
+
   getDiscountById(id: string): Observable<any> {
     return this.http.get(`${this.discountByIdURL}/${id}`);
   }
@@ -35,7 +36,7 @@ export class CouponService {
   updateDiscountById(discountId: string, updatedData: any): Observable<any> {
     return this.http.put(`${this.UpdateDiscountByIdURL}/${discountId}`, updatedData);
   }
-  
+
 
 
 

@@ -20,15 +20,15 @@
                         clip-rule="evenodd"/>
                 </svg>
               </div>
-              <input 
-  type="text" 
-  id="simple-search" 
-  [(ngModel)]="searchTerm" 
-  (input)="onSearchChange()" 
-  name="searchTerm"
-  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-  placeholder="Search" 
-  required>
+              <input
+                type="text"
+                id="simple-search"
+                [(ngModel)]="searchTerm"
+                (input)="onSearchChange()"
+                name="searchTerm"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Search"
+                required>
 
             </div>
           </form>
@@ -83,32 +83,35 @@
         </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let customer of paginatedCustomers"
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-4">
-              <div class="flex items-center">
-                <input id="checkbox-table-search-1" type="checkbox"
-                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-              </div>
-            </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <a  [routerLink]="['/layout/customer-details', customer._id]" class="underline font-bold"> {{ customer.firstName || 'N/A' }}</a>
-            </td>
-            <td class="px-6 py-4">{{ customer.email || 'N/A'}}</td>
-            <td class="px-6 py-4">{{ customer.phoneNumber || 'N/A'}}</td>
-            <td class="px-6 py-4">{{ getCityName(customer.city) }}</td>
-            <td class="flex items-center px-6 py-4 space-x-2">
-              <!-- Edit Button -->
-              <button [routerLink]="['/layout/customer-details',customer._id]" class="px-4 py-2 text-sm font-medium text-white bg-gray-950 rounded-md hover:bg-gray-800">
-                Edit
-              </button>
-              <!-- Remove Button -->
-              <button (click)="deleteCustomer(customer._id)" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
-                Remove
-              </button>
-            </td>
-          </tr>
+        <tr *ngFor="let customer of paginatedCustomers"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <td class="w-4 p-4">
+            <div class="flex items-center">
+              <input id="checkbox-table-search-1" type="checkbox"
+                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+            </div>
+          </td>
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <a [routerLink]="['/layout/customer-details', customer._id]"
+               class="underline font-bold"> {{ customer.firstName || 'N/A' }}</a>
+          </td>
+          <td class="px-6 py-4">{{ customer.email || 'N/A' }}</td>
+          <td class="px-6 py-4">{{ customer.phoneNumber || 'N/A' }}</td>
+          <td class="px-6 py-4">{{ getCityName(customer.city) }}</td>
+          <td class="flex items-center px-6 py-4 space-x-2">
+            <!-- Edit Button -->
+            <button [routerLink]="['/layout/customer-details',customer._id]"
+                    class="px-4 py-2 text-sm font-medium text-white bg-gray-950 rounded-md hover:bg-gray-800">
+              Edit
+            </button>
+            <!-- Remove Button -->
+            <button (click)="deleteCustomer(customer._id)"
+                    class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
+              Remove
+            </button>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -116,8 +119,9 @@
     <!-- Pagination Controls -->
     <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
       <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-        Showing <span class="font-semibold text-gray-900 dark:text-white">{{ (currentPage - 1) * itemsPerPage + 1 }}</span> 
-        to <span class="font-semibold text-gray-900 dark:text-white">{{ getMinValue() }}</span> 
+        Showing <span
+        class="font-semibold text-gray-900 dark:text-white">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
+        to <span class="font-semibold text-gray-900 dark:text-white">{{ getMinValue() }}</span>
         of <span class="font-semibold text-gray-900 dark:text-white">{{ totalItems }}</span> Entries
       </span>
       <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
@@ -144,6 +148,6 @@
         </li>
       </ul>
     </nav>
-    
+
   </div>
 </div>

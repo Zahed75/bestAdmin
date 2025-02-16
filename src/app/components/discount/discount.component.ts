@@ -10,14 +10,15 @@ import { DatePipe, NgFor, NgIf } from '@angular/common';
     FormsModule,
     RouterLink,
     NgFor,
-    DatePipe
+    DatePipe,
+    NgIf
   ],
   templateUrl: './discount.component.html',
   styleUrl: './discount.component.css'
 })
 export class DiscountComponent implements OnInit  {
 
-
+  isLoading = false;
   coupons: Coupon[] = [];
 
 
@@ -34,10 +35,12 @@ export class DiscountComponent implements OnInit  {
 
 
   loadCoupons(): void {
+    this.isLoading=true
     this.CouponService.getAllCoupon().subscribe(
       (response: any) => {
         this.coupons = response.coupons;  // Accessing the coupons array inside the response object
         console.log('Coupons loaded:', this.coupons);
+        this.isLoading=false
       }
     );
   }

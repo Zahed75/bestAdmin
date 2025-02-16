@@ -1,255 +1,283 @@
 <div class="flex flex-row mx-6">
-    <div class="p-4 sm:ml-64 w-full">
-      <!-- Back Icon and Headings -->
-      <div class="flex flex-col  gap-2 mb-6">
-        <!-- Back Icon and Discount Heading -->
-        <div class="flex items-center gap-2">
-          <!-- Back SVG Icon -->
-          <svg routerLink="/layout/discount"
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 cursor-pointer"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-  
-          >
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-  
-          <!-- Discount Heading -->
-          <h1  routerLink="/layout/discount" class="text-[30px] font-semibold">Discount</h1>
-        </div>
-  
-       
-      </div>
-  
-      <!-- Add New Discount Form -->
-      <div class="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto">
-        <h1 class="text-2xl font-semibold mb-6">Discount Details</h1>
-  
-        <!-- Tabs -->
-        <div class="flex space-x-4 border-b mb-6">
-          <button
-            *ngFor="let tab of tabs"
-            (click)="setActiveTab(tab.id)"
-            [class.border-indigo-500]="activeTab === tab.id"
-            class="py-2 px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent focus:outline-none"
-          >
-            {{ tab.label }}
-          </button>
-        </div>
-  
-        <!-- General Tab -->
-        <div *ngIf="activeTab === 'general' " class="space-y-6">
-          <!-- Coupon Name -->
-          <div>
-            <label for="couponName" class="block text-sm font-medium text-gray-700">Coupon Name</label>
-            <input
-              id="couponName"
-              type="text"
-              placeholder="Enter coupon name"
-             [(ngModel)]="discountInfo.general.couponName"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-  
-          <!-- Discount Type -->
-          <div>
-            <label for="discountType" class="block text-sm font-medium text-gray-700">Discount Type</label>
-            <select
-              id="discountType"
-              [(ngModel)]="discountInfo.general.discountType"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            >
-              <option value="fixed">Fixed Amount</option>
-              <option value="percentage">Percentage</option>
-            </select>
-          </div>
-  
-          <!-- Coupon Amount -->
-          <div>
-            <label for="couponAmount" class="block text-sm font-medium text-gray-700">Coupon Amount</label>
-            <input
-              id="couponAmount"
-              type="number"
-              placeholder="Enter amount"
-              [(ngModel)]="discountInfo.general.couponAmount"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-  
-          <!-- Allow Free Shipping -->
-          <div>
-            <label class="inline-flex items-center">
-              <input
-                type="checkbox"
-                [(ngModel)]="discountInfo.general.allowFreeShipping"
+  <div class="p-4 sm:ml-64 w-full">
+    <!-- Back Icon and Headings -->
+    <div class="flex flex-col  gap-2 mb-6">
+      <!-- Back Icon and Discount Heading -->
+      <div class="flex items-center gap-2">
+        <!-- Back SVG Icon -->
+        <svg routerLink="/layout/discount"
+             xmlns="http://www.w3.org/2000/svg"
+             class="w-5 h-5 cursor-pointer"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
 
-                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-              <span class="ml-2 text-sm text-gray-700">Allow Free Shipping</span>
-            </label>
-          </div>
-  
-          <!-- Coupon Expiry Date -->
-          <div>
-            <label for="expiryDate" class="block text-sm font-medium text-gray-700">Coupon Expiry Date</label>
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+
+        <!-- Discount Heading -->
+        <h1 routerLink="/layout/discount" class="text-[30px] font-semibold">Discount</h1>
+      </div>
+
+
+    </div>
+
+    <!-- Add New Discount Form -->
+    <div class="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto">
+      <h1 class="text-2xl font-semibold mb-6">Discount Details</h1>
+
+      <!-- Tabs -->
+      <div class="flex space-x-4 border-b mb-6">
+        <button
+          *ngFor="let tab of tabs"
+          (click)="setActiveTab(tab.id)"
+          [class.border-indigo-500]="activeTab === tab.id"
+          class="py-2 px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent focus:outline-none"
+        >
+          {{ tab.label }}
+        </button>
+      </div>
+
+      <!-- General Tab -->
+      <div *ngIf="activeTab === 'general' " class="space-y-6">
+        <!-- Coupon Name -->
+        <div>
+          <label for="couponName" class="block text-sm font-medium text-gray-700">Coupon Name</label>
+          <input
+            id="couponName"
+            type="text"
+            placeholder="Enter coupon name"
+            [(ngModel)]="discountInfo.general.couponName"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        <!-- Discount Type -->
+        <div>
+          <label for="discountType" class="block text-sm font-medium text-gray-700">Discount Type</label>
+          <select
+            id="discountType"
+            [(ngModel)]="discountInfo.general.discountType"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          >
+            <option value="fixed">Fixed Amount</option>
+            <option value="percentage">Percentage</option>
+          </select>
+        </div>
+
+        <!-- Coupon Amount -->
+        <div>
+          <label for="couponAmount" class="block text-sm font-medium text-gray-700">Coupon Amount</label>
+          <input
+            id="couponAmount"
+            type="number"
+            placeholder="Enter amount"
+            [(ngModel)]="discountInfo.general.couponAmount"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        <!-- Allow Free Shipping -->
+        <div>
+          <label class="inline-flex items-center">
             <input
-              id="expiryDate"
-              type="date"
+              type="checkbox"
+              [(ngModel)]="discountInfo.general.allowFreeShipping"
+
+              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+            <span class="ml-2 text-sm text-gray-700">Allow Free Shipping</span>
+          </label>
+        </div>
+
+        <!-- Coupon Expiry Date -->
+        <div>
+          <label for="expiryDate" class="block text-sm font-medium text-gray-700">Coupon Expiry Date</label>
+          <input
+            id="expiryDate"
+            type="date"
             [value]="discountInfo.general.couponExpiry | date:'yyyy-MM-dd'"
             (input)="onDateChange($event)"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
         </div>
-  
-        <!-- Usage Restrictions Tab -->
-        <div *ngIf="activeTab === 'usageRestrictions'" class="space-y-6">
-          <!-- Minimum Spend -->
-          <div>
-            <label for="minimumSpend" class="block text-sm font-medium text-gray-700">Minimum Spend</label>
+      </div>
+
+      <!-- Usage Restrictions Tab -->
+      <div *ngIf="activeTab === 'usageRestrictions'" class="space-y-6">
+        <!-- Minimum Spend -->
+        <div>
+          <label for="minimumSpend" class="block text-sm font-medium text-gray-700">Minimum Spend</label>
+          <input
+            id="minimumSpend"
+            type="number"
+            [(ngModel)]="discountInfo.usageRestriction.minimumSpend"
+            placeholder="Enter minimum spend"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        <!-- Maximum Spend -->
+        <div>
+          <label for="maximumSpend" class="block text-sm font-medium text-gray-700">Maximum Spend</label>
+          <input
+            id="maximumSpend"
+            type="number"
+            [(ngModel)]="discountInfo.usageRestriction.maximumSpend"
+            placeholder="Enter maximum spend"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        <!-- Individual Use Only -->
+        <div>
+          <label class="inline-flex items-center">
             <input
-              id="minimumSpend"
-              type="number"
-              placeholder="Enter minimum spend"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              type="checkbox"
+              [(ngModel)]="discountInfo.usageRestriction.individualUseOnly"
+              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
-          </div>
-  
-          <!-- Maximum Spend -->
-          <div>
-            <label for="maximumSpend" class="block text-sm font-medium text-gray-700">Maximum Spend</label>
+            <span class="ml-2 text-sm text-gray-700">Individual Use Only</span>
+          </label>
+          <p class="text-xs text-gray-500 mt-1">
+            Check this box if the coupon cannot be used in conjunction with other coupons.
+          </p>
+        </div>
+
+        <!-- Exclude Sale Items -->
+        <div>
+          <label class="inline-flex items-center">
             <input
-              id="maximumSpend"
-              type="number"
-              placeholder="Enter maximum spend"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              type="checkbox"
+              [(ngModel)]="discountInfo.usageRestriction.excludeSaleItems"
+              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
-          </div>
-  
-          <!-- Individual Use Only -->
-          <div>
-            <label class="inline-flex items-center">
-              <input
-                type="checkbox"
-                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-              <span class="ml-2 text-sm text-gray-700">Individual Use Only</span>
-            </label>
-            <p class="text-xs text-gray-500 mt-1">
-              Check this box if the coupon cannot be used in conjunction with other coupons.
-            </p>
-          </div>
-  
-          <!-- Exclude Sale Items -->
-          <div>
-            <label class="inline-flex items-center">
-              <input
-                type="checkbox"
-                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-              <span class="ml-2 text-sm text-gray-700">Exclude Sale Items</span>
-            </label>
-            <p class="text-xs text-gray-500 mt-1">
-              Check this box if the coupon should not apply to items on sale. Per-item coupons will only work if the item is
-              not on sale. Per-cart coupons will only work if there are items in the cart that are not on sale.
-            </p>
-          </div>
-  
-          <!-- Products -->
-          <div>
-            <label for="products" class="block text-sm font-medium text-gray-700">Products</label>
-            <input
+            <span class="ml-2 text-sm text-gray-700">Exclude Sale Items</span>
+          </label>
+          <p class="text-xs text-gray-500 mt-1">
+            Check this box if the coupon should not apply to items on sale. Per-item coupons will only work if the item
+            is
+            not on sale. Per-cart coupons will only work if there are items in the cart that are not on sale.
+          </p>
+        </div>
+
+        <!-- Products -->
+
+        <div>
+          <label for="products" class="block text-sm font-medium text-gray-700">Products</label>
+          <div class="relative">
+            <select
               id="products"
-              type="text"
-              placeholder="Enter products"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-  
-          <!-- Exclude Products -->
-          <div>
-            <label for="excludeProducts" class="block text-sm font-medium text-gray-700">Exclude Products</label>
-            <input
-              id="excludeProducts"
-              type="text"
-              placeholder="Enter products to exclude"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-  
-          <!-- Product Categories -->
-          <div>
-            <label for="productCategories" class="block text-sm font-medium text-gray-700">Product Categories</label>
-            <input
-              id="productCategories"
-              type="text"
-              placeholder="Enter product categories"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-  
-          <!-- Exclude Product Categories -->
-          <div>
-            <label for="excludeProductCategories" class="block text-sm font-medium text-gray-700">Exclude Product Categories</label>
-            <input
-              id="excludeProductCategories"
-              type="text"
-              placeholder="Enter product categories to exclude"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
+              multiple
+              [(ngModel)]="discountInfo.usageRestriction.products"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-40 overflow-auto"
+            >
+              <!-- Display selected products at the top and highlighted -->
+              <option
+                *ngFor="let product of products"
+                [value]="product._id"
+                [selected]="discountInfo.usageRestriction.products.includes(product._id)"
+                class="py-2 px-3 hover:bg-indigo-100"
+              >
+                {{ product.productName}}
+              </option>
+            </select>
           </div>
         </div>
-  
-        <!-- Usage Limits Tab -->
-        <div *ngIf="activeTab === 'usageLimits'" class="space-y-6">
-          <!-- Usage Limit Per Coupon -->
-          <div>
-            <label for="usageLimitPerCoupon" class="block text-sm font-medium text-gray-700">Usage Limit Per Coupon</label>
-            <input
-              id="usageLimitPerCoupon"
-              type="number"
-              placeholder="Enter usage limit"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-  
-          <!-- Limit Usage to X Items -->
-          <div>
-            <label for="limitUsageToXItems" class="block text-sm font-medium text-gray-700">Limit Usage to X Items</label>
-            <input
-              id="limitUsageToXItems"
-              type="number"
-              placeholder="Enter limit"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-  
-          <!-- Usage Limit Per User -->
-          <div>
-            <label for="usageLimitPerUser" class="block text-sm font-medium text-gray-700">Usage Limit Per User</label>
-            <input
-              id="usageLimitPerUser"
-              type="number"
-              placeholder="Enter usage limit per user"
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
+
+
+
+
+        <!-- Exclude Products -->
+        <div>
+          <label for="excludeProducts" class="block text-sm font-medium text-gray-700">Exclude Products</label>
+          <input
+            id="excludeProducts"
+            [(ngModel)]="discountInfo.usageRestriction.excludeProducts"
+            type="text"
+            placeholder="Enter products to exclude"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
         </div>
-  
-        <!-- Save Button -->
-        <div class="mt-6">
-          <button
-            type="button"
-            (click)="updateDiscount()" 
-            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Update
-          </button>
+
+        <!-- Product Categories -->
+        <div>
+          <label for="productCategories" class="block text-sm font-medium text-gray-700">Product Categories</label>
+          <input
+            id="productCategories"
+            [(ngModel)]="discountInfo.usageRestriction.categories"
+            type="text"
+            placeholder="Enter product categories"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
         </div>
+
+        <!-- Exclude Product Categories -->
+        <div>
+          <label for="excludeProductCategories" class="block text-sm font-medium text-gray-700">Exclude Product
+            Categories</label>
+          <input
+            id="excludeProductCategories"
+            [(ngModel)]="discountInfo.usageRestriction.excludeCategories"
+            type="text"
+            placeholder="Enter product categories to exclude"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+      </div>
+
+      <!-- Usage Limits Tab -->
+      <div *ngIf="activeTab === 'usageLimits'" class="space-y-6">
+        <!-- Usage Limit Per Coupon -->
+        <div>
+          <label for="usageLimitPerCoupon" class="block text-sm font-medium text-gray-700">Usage Limit Per
+            Coupon</label>
+          <input
+            id="usageLimitPerCoupon"
+            [(ngModel)]="discountInfo.usageLimit.usageLimitPerCoupon"
+            type="number"
+            placeholder="Enter usage limit"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        <!-- Limit Usage to X Items -->
+        <div>
+          <label for="limitUsageToXItems" class="block text-sm font-medium text-gray-700">Limit Usage to X Items</label>
+          <input
+            [(ngModel)]="discountInfo.usageLimit.limitUsageToXItems"
+            id="limitUsageToXItems"
+            type="number"
+            placeholder="Enter limit"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        <!-- Usage Limit Per User -->
+        <div>
+          <label for="usageLimitPerUser" class="block text-sm font-medium text-gray-700">Usage Limit Per User</label>
+          <input
+            id="usageLimitPerUser"
+            [(ngModel)]="discountInfo.usageLimit.usageLimitPerUser"
+            type="number"
+            placeholder="Enter usage limit per user"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="mt-6">
+        <button
+          type="button"
+          (click)="updateDiscount()"
+          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Update
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

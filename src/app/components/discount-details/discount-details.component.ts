@@ -1,10 +1,10 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CouponService } from '../../services/coupon/coupon.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {ProductsService} from '../../services/product/products.service';
+import {GetAllProductsResponse, Product} from '../../model/product.model';
 
 @Component({
   selector: 'app-discount-details',
@@ -48,6 +48,12 @@ export class DiscountDetailsComponent implements OnInit {
   ];
   activeTab = 'general';
 
+  isLoading=false;
+  products: any[] = [];
+  productsList: Product[] = []; // All products fetched from API
+  filteredProducts: Product[] = [];// Products filtered based on input
+  productSearch: string = ''; // Search input
+
     // Set active tab
   setActiveTab(tabId: string): void {
     this.activeTab = tabId;
@@ -55,31 +61,30 @@ export class DiscountDetailsComponent implements OnInit {
 
   constructor(
     private couponService: CouponService,
+    private productsService:ProductsService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.discountId = params.get('discountId') || '';
-      console.log("Discount ID:", this.discountId); // Debugging statement
       if (this.discountId) {
         this.getDiscountById();
-      } else {
-        console.error("Discount ID is missing from the route.");
       }
+      this.fetchAllProducts()
     });
   }
 
   getDiscountById(): void {
     this.couponService.getDiscountById(this.discountId).subscribe(
-      
+
       (response) => {
         this.discountInfo = {
           general: response.coupon.general,
           usageRestriction: response.coupon.usageRestriction,
           usageLimit: response.coupon.usageLimit
-         
-          
+
+
         };
         console.log("Discount Info:", this.discountInfo);
       },
@@ -92,8 +97,8 @@ export class DiscountDetailsComponent implements OnInit {
     const target = event.target as HTMLInputElement;
     this.discountInfo.general.couponExpiry = target.value;
   }
-  
-  
+
+
 
 
   updateDiscount() {
@@ -113,6 +118,24 @@ export class DiscountDetailsComponent implements OnInit {
         alert('Failed to update discount.');
       }
     );
+  }
+
+
+
+
+  fetchAllProducts(): void {
+    this.isLoading = true;
+    this.productsService.getAllProducts().subscribe({
+      next: (response: GetAllProductsResponse) => {
+        this.products = response.products;
+
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching products:', error);
+        this.isLoading = false;
+      },
+    });
   }
 
 
