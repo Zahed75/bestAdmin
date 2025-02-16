@@ -96,5 +96,25 @@ export class DiscountDetailsComponent implements OnInit {
   
 
 
+  updateDiscount() {
+    const updatedData = {
+      general: {
+        ...this.discountInfo.general
+      }
+    };
+
+    this.couponService.updateDiscountById(this.discountId, updatedData).subscribe(
+      (response) => {
+        console.log('Update successful:', response);
+        alert('Discount updated successfully!');
+      },
+      (error) => {
+        console.error('Update failed:', error);
+        alert('Failed to update discount.');
+      }
+    );
+  }
+
+
 
 }

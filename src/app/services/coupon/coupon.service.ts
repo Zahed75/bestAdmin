@@ -31,4 +31,12 @@ export class CouponService {
     return this.http.get(`${this.discountByIdURL}/${id}`);
   }
 
+
+  updateDiscountById(discountId: string, updatedData: any): Observable<any> {
+    return this.http.put(`${this.UpdateDiscountByIdURL}/${discountId}`, updatedData);
+  }
+  
+
+
+
 }
