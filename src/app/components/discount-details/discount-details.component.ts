@@ -108,6 +108,12 @@ export class DiscountDetailsComponent implements OnInit {
     const updatedData = {
       general: {
         ...this.discountInfo.general
+      },
+      usageRestriction: {
+        ...this.discountInfo.usageRestriction
+      },
+      usageLimit: {
+        ...this.discountInfo.usageLimit
       }
     };
 
@@ -122,6 +128,7 @@ export class DiscountDetailsComponent implements OnInit {
       }
     );
   }
+
 
 
   fetchAllProducts(): void {
