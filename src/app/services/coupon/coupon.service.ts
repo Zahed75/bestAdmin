@@ -14,7 +14,7 @@ export class CouponService {
   private deleteCouponByIdURL=`${environment.apiBaseUrl}/discount/deleteCouponById`;
   private discountByIdURL=`${environment.apiBaseUrl}/discount/getCouponById`;
   private UpdateDiscountByIdURL=`${environment.apiBaseUrl}/discount/updateCoupon`;
-
+  private getAllCategoryNameURL =`${environment.apiBaseUrl}/category/categories-name`;
   private http=inject(HttpClient)
 
 
@@ -38,6 +38,9 @@ export class CouponService {
   }
 
 
+  getProductCategories():Observable<any>{
+    return this.http.get<any>(`${this.getAllCategoryNameURL}`);
+  }
 
 
 }

@@ -56,6 +56,7 @@ export class DiscountDetailsComponent implements OnInit {
   products: any[] = [];
 
   // Set active tab
+  categories: any []=[]
   setActiveTab(tabId: string): void {
     this.activeTab = tabId;
   }
@@ -74,7 +75,8 @@ export class DiscountDetailsComponent implements OnInit {
       if (this.discountId) {
         this.getDiscountById();
       }
-      this.fetchAllProducts()
+      this.fetchAllProducts();
+      this.onLoads();
     });
   }
 
@@ -135,6 +137,21 @@ export class DiscountDetailsComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+
+  onLoads():void{
+    this.isLoading=true
+    this.couponService.getProductCategories().subscribe({
+      next:(response)=>{
+        this.categories = response.categories
+        this.isLoading=false;
+      },
+      error:(error)=>{
+        console.error("Failed to fetched ProductCategories",error)
+        this.isLoading=false;
+      }
+    })
   }
 
 

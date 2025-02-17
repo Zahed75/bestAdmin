@@ -192,7 +192,7 @@
 
         <!-- Exclude Products -->
         <div>
-          <label for="products" class="block text-sm font-medium text-gray-700">Products</label>
+          <label for="products" class="block text-sm font-medium text-gray-700"> Exclude Products</label>
           <div class="relative">
             <select
               id="products"
@@ -216,26 +216,48 @@
         <!-- Product Categories -->
         <div>
           <label for="productCategories" class="block text-sm font-medium text-gray-700">Product Categories</label>
-          <input
-            id="productCategories"
-            [(ngModel)]="discountInfo.usageRestriction.categories"
-            type="text"
-            placeholder="Enter product categories"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
+          <div class="relative">
+            <select
+              id="productCategories"
+              multiple
+              [(ngModel)]="discountInfo.usageRestriction.categories"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-40 overflow-auto"
+            >
+              <!-- Display selected products at the top and highlighted -->
+              <option
+                *ngFor="let prCat of categories"
+                [value]="prCat._id"
+                [selected]="discountInfo.usageRestriction.categories.includes(prCat._id)"
+                class="py-2 px-3 hover:bg-indigo-100"
+              >
+                {{ prCat.categoryName}}
+              </option>
+            </select>
+          </div>
         </div>
 
         <!-- Exclude Product Categories -->
         <div>
           <label for="excludeProductCategories" class="block text-sm font-medium text-gray-700">Exclude Product
             Categories</label>
-          <input
-            id="excludeProductCategories"
-            [(ngModel)]="discountInfo.usageRestriction.excludeCategories"
-            type="text"
-            placeholder="Enter product categories to exclude"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
+          <div class="relative">
+            <select
+              id="excludeProductCategories"
+              multiple
+              [(ngModel)]="discountInfo.usageRestriction.excludeCategories"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-40 overflow-auto"
+            >
+              <!-- Display selected products at the top and highlighted -->
+              <option
+                *ngFor="let prCat of categories"
+                [value]="prCat._id"
+                [selected]="discountInfo.usageRestriction.excludeCategories.includes(prCat._id)"
+                class="py-2 px-3 hover:bg-indigo-100"
+              >
+                {{ prCat.categoryName}}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
 
