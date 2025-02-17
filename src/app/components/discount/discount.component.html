@@ -1,3 +1,5 @@
+
+
 <div class="flex flex-row mx-6">
   <div class="p-4 sm:ml-64 w-full">
     <div>
@@ -5,7 +7,7 @@
       <h3 class="text-xl font-semibold text-black mb-4">Overview</h3>
     </div>
 
-    <!-- Outlet Head Start -->
+    <!-- Search Bar -->
     <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
       <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
         <div class="w-full md:w-1/2">
@@ -20,9 +22,16 @@
                         clip-rule="evenodd"/>
                 </svg>
               </div>
-              <input type="text" id="simple-search"
-                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                     placeholder="Search" required="">
+              <input
+                type="text"
+                id="simple-search"
+                [(ngModel)]="searchTerm"
+                (input)="applySearch()"
+                name="searchTerm"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Search"
+                required
+              />
             </div>
           </form>
         </div>
@@ -37,45 +46,18 @@
             </svg>
             Add Discount
           </button>
-          <div class="flex items-center space-x-3 w-full md:w-auto">
-            <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
-                    class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    type="button">
-              <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                   xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path clip-rule="evenodd" fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
-              </svg>
-              Actions
-            </button>
-            <div id="actionsDropdown"
-                 class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-              <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
-                <li>
-                  <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mass
-                    Edit</a>
-                </li>
-              </ul>
-              <div class="py-1">
-                <a href="#"
-                   class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
-                  all</a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
-    <!-- Outlet Head End -->
 
-     <!--Outlet Table Start-->
-     <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="flex justify-center items-center h-64">
       <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
     </div>
 
-
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
 
+    <!-- Discounts Table -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -87,7 +69,7 @@
               <label for="checkbox-all-search" class="sr-only">checkbox</label>
             </div>
           </th>
-          <th scope="col" class="px-6 py-3"> Code</th>
+          <th scope="col" class="px-6 py-3">Code</th>
           <th scope="col" class="px-6 py-3">Discount Type</th>
           <th scope="col" class="px-6 py-3">Amount</th>
           <th scope="col" class="px-6 py-3">Limit</th>
@@ -96,8 +78,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let discount of coupons"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <tr *ngFor="let discount of paginatedCoupons"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
           <td class="w-4 p-4">
             <div class="flex items-center">
               <input id="checkbox-table-search-1" type="checkbox"
@@ -106,20 +88,21 @@
             </div>
           </td>
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            <a  class="underline font-bold">{{discount.general.couponName}}</a>
+            <a class="underline font-bold">{{ discount.general.couponName }}</a>
           </th>
-          <td class="px-6 py-4">{{discount.general.discountType}}</td>
-          <td class="px-6 py-4">{{discount.general.couponAmount}}</td>
-          <td class="px-6 py-4">{{discount.usageLimit.limitUsageToXItems}}</td>
-          <td class="px-6 py-4">{{discount.general.couponExpiry| date:'mediumDate'}}</td>
-
+          <td class="px-6 py-4">{{ discount.general.discountType }}</td>
+          <td class="px-6 py-4">{{ discount.general.couponAmount }}</td>
+          <td class="px-6 py-4">{{ discount.usageLimit.limitUsageToXItems }}</td>
+          <td class="px-6 py-4">{{ discount.general.couponExpiry | date: 'mediumDate' }}</td>
           <td class="flex items-center px-6 py-4 space-x-2">
             <!-- Edit Button -->
-            <button [routerLink]="['/layout/discount-details/', discount._id]" class="px-4 py-2 text-sm font-medium text-white bg-gray-950 rounded-md hover:bg-gray-800">
+            <button [routerLink]="['/layout/discount-details/', discount._id]"
+                    class="px-4 py-2 text-sm font-medium text-white bg-gray-950 rounded-md hover:bg-gray-800">
               Edit
             </button>
             <!-- Remove Button -->
-            <button (click)="onDelete(discount._id)" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
+            <button (click)="onDelete(discount._id)"
+                    class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
               Remove
             </button>
           </td>
@@ -128,6 +111,33 @@
       </table>
     </div>
 
-
+    <!-- Pagination Controls -->
+    <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+      <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+        Showing <span class="font-semibold text-gray-900 dark:text-white">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
+        to <span class="font-semibold text-gray-900 dark:text-white">{{ currentPage * itemsPerPage }}</span>
+        of <span class="font-semibold text-gray-900 dark:text-white">{{ totalItems }}</span> Entries
+      </span>
+      <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+        <li>
+          <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+                  class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50">
+            Previous
+          </button>
+        </li>
+        <li *ngFor="let page of [].constructor(totalPages); let i = index">
+          <button (click)="onPageChange(i + 1)" [class.bg-blue-50]="currentPage === i + 1"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            {{ i + 1 }}
+          </button>
+        </li>
+        <li>
+          <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50">
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
