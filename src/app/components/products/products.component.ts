@@ -223,5 +223,21 @@ export class ProductsComponent implements OnInit {
   }
 
 
+  onDelete(productId:string):void{
+    if(confirm("Are you sure to delete?")){
+    this.productsService.deleteProduct(productId).subscribe({
+      next:(response)=>{
+        alert("Delete Product Successfully!");
+        this.fetchAllProducts();
+      },
+      error:(error)=>{
+        alert("Failed to delete this product")
+        console.error('Error deleting product:', error);
+      },
+    });
+    }
+  }
+
+
 }
 

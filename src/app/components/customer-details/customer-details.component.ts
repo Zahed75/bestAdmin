@@ -21,6 +21,7 @@ export class CustomerDetailsComponent implements OnInit {
   customerInfo: any;
   cities: City[] = [];
   customers: any = {};
+  
   constructor(
     private customersService: CustomersService,
     private route: ActivatedRoute

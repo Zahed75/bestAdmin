@@ -19,6 +19,7 @@ import {AddDiscountComponent} from './components/add-discount/add-discount.compo
 import {AddUserComponent} from './components/add-user/add-user.component';
 import {CustomerDetailsComponent} from './components/customer-details/customer-details.component';
 import { DiscountDetailsComponent } from './components/discount-details/discount-details.component';
+import {ProductDetailsComponent} from './components/product-details/product-details.component';
 
 export const routes: Routes = [
   {
@@ -73,6 +74,12 @@ export const routes: Routes = [
       {
         path: 'products',
         component: ProductsComponent,
+        canActivate: [authGuard],
+        data: {roles: ['HQ', 'BA', 'AD']},
+      },
+      {
+        path: 'product-details',
+        component: ProductDetailsComponent,
         canActivate: [authGuard],
         data: {roles: ['HQ', 'BA', 'AD']},
       },
