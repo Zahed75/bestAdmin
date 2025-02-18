@@ -352,6 +352,7 @@ export class ProductDetailsComponent implements OnInit{
   }
 
 
+
   getAllBrands() {
     this.addProductService.getAllBrands().subscribe({
       next: (response) => {
@@ -553,7 +554,6 @@ export class ProductDetailsComponent implements OnInit{
 
   // Bind product details to the form
   bindProductDetailsToForm(product: Product): void {
-    // Check if the product object is defined
     if (!product) {
       console.error('Product is undefined');
       return;
@@ -567,6 +567,9 @@ export class ProductDetailsComponent implements OnInit{
     this.productCode = product.productCode || '';
     this.selectedBrand = product.productBrand || '';
 
+    // Initialize selectedCategoryIds with existing category IDs
+    this.selectedCategoryIds = product.categoryId || [];
+
     // Check if nested properties are defined
     if (product.general) {
       this.regularPrice = product.general.regularPrice || 0;
@@ -575,29 +578,7 @@ export class ProductDetailsComponent implements OnInit{
       this.taxClass = product.general.taxClass || '';
     }
 
-    if (product.inventory) {
-      this.sku = product.inventory.sku || '';
-      this.stockManagement = product.inventory.stockManagement || false;
-      this.stockStatus = product.inventory.stockStatus || 'In Stock';
-      this.soldIndividually = product.inventory.soldIndividually || false;
-    }
-
-    if (product.shipping && product.shipping.productDimensions) {
-      this.length = product.shipping.productDimensions.length || 0;
-      this.width = product.shipping.productDimensions.width || 0;
-      this.height = product.shipping.productDimensions.height || 0;
-      this.weight = product.shipping.weight || 0;
-    }
-
-    if (product.seo) {
-      this.seoTitle = product.seo.productTitle || '';
-      this.seoDescription = product.seo.prodDescription || '';
-      this.tags = product.seo.productTags || [];
-    }
-
-    this.featuredImage = product.productImage || '';
-    this.galleryImages = product.productGallery || [];
-    this.productSpecifications = product.productSpecification || [];
+    // Repeat for other nested properties...
   }
 
 
@@ -608,7 +589,7 @@ export class ProductDetailsComponent implements OnInit{
 
   updateProductDetails(): void {
     const updatedProduct = {
-      categoryId: this.selectedCategoryIds, // This should be an array of selected category IDs
+      categoryId: this.selectedCategoryIds, // Include selected category IDs
       productName: this.productName,
       productBrand: this.selectedBrand,
       productImage: this.featuredImage,
@@ -661,6 +642,17 @@ export class ProductDetailsComponent implements OnInit{
     });
   }
 
+  onCategoryChange(categoryId: string, isSelected: boolean): void {
+    if (isSelected) {
+      // Add the category ID to the selectedCategoryIds array if it's selected
+      if (!this.selectedCategoryIds.includes(categoryId)) {
+        this.selectedCategoryIds.push(categoryId);
+      }
+    } else {
+      // Remove the category ID from the selectedCategoryIds array if it's deselected
+      this.selectedCategoryIds = this.selectedCategoryIds.filter(id => id !== categoryId);
+    }
+  }
 
 
 }

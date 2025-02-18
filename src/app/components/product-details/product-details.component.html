@@ -378,6 +378,7 @@
                     <input
                       type="checkbox"
                       [(ngModel)]="category.selected"
+                      (change)="onCategoryChange(category._id, category.selected)"
                       class="form-checkbox h-4 w-4 text-gray-600"
                     />
                     <span class="ml-2 font-semibold text-gray-700">{{ category.categoryName }}</span>
@@ -391,6 +392,7 @@
               </div>
             </div>
           </div>
+
           <!-- Recursive Subcategory Template -->
           <ng-template #subCategoryTemplate let-subCategories>
             <div *ngFor="let subCategory of subCategories" class="ml-4">
@@ -398,6 +400,7 @@
                 <input
                   type="checkbox"
                   [(ngModel)]="subCategory.selected"
+                  (change)="onCategoryChange(subCategory._id, subCategory.selected)"
                   class="form-checkbox h-4 w-4 text-gray-600"
                 />
                 <span class="ml-2 text-gray-700">{{ subCategory.categoryName }}</span>
@@ -408,7 +411,6 @@
               </ng-container>
             </div>
           </ng-template>
-
 
 
 
