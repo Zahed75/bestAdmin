@@ -1,7 +1,4 @@
 
-
-
-
 <div class="flex flex-col sm:flex-row mx-6">
   <div class="p-4 sm:ml-64 w-full">
     <div>
@@ -102,8 +99,10 @@
               </svg>
             </button>
           </td>
+
           <td class="px-6 py-4 flex space-x-2">
-            <button class="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-md hover:bg-gray-800">
+            <button [routerLink]="['/layout/product-details',product._id]"
+              class="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-md hover:bg-gray-800">
               Edit
             </button>
             <button (click)="onDelete(product._id)" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">

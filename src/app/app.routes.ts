@@ -78,7 +78,7 @@ export const routes: Routes = [
         data: {roles: ['HQ', 'BA', 'AD']},
       },
       {
-        path: 'product-details',
+        path: 'product-details/:productId',
         component: ProductDetailsComponent,
         canActivate: [authGuard],
         data: {roles: ['HQ', 'BA', 'AD']},

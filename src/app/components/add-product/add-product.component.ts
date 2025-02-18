@@ -97,6 +97,7 @@ export class AddProductComponent implements OnInit {
   activeBrand: string = ''
   public Editor: typeof ClassicEditor | null = null;
   public config: EditorConfig | null = null;
+
   categories: Category[] = []; // Store categories
   brands: Brand[] = [];
   newBrand: Brand = {

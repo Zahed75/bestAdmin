@@ -16,6 +16,8 @@ export class ProductsService {
   private updateInventoryByQuantity = `${environment.apiBaseUrl}/inventory/update-inventory`;
   private getQuantityByProductId= `${environment.apiBaseUrl}/product/check-quantity/`
   private deleteProductByIdURL = `${environment.apiBaseUrl}/product/deleteProduct`;
+  private updateProductByIdURL =`${environment.apiBaseUrl}/product/updateProduct`
+  private getProductByIdURL=`${environment.apiBaseUrl}/product/getProductById`;
   private http = inject(HttpClient);
 
   getAllProducts(): Observable<GetAllProductsResponse> {
@@ -54,6 +56,18 @@ export class ProductsService {
   }
 
 
+  updateProductById(productId:string,updateData:any):Observable<any>{
+    return this.http.put(`${this.updateProductByIdURL}/${productId}`,updateData)
+  }
+
+
+  getProductById(productId:string):Observable<any>{
+    return this.http.get(`${this.getProductByIdURL}/${productId}`);
+  }
+
+
+
 
 
 }
+

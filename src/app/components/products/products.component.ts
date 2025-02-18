@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { NgFor, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { GetAllProductsResponse } from '../../model/product.model';
 import { ProductsService } from '../../services/product/products.service';
 import { GetQuantityResponse, OutletQuantity } from '../../model/inventory.model';
@@ -32,7 +32,11 @@ export class ProductsComponent implements OnInit {
 
   selectedProductQuantity: any = null;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
     this.fetchAllProducts();
@@ -237,6 +241,7 @@ export class ProductsComponent implements OnInit {
     });
     }
   }
+
 
 
 }
