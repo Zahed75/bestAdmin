@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ProductsService} from '../../services/product/products.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
@@ -53,7 +53,8 @@ export class ProductDetailsComponent implements OnInit{
     private ProductService:ProductsService,
     private categoryService:CategoryService,
     private addProductService:AddProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdRef: ChangeDetectorRef
   ) {
 
   }
@@ -300,7 +301,6 @@ export class ProductDetailsComponent implements OnInit{
     loadCKEditorCloud(cloudConfig)
       .then(cloud => this._setupEditor(cloud))
       .catch(error => console.error('Error loading CKEditor:', error));
-    this.productId=this.route.snapshot.paramMap.get('productId')|| '';
 
     // Get the productId from the route
     this.productId = this.route.snapshot.paramMap.get('productId') || '';
@@ -311,6 +311,10 @@ export class ProductDetailsComponent implements OnInit{
       this.getAllBrands();
       this.getCategories();
     }
+
+    this.categoryService.getAllCategories().subscribe((data) => {
+      this.categories = data.categories;
+    });
 
   }
 
@@ -480,7 +484,6 @@ export class ProductDetailsComponent implements OnInit{
   }
 
 
-
   getProductDetails(productId: string): void {
     this.ProductService.getProductById(productId).subscribe({
       next: (response) => {
@@ -537,14 +540,15 @@ export class ProductDetailsComponent implements OnInit{
 
         this.product = product; // Store the mapped product details
         this.bindProductDetailsToForm(product); // Bind data to the form
+
+        // Fetch categories after product details are loaded
+        this.getCategories();
       },
       error: (error) => {
         console.error('Error fetching product details:', error);
       }
     });
   }
-
-
 
 
 
@@ -596,6 +600,69 @@ export class ProductDetailsComponent implements OnInit{
     this.galleryImages = product.productGallery || [];
     this.productSpecifications = product.productSpecification || [];
   }
+
+
+  selectedCategoryIds: string[] = [];
+
+
+
+
+  updateProductDetails(): void {
+    const updatedProduct = {
+      categoryId: this.selectedCategoryIds, // This should be an array of selected category IDs
+      productName: this.productName,
+      productBrand: this.selectedBrand,
+      productImage: this.featuredImage,
+      productShortDescription: this.productShortDescription,
+      productSpecification: this.productSpecifications,
+      seo: {
+        productTitle: this.seoTitle,
+        prodDescription: this.seoDescription,
+        productTags: this.tags,
+        productNotes: 'Yes' // Update if dynamic
+      },
+      general: {
+        regularPrice: this.regularPrice,
+        salePrice: this.salePrice,
+        taxStatus: this.taxStatus,
+        taxClass: this.taxClass
+      },
+      inventory: {
+        sku: this.sku,
+        stockManagement: this.stockManagement,
+        stockStatus: this.stockStatus,
+        soldIndividually: this.soldIndividually,
+        inventoryStatus: 'Only Online' // Update if dynamic
+      },
+      shipping: {
+        productDimensions: {
+          height: this.height,
+          width: this.width,
+          length: this.length
+        },
+        weight: this.weight
+      },
+      date: new Date().toLocaleDateString(),
+      productStatus: this.productStatus
+    };
+
+    this.ProductService.updateProductById(this.productId, updatedProduct).subscribe({
+      next: (response) => {
+        console.log('Product updated successfully:', response);
+        alert('Product updated successfully!');
+        // Refresh product details after update
+        this.ProductService.getProductById(this.productId).subscribe((data) => {
+          console.log('Refreshed product data:', data);
+        });
+      },
+      error: (error) => {
+        console.error('Error updating product:', error);
+        alert('Error updating product. Please try again.');
+      }
+    });
+  }
+
+
 
 }
 

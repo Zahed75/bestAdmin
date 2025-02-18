@@ -14,7 +14,7 @@
     <!-- Main Container -->
     <div class="container mx-auto p-6">
       <div class="flex justify-end">
-        <button  class="px-4 mb-9 py-2 bg-black text-white rounded-lg shadow-md hover:bg-gray-500">
+        <button  (click)="updateProductDetails()" class="px-4 mb-9 py-2 bg-black text-white rounded-lg shadow-md hover:bg-gray-500">
           Update Product
         </button>
       </div>
@@ -389,10 +389,9 @@
               </div>
             </div>
           </div>
-
           <!-- Recursive Subcategory Template -->
           <ng-template #subCategoryTemplate let-subCategories>
-            <div *ngFor="let subCategory of subCategories" class="ml-6 space-y-2">
+            <div *ngFor="let subCategory of subCategories" class="ml-4">
               <div class="flex items-center">
                 <input
                   type="checkbox"
@@ -401,11 +400,8 @@
                 />
                 <span class="ml-2 text-gray-700">{{ subCategory.categoryName }}</span>
               </div>
-
-              <!-- Recursively render nested subcategories -->
-              <ng-container *ngIf="subCategory.subCategories?.length">
-                <ng-container *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: subCategory.subCategories }"></ng-container>
-              </ng-container>
+              <!-- Recursively render further subcategories if any -->
+              <ng-container *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: subCategory.subCategories }"></ng-container>
             </div>
           </ng-template>
 

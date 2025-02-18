@@ -56,16 +56,15 @@ export class ProductsService {
   }
 
 
-  updateProductById(productId:string,updateData:any):Observable<any>{
-    return this.http.put(`${this.updateProductByIdURL}/${productId}`,updateData)
-  }
-
-
   getProductById(productId:string):Observable<any>{
     return this.http.get(`${this.getProductByIdURL}/${productId}`);
   }
 
 
+
+  updateProductById(productId:string,updateData:any):Observable<any>{
+    return this.http.put(`${this.updateProductByIdURL}/${productId}`,updateData)
+  }
 
 
 
