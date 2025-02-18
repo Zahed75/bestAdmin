@@ -56,7 +56,9 @@
     </div>
     <!-- Outlet Head End -->
 
-
+    <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+    </div>
 
     <!-- Products Table -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

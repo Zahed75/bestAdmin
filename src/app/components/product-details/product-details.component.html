@@ -367,7 +367,7 @@
 
         <!-- Right Side -->
         <div class="w-full space-y-4 lg:w-1/4">
-          <!-- Product Categories Section -->
+
           <div class="bg-gray-100 p-4 shadow-md rounded-lg">
             <h2 class="text-lg font-semibold">Product Categories</h2>
             <div class="mt-4 max-h-48 overflow-y-auto">
@@ -384,7 +384,9 @@
                   </div>
 
                   <!-- Recursively render subcategories -->
-                  <ng-container *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: category.subCategories }"></ng-container>
+                  <ng-container *ngIf="category.subCategories">
+                    <ng-container *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: category.subCategories }"></ng-container>
+                  </ng-container>
                 </div>
               </div>
             </div>
@@ -401,9 +403,14 @@
                 <span class="ml-2 text-gray-700">{{ subCategory.categoryName }}</span>
               </div>
               <!-- Recursively render further subcategories if any -->
-              <ng-container *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: subCategory.subCategories }"></ng-container>
+              <ng-container *ngIf="subCategory.subCategories">
+                <ng-container *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: subCategory.subCategories }"></ng-container>
+              </ng-container>
             </div>
           </ng-template>
+
+
+
 
           <!-- Product Tags Card -->
           <div class="bg-white p-4 shadow-md rounded-lg">
@@ -468,8 +475,9 @@
             </div>
           </div>
         </div>
+
+
       </div>
     </div>
   </div>
 </div>
-

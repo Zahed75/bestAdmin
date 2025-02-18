@@ -330,7 +330,7 @@ export class ProductDetailsComponent implements OnInit{
       next: (response: GetAllCategoriesResponse) => {
         if (!response || !response.categories || !Array.isArray(response.categories)) {
           console.error('Invalid API response:', response);
-          this.categories = [];
+          this.categories = []; // Initialize as an empty array
           return;
         }
 
@@ -346,6 +346,7 @@ export class ProductDetailsComponent implements OnInit{
       },
       error: (error) => {
         console.error('Error fetching categories:', error);
+        this.categories = []; // Initialize as an empty array in case of error
       }
     });
   }
@@ -530,7 +531,7 @@ export class ProductDetailsComponent implements OnInit{
           productImage: productData.productImage || '',
           productGallery: productData.productGallery || [],
           productVideos: productData.productVideos || [],
-          categoryId: productData.categoryId || [],
+          categoryId: productData.categoryId || [], // Ensure this is populated
           productStatus: productData.productStatus || '',
           date: productData.date || '',
           updatedAt: productData.updatedAt || '',
@@ -549,8 +550,6 @@ export class ProductDetailsComponent implements OnInit{
       }
     });
   }
-
-
 
   // Bind product details to the form
   bindProductDetailsToForm(product: Product): void {
@@ -665,4 +664,3 @@ export class ProductDetailsComponent implements OnInit{
 
 
 }
-
