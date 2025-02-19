@@ -33,7 +33,7 @@ export class CustomersComponent implements OnInit {
 
   constructor(
     private customerService: CustomersService,
-    
+
   ) { }
 
   ngOnInit() {
@@ -41,10 +41,14 @@ export class CustomersComponent implements OnInit {
     this.getCities(); // Fetch cities
   }
 
- 
+
+
+
   getMinValue(): number {
     return Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
   }
+
+
   getCustomers(): void {
     this.isLoading = true; // Show loading state
     this.customerService.getAllCustomers().subscribe({
@@ -63,6 +67,9 @@ export class CustomersComponent implements OnInit {
     });
   }
 
+
+
+
   getCities(): void {
     this.customerService.getAllCities().subscribe({
       next: (data: City[]) => {
@@ -74,6 +81,7 @@ export class CustomersComponent implements OnInit {
       }
     });
   }
+
 
   // Helper function to get city name by city ID
   getCityName(cityId: string): string {
@@ -95,9 +103,10 @@ export class CustomersComponent implements OnInit {
     }
   }
 
+
   // Pagination methods
   updatePaginatedCustomers(): void {
-    // Filter by search term (case insensitive)
+
     const filteredCustomers = this.customers.filter(customer =>
       Object.values(customer).some(value => {
         // Ensure value is a string or number before using toString()
@@ -107,17 +116,17 @@ export class CustomersComponent implements OnInit {
         return false;
       })
     );
-  
+
     // Update totalItems and totalPages based on filtered results
     this.totalItems = filteredCustomers.length;
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-  
+
     // Paginate the filtered customers
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = this.currentPage * this.itemsPerPage;
     this.paginatedCustomers = filteredCustomers.slice(startIndex, endIndex);
   }
-  
+
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
@@ -147,5 +156,5 @@ export class CustomersComponent implements OnInit {
     this.updatePaginatedCustomers();
   }
 
-  
+
 }

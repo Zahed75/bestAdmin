@@ -111,6 +111,9 @@ export class ProductDetailsComponent implements OnInit{
   };
 
 
+
+
+
   // Ck EDITOR SETUP
   public Editor: typeof ClassicEditor | null = null;
   public config: EditorConfig | null = null;
@@ -653,6 +656,8 @@ export class ProductDetailsComponent implements OnInit{
       this.selectedCategoryIds = this.selectedCategoryIds.filter(id => id !== categoryId);
     }
   }
+
+
 
 
 }
