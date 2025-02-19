@@ -31,58 +31,50 @@
     <!-- Products Table -->
     <h1 class="text-2xl font-bold text-black mb-6">Recent Orders</h1>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-          <th scope="col" class="p-4">
-            <div class="flex items-center">
-              <input
-                id="checkbox-all-search"
-                type="checkbox"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <label for="checkbox-all-search" class="sr-only">checkbox</label>
-            </div>
-          </th>
-          <th scope="col" class="px-6 py-3">ORDER</th>
-          <th scope="col" class="px-6 py-3">ORDER TIME</th>
-          <th scope="col" class="px-6 py-3">CATEGORY</th>
-          <th scope="col" class="px-6 py-3">AMOUNT</th>
-          <th scope="col" class="px-6 py-3">OUTLET</th>
-          <th scope="col" class="px-6 py-3">STATUS</th>
-          <th scope="col" class="px-6 py-3">ACTION</th>
+          <th scope="col" class="px-6 py-3">Order ID</th>
+          <th scope="col" class="px-6 py-3">Customer</th>
+          <th scope="col" class="px-6 py-3">Phone</th>
+          <th scope="col" class="px-6 py-3">Status</th>
+          <th scope="col" class="px-6 py-3">Total Price</th>
+          <th scope="col" class="px-6 py-3">Payment Method</th>
+          <th scope="col" class="px-6 py-3">Date</th>
         </tr>
         </thead>
         <tbody>
-        <!-- Table Row Example -->
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="w-4 p-4">
-            <div class="flex items-center">
-              <input
-                id="checkbox-table-search-1"
-                type="checkbox"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-            </div>
+        <tr *ngFor="let order of orders" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td  class="px-6 py-4 font-medium underline text-gray-900 dark:text-white">
+            <a [routerLink]="['/layout/order-details', order._id]" class="underline">
+              {{ order.orderId }}
+            </a>
           </td>
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            <a href="">Apple MacBook Pro 17"</a>
-          </th>
-          <td class="px-6 py-4">Silver</td>
-          <td class="px-6 py-4">Apr 25,2025:13:22</td>
-          <td class="px-6 py-4">Yes</td>
-          <td class="px-6 py-4">$2,999</td>
-          <td class="px-6 py-4">Pending</td>
-          <td class="flex items-center px-6 py-4 space-x-3">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+          <td class="px-6 py-4">
+            {{ order.customer?.email || order.firstName + ' ' + order.lastName }}
           </td>
+          <td class="px-6 py-4">{{ order.phoneNumber }}</td>
+          <td class="px-6 py-4">
+          <span
+            [ngClass]="{
+              'text-blue-600': order.orderStatus === 'Received',
+              'text-green-600': order.orderStatus === 'Order Delivered',
+              'text-yellow-500': order.orderStatus === 'Order Confirmed',
+              'text-red-500': order.orderStatus === 'Cancelled'
+            }"
+            class="font-semibold"
+          >
+            {{ order.orderStatus }}
+          </span>
+          </td>
+          <td class="px-6 py-4">{{ order.totalPrice | currency:'BDT ' }}</td>
+          <td class="px-6 py-4">{{ order.paymentMethod }}</td>
+          <td class="px-6 py-4">{{ order.createdAt | date:'yyyy-MM-dd' }}</td>
         </tr>
-        <!-- Add more rows as needed -->
         </tbody>
       </table>
     </div>
+
   </div>
 </div>
 
