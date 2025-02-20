@@ -3,14 +3,15 @@ import {CreateUserRequest, User} from '../../model/user.model';
 import {UsersService} from '../../services/user/users.service';
 import {OutletService} from '../../services/outlet.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgFor} from '@angular/common';
+import {NgFor, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-add-user',
   imports: [
     NgFor,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.css'
@@ -47,13 +48,16 @@ export class AddUserComponent implements OnInit {
   }
 
   createUser(): void {
+    this.isLoading=true
     this.userService.createUser(this.newUser).subscribe({
       next: (response) => {
         console.log('User created successfully:', response);
         this.router.navigateByUrl('/layout/users')
+        this.isLoading=false
       },
       error: (err) => {
         console.error('Failed to create user:', err);
+        this.isLoading=false
       }
     });
   }
@@ -75,8 +79,8 @@ export class AddUserComponent implements OnInit {
 
 
   ensureCountryCode() {
-    if (!this.newUser.phoneNumber.startsWith('880')) {
-      this.newUser.phoneNumber = '880' + this.newUser.phoneNumber;
+    if (!this.newUser.phoneNumber.startsWith('88')) {
+      this.newUser.phoneNumber = '88' + this.newUser.phoneNumber;
     }
   }
 

@@ -17,6 +17,11 @@
       </div>
     </div>
 
+    <!--Outlet Table Start-->
+    <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+    </div>
+
     <!-- Add New User Form -->
     <div class="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto">
       <!-- Upload Image Section -->
@@ -33,7 +38,7 @@
               </svg>
               <p class="text-xs text-gray-500 mt-1">Click to upload or drag and drop</p>
             </div>
-            <input type="file" class="hidden"/>
+            <input [ngModel]="newUser.profilePicture" type="file" class="hidden"/>
           </label>
         </div>
       </div>

@@ -17,6 +17,8 @@ export interface User {
   __v: number;
 }
 
+
+
 export interface CreateUserRequest {
   userName: string;
   email: string;

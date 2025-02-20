@@ -11,6 +11,7 @@ export class UsersService {
 
 
   private userManageURL =`${environment.apiBaseUrl}/auth/userManage`;
+  private getAllManagersURL=`${environment.apiBaseUrl}/auth/managers`;
   private http = inject(HttpClient);
 
 
@@ -23,6 +24,13 @@ export class UsersService {
     );
   }
 
+
+
+  getAllManagers(): Observable<{ users: User[] }> {
+    return this.http.get<{ users: User[] }>(this.getAllManagersURL).pipe(
+      catchError(this.handleError)
+    );
+  }
 
 
 
