@@ -1,258 +1,139 @@
-<!--<div class="flex flex-row mx-6">-->
-<!--  <div class="p-4 sm:ml-64 w-full">-->
-<!--    &lt;!&ndash; Back Icon and Headings &ndash;&gt;-->
-<!--    <div class="flex flex-col gap-2 mb-6">-->
-<!--      &lt;!&ndash; Back Icon and Add New User Heading &ndash;&gt;-->
-<!--      <div class="flex items-center gap-2">-->
-<!--        &lt;!&ndash; Back SVG Icon &ndash;&gt;-->
-<!--        <svg-->
-<!--          xmlns="http://www.w3.org/2000/svg"-->
-<!--          class="w-5 h-5 cursor-pointer"-->
-<!--          viewBox="0 0 24 24"-->
-<!--          fill="none"-->
-<!--          stroke="currentColor"-->
-<!--          stroke-width="2"-->
-
-<!--        >-->
-<!--          <polyline points="15 18 9 12 15 6"></polyline>-->
-<!--        </svg>-->
-
-<!--        &lt;!&ndash; Add New User Heading &ndash;&gt;-->
-<!--        <h1 class="text-[30px] font-semibold">Add New User</h1>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; Add New User Form &ndash;&gt;-->
-<!--    <div class="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto">-->
-<!--      &lt;!&ndash; Upload Image Section &ndash;&gt;-->
-<!--      <div class="mb-6">-->
-<!--        <label class="block text-sm font-medium text-gray-700 mb-2">Upload an Image for the User</label>-->
-<!--        <div class="flex items-center justify-center w-full">-->
-<!--          <label-->
-<!--            class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-indigo-500"-->
-<!--          >-->
-<!--            <div class="flex flex-col items-center justify-center">-->
-<!--              <svg-->
-<!--                class="w-6 h-6 text-gray-400"-->
-<!--                fill="none"-->
-<!--                stroke="currentColor"-->
-<!--                viewBox="0 0 24 24"-->
-<!--                xmlns="http://www.w3.org/2000/svg"-->
-<!--              >-->
-<!--                <path-->
-<!--                  stroke-linecap="round"-->
-<!--                  stroke-linejoin="round"-->
-<!--                  stroke-width="2"-->
-<!--                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"-->
-<!--                ></path>-->
-<!--              </svg>-->
-<!--              <p class="text-xs text-gray-500 mt-1">Click to upload or drag and drop</p>-->
-<!--            </div>-->
-<!--            <input type="file" class="hidden" />-->
-<!--          </label>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash; User Info Section &ndash;&gt;-->
-<!--      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">-->
-<!--        &lt;!&ndash; Username &ndash;&gt;-->
-<!--        <div>-->
-<!--          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>-->
-<!--          <input-->
-<!--            id="username"-->
-<!--            type="text"-->
-<!--            placeholder="Enter username"-->
-<!--            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"-->
-<!--          />-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Outlet &ndash;&gt;-->
-<!--        <div>-->
-<!--          <label for="outlet" class="block text-sm font-medium text-gray-700">Outlet</label>-->
-<!--          <select-->
-<!--            id="outlet"-->
-<!--            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"-->
-<!--            [(ngModel)]="newUser.outletId"-->
-<!--          >-->
-<!--          <option value="">Choose an Outlet</option>-->
-<!--            <option *ngFor="let outlet of outlets" [value]="outlet._id">-->
-<!--              {{ outlet.outletName }}-->
-<!--            </option>-->
-
-<!--          </select>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; First Name &ndash;&gt;-->
-<!--        <div>-->
-<!--          <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>-->
-<!--          <input-->
-<!--            id="firstName"-->
-<!--            type="text"-->
-<!--            placeholder="Enter first name"-->
-<!--            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"-->
-<!--          />-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Last Name &ndash;&gt;-->
-<!--        <div>-->
-<!--          <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>-->
-<!--          <input-->
-<!--            id="lastName"-->
-<!--            type="text"-->
-<!--            placeholder="Enter last name"-->
-<!--            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"-->
-<!--          />-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Phone Number &ndash;&gt;-->
-<!--        <div>-->
-<!--          <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>-->
-<!--          <input-->
-<!--            id="phoneNumber"-->
-<!--            type="tel"-->
-<!--            placeholder="Enter phone number"-->
-<!--            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"-->
-<!--          />-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Role &ndash;&gt;-->
-<!--        <div>-->
-<!--          <label for="role" class="block text-sm font-medium text-gray-700">Role</label>-->
-<!--          <select-->
-<!--            id="role"-->
-<!--            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"-->
-<!--          >-->
-<!--            <option value="branchAdmin">Branch Admin</option>-->
-<!--            <option value="manager">Manager</option>-->
-<!--            <option value="staff">Staff</option>-->
-<!--          </select>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Email &ndash;&gt;-->
-<!--        <div>-->
-<!--          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>-->
-<!--          <input-->
-<!--            id="email"-->
-<!--            type="email"-->
-<!--            placeholder="Enter email"-->
-<!--            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"-->
-<!--          />-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Password &ndash;&gt;-->
-<!--        <div>-->
-<!--          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>-->
-<!--          <input-->
-<!--            id="password"-->
-<!--            type="password"-->
-<!--            placeholder="Enter password"-->
-<!--            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"-->
-<!--          />-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash; Save Button &ndash;&gt;-->
-<!--      <div class="mt-6">-->
-<!--        <button-->
-<!--          type="button"-->
-<!--          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"-->
-<!--        >-->
-<!--          Save User-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
 <div class="flex flex-row mx-6">
   <div class="p-4 sm:ml-64 w-full">
-    <!-- Back Icon and Heading -->
+    <!-- Back Icon and Headings -->
     <div class="flex flex-col gap-2 mb-6">
       <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5 cursor-pointer"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
         <h1 class="text-[30px] font-semibold">Add New User</h1>
       </div>
     </div>
 
-    <!-- Add User Form -->
+    <!-- Add New User Form -->
     <div class="p-6 bg-white rounded-lg shadow-md max-w-4xl mx-auto">
-      <form (ngSubmit)="createUser()">
-        <!-- Upload Image Section -->
-        <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Upload an Image for the User</label>
-          <div class="flex items-center justify-center w-full">
-            <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-indigo-500">
-              <div class="flex flex-col items-center justify-center">
-                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                </svg>
-                <p class="text-xs text-gray-500 mt-1">Click to upload or drag and drop</p>
-              </div>
-              <input type="file" class="hidden" />
-            </label>
+      <!-- Upload Image Section -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Upload an Image for the User</label>
+        <div class="flex items-center justify-center w-full">
+          <label
+            class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-indigo-500">
+            <div class="flex flex-col items-center justify-center">
+              <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12">
+                </path>
+              </svg>
+              <p class="text-xs text-gray-500 mt-1">Click to upload or drag and drop</p>
+            </div>
+            <input type="file" class="hidden"/>
+          </label>
+        </div>
+      </div>
+
+      <!-- User Info Section -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Username -->
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          <input id="username" type="text" placeholder="Enter username"
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                 [(ngModel)]="newUser.userName"/>
+        </div>
+
+        <!-- Outlet -->
+        <div>
+          <label for="outlet" class="block text-sm font-medium text-gray-700">Outlet</label>
+          <select id="outlet"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  [(ngModel)]="newUser.outletId">
+            <option value="">Choose an Outlet</option>
+            <option *ngFor="let outlet of outlets" [value]="outlet._id">
+              {{ outlet.outletName }}
+            </option>
+          </select>
+        </div>
+
+        <!-- First Name -->
+        <div>
+          <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+          <input id="firstName" type="text" placeholder="Enter first name"
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                 [(ngModel)]="newUser.firstName"/>
+        </div>
+
+        <!-- Last Name -->
+        <div>
+          <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+          <input id="lastName" type="text" placeholder="Enter last name"
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                 [(ngModel)]="newUser.lastName"/>
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
+          <div class="flex">
+            <!-- Country Code Prefix -->
+            <span
+              class="inline-flex items-center px-3 rounded-l-md border border-gray-300 bg-gray-100 text-gray-600 text-sm">
+      +880
+    </span>
+            <!-- Phone Number Input -->
+            <input id="phoneNumber" type="tel"
+                   class="mt-1 block w-full rounded-r-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                   [(ngModel)]="newUser.phoneNumber"
+                   (input)="ensureCountryCode()"
+                   placeholder="Enter phone number"/>
           </div>
         </div>
 
-        <!-- User Info Fields -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-            <input id="username" type="text" [(ngModel)]="newUser.userName" name="userName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
-          </div>
 
-          <div>
-            <label for="outlet" class="block text-sm font-medium text-gray-700">Outlet</label>
-            <select id="outlet" [(ngModel)]="newUser.outletId" name="outletId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
-              <option value="">Choose an Outlet</option>
-              <option *ngFor="let outlet of outlets" [value]="outlet._id">{{ outlet.outletName }}</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
-            <input id="firstName" type="text" [(ngModel)]="newUser.firstName" name="firstName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
-          </div>
-
-          <div>
-            <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
-            <input id="lastName" type="text" [(ngModel)]="newUser.lastName" name="lastName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
-          </div>
-
-          <div>
-            <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
-            <input id="phoneNumber" type="tel" [(ngModel)]="newUser.phoneNumber" name="phoneNumber" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
-          </div>
-
-          <div>
-            <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-            <select id="role" [(ngModel)]="newUser.role" name="role" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
-              <option value="branchAdmin">Branch Admin</option>
-              <option value="manager">Manager</option>
-              <option value="staff">Staff</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input id="email" type="email" [(ngModel)]="newUser.email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
-          </div>
-
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input id="password" type="password" [(ngModel)]="newUser.password" name="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
-          </div>
+        <!-- Role (Updated Enum Values) -->
+        <div>
+          <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+          <select id="role"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  [(ngModel)]="newUser.role">
+            <option value="HQ">Head Office</option>
+            <option value="BA">Branch Admin</option>
+            <option value="CUS">Customer</option>
+            <option value="AD">Admin</option>
+            <option value="MGR">Manager</option>
+          </select>
         </div>
 
-        <!-- Save Button -->
-        <div class="mt-6">
-          <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Save User
-          </button>
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input id="email" type="email" placeholder="Enter email"
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                 [(ngModel)]="newUser.email"/>
         </div>
-      </form>
+
+        <!-- Password -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input id="password" type="password" placeholder="Enter password"
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                 [(ngModel)]="newUser.password"/>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="mt-6">
+        <button (click)="createUser()" type="button"
+                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Save User
+        </button>
+      </div>
     </div>
   </div>
 </div>

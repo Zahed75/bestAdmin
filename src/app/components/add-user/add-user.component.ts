@@ -74,4 +74,11 @@ export class AddUserComponent implements OnInit {
   }
 
 
+  ensureCountryCode() {
+    if (!this.newUser.phoneNumber.startsWith('880')) {
+      this.newUser.phoneNumber = '880' + this.newUser.phoneNumber;
+    }
+  }
+
+
 }

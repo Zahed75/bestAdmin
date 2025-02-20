@@ -18,7 +18,7 @@ export class UsersService {
 
   // Method to create a new user
   createUser(userData: CreateUserRequest): Observable<CreateUserResponse> {
-    return this.http.post<CreateUserResponse>(`${this.userManageURL}/create`, userData).pipe(
+    return this.http.post<CreateUserResponse>(`${this.userManageURL}`, userData).pipe(
       catchError(this.handleError)
     );
   }
